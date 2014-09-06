@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Clean Status Bar</string>
+    <string name="clean_status_bar">Clean my Status Bar!</string>
+    <string name="back_to_normal">Back to Normal</string>
+
+</resources>

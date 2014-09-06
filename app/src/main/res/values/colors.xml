@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="battery_fill_light_grey">#fecbcbcb</color>
+    <color name="batterymeter_frame_color">#66FFFFFF</color>
+    <color name="batterymeter_charge_color">#cbcbcb</color>
+</resources>
