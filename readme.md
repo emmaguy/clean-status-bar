@@ -1,12 +1,16 @@
-Overdraw
+Clean Status Bar
 =================================
 
-Tired of Photoshopping out notifications/low battery to make a nice, clean status bar for the Play Store? Run Overdraw before you take them instead!
+Tired of Photoshopping out notifications/low battery to make a nice, clean status bar for the Play Store? Run this app first - it draws over your status bar, showing only a full battery and clock.
+
+It runs as a service, so you can swap to other apps to take screenshots.
 
 Before and after:
 
-|  ![before](https://raw.githubusercontent.com/emmaguy/overdraw/master/images/before.png) | ![wear2](https://raw.githubusercontent.com/emmaguy/overdraw/master/images/after.png) |
+|  ![before](https://raw.githubusercontent.com/emmaguy/cleanstatusbar/master/images/before.png) | ![after](https://raw.githubusercontent.com/emmaguy/cleanstatusbar/master/images/after.png) |
 |---|---|
+
+Play Store: https://play.google.com/store/apps/details?id=com.emmaguy.cleanstatusbar
 
 License
 --------
