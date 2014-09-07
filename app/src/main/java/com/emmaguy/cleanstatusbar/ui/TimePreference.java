@@ -1,4 +1,4 @@
-package com.emmaguy.cleanstatusbar;
+package com.emmaguy.cleanstatusbar.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -6,6 +6,8 @@ import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
+
+import com.emmaguy.cleanstatusbar.R;
 
 // Adapted from https://github.com/commonsguy/cw-lunchlist/blob/master/19-Alarm/LunchList/src/apt/tutorial/TimePreference.java
 public class TimePreference extends DialogPreference {

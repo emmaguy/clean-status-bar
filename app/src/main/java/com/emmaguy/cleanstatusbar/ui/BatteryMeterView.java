@@ -1,4 +1,4 @@
-package com.emmaguy.cleanstatusbar.views;
+package com.emmaguy.cleanstatusbar.ui;
 
 /*
  * Copyright (C) 2013 The Android Open Source Project

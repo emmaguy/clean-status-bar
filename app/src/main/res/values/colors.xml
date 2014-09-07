@@ -3,4 +3,25 @@
     <color name="battery_fill_light_grey">#fecbcbcb</color>
     <color name="batterymeter_frame_color">#66FFFFFF</color>
     <color name="batterymeter_charge_color">#cbcbcb</color>
+
+    <string-array name="default_color_choice_values" translatable="false">
+        <item>#000000</item>
+        <item>#ffffff</item>
+        <item>#46ab3e</item>
+        <item>#53b64f</item>
+        <item>#ffbb33</item>
+        <item>#ff4444</item>
+        <item>#0099cc</item>
+        <item>#9933cc</item>
+        <item>#669900</item>
+        <item>#ff8800</item>
+        <item>#cc0000</item>
+    </string-array>
+
+    <string-array name="foreground_colours" translatable="false">
+        <item>#ffffff</item>
+        <item>#cbcbcb</item>
+        <item>#ff33b5e5</item>
+    </string-array>
+
 </resources>

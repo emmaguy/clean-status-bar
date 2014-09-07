@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res/com.emmaguy.cleanstatusbar">
     <PreferenceCategory
-        android:title="@string/settings"
-        android:key="parent">
+        android:title="@string/battery_and_clock_settings">
 
-        <com.emmaguy.cleanstatusbar.TimePreference android:key="clock_time" android:title="@string/clock_time"/>
-        <PreferenceScreen
-            android:key="toggle_on_off"
-            android:title="@string/app_name"/>
+        <com.emmaguy.cleanstatusbar.ui.TimePreference
+            android:key="clock_time"
+            android:title="@string/clock_time"/>
+
+        <com.emmaguy.cleanstatusbar.ui.ColourPreference
+            android:key="foreground_colour"
+            android:title="@string/foreground_colour"
+            android:defaultValue="@android:color/white"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            app:numColumns="4"
+            app:choices="@array/foreground_colours"
+            app:itemLayout="@layout/grid_item_colour"/>
+
 
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/status_bar_background_settings">
+        <com.emmaguy.cleanstatusbar.ui.ColourPreference
+            android:key="background_colour"
+            android:title="@string/status_bar_background_colour"
+            android:defaultValue="@android:color/white"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            app:numColumns="4"
+            app:itemLayout="@layout/grid_item_colour"/>
+
+        <CheckBoxPreference
+            android:key="draw_gradient"
+            android:title="@string/enable_kitkat_gradient"
+            android:defaultValue="false"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/settings">
+        <PreferenceScreen
+            android:key="toggle_on_off"
+            android:title="@string/stop_start_clean_status_bar"/>
+    </PreferenceCategory>
+
 
 </PreferenceScreen>

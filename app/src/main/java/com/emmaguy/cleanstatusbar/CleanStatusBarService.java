@@ -3,14 +3,18 @@ package com.emmaguy.cleanstatusbar;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.WindowManager;
 
+import com.emmaguy.cleanstatusbar.ui.StatusBarView;
 import com.emmaguy.cleanstatusbar.util.StatusBarConfig;
-import com.emmaguy.cleanstatusbar.views.StatusBarView;
 
 public class CleanStatusBarService extends Service {
     private StatusBarConfig mStatusBarConfig;
@@ -31,6 +35,16 @@ public class CleanStatusBarService extends Service {
         mStatusBarConfig = new StatusBarConfig(getResources());
 
         mStatusBarView.setTime(getClockTime());
+        mStatusBarView.setForegroundColour(getForegroundColour());
+
+        if (drawGradient()) {
+            Drawable[] layers = {new ColorDrawable(getBackgroundColour()), getResources().getDrawable(R.drawable.gradient_bg)};
+            LayerDrawable layerDrawable = new LayerDrawable(layers);
+
+            mStatusBarView.setBackgroundDrawable(layerDrawable);
+        } else {
+            mStatusBarView.setBackgroundColor(getBackgroundColour());
+        }
 
         mWindowManager.addView(mStatusBarView, getWindowManagerParams());
     }
@@ -41,7 +55,7 @@ public class CleanStatusBarService extends Service {
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
-                PixelFormat.TRANSLUCENT);
+                PixelFormat.OPAQUE);
         params.gravity = Gravity.TOP;
         params.height = mStatusBarConfig.getStatusBarHeight();
         return params;
@@ -61,7 +75,24 @@ public class CleanStatusBarService extends Service {
         return null;
     }
 
+
+    private boolean drawGradient() {
+        return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_DRAW_GRADIENT, false);
+    }
+
     public String getClockTime() {
-        return PreferenceManager.getDefaultSharedPreferences(this).getString(MainActivity.PREFS_KEY_CLOCK_TIME, "12:00");
+        return getSharedPrefs().getString(MainActivity.PREFS_KEY_CLOCK_TIME, "12:00");
+    }
+
+    public int getBackgroundColour() {
+        return getSharedPrefs().getInt(MainActivity.PREFS_KEY_BACKGROUND_COLOUR, android.R.color.black);
+    }
+
+    public int getForegroundColour() {
+        return getSharedPrefs().getInt(MainActivity.PREFS_KEY_FOREGROUND_COLOUR, android.R.color.white);
+    }
+
+    private SharedPreferences getSharedPrefs() {
+        return PreferenceManager.getDefaultSharedPreferences(this);
     }
 }

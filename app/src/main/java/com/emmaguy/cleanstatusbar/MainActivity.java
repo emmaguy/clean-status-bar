@@ -7,9 +7,15 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
+import com.emmaguy.cleanstatusbar.ui.TimePreference;
+
 
 public class MainActivity extends Activity {
     public static final String PREFS_KEY_CLOCK_TIME = "clock_time";
+    public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
+    public static final String PREFS_KEY_FOREGROUND_COLOUR = "foreground_colour";
+    public static final String PREFS_KEY_DRAW_GRADIENT = "draw_gradient";
+
     private static final String PREFS_KEY_TOGGLE_ON_OFF = "toggle_on_off";
 
     @Override
@@ -52,6 +58,8 @@ public class MainActivity extends Activity {
             super.onResume();
 
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
+            toggleCleanStatusBarService(true);
         }
 
         @Override
@@ -64,14 +72,14 @@ public class MainActivity extends Activity {
         @Override
         public boolean onPreferenceClick(Preference preference) {
             if (preference.getKey().equals(PREFS_KEY_TOGGLE_ON_OFF)) {
-                toggleCleanStatusBarService();
+                toggleCleanStatusBarService(!mIsServiceRunning);
                 return true;
             }
             return false;
         }
 
-        private void toggleCleanStatusBarService() {
-            mIsServiceRunning = !mIsServiceRunning;
+        private void toggleCleanStatusBarService(boolean status) {
+            mIsServiceRunning = status;
 
             if (mIsServiceRunning) {
                 startService();

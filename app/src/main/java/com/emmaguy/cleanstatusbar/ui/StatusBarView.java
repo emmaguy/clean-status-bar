@@ -1,4 +1,4 @@
-package com.emmaguy.cleanstatusbar.views;
+package com.emmaguy.cleanstatusbar.ui;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -15,6 +15,7 @@ import com.emmaguy.cleanstatusbar.R;
 
 public class StatusBarView extends LinearLayout {
     private RobotoTextView mTimeTextView;
+    private BatteryMeterView mBatteryView;
 
     public StatusBarView(Context context) {
         this(context, null, 0);
@@ -31,7 +32,6 @@ public class StatusBarView extends LinearLayout {
     }
 
     private void init(Context context) {
-        setBackgroundColor(getResources().getColor(android.R.color.black));
         setOrientation(LinearLayout.HORIZONTAL);
         setGravity(Gravity.RIGHT);
 
@@ -41,6 +41,8 @@ public class StatusBarView extends LinearLayout {
 
         initialiseBatteryView(context, batteryAndClockLayout);
         initialiseTimeTextView(context, batteryAndClockLayout);
+
+        setForegroundColour(getResources().getColor(R.color.battery_fill_light_grey));
 
         addView(batteryAndClockLayout);
     }
@@ -53,17 +55,16 @@ public class StatusBarView extends LinearLayout {
         params.leftMargin = dpToPx(4);
         params.gravity = Gravity.CENTER_VERTICAL;
 
-        com.emmaguy.cleanstatusbar.views.BatteryMeterView batteryView = new com.emmaguy.cleanstatusbar.views.BatteryMeterView(context);
-        batteryView.setLayoutParams(params);
-        batteryView.setBatteryColour(getResources().getColor(R.color.battery_fill_light_grey));
+        mBatteryView = new com.emmaguy.cleanstatusbar.ui.BatteryMeterView(context);
+        mBatteryView.setLayoutParams(params);
 
-        parent.addView(batteryView);
+
+        parent.addView(mBatteryView);
     }
 
     private void initialiseTimeTextView(Context context, ViewGroup parent) {
         mTimeTextView = new RobotoTextView(context);
         mTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        mTimeTextView.setTextColor(getResources().getColor(R.color.battery_fill_light_grey));
         Typeface typeface = RobotoTypefaceManager.obtainTypeface(
                 context,
                 RobotoTypefaceManager.FontFamily.ROBOTO,
@@ -77,6 +78,11 @@ public class StatusBarView extends LinearLayout {
         mTimeTextView.setPadding(dpToPx(6), 0, dpToPx(5), 0);
 
         parent.addView(mTimeTextView);
+    }
+
+    public void setForegroundColour(int foregroundColour) {
+        mTimeTextView.setTextColor(foregroundColour);
+        mBatteryView.setBatteryColour(foregroundColour);
     }
 
     public void setTime(String time) {
