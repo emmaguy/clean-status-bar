@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">Clean Status Bar</string>
-    <string name="clean_status_bar">Clean my Status Bar!</string>
-    <string name="back_to_normal">Back to Normal</string>
+
+    <string name="settings">Settings</string>
+    <string name="set_time">Set time</string>
+    <string name="cancel">Cancel</string>
+    <string name="clock_time">Clock time</string>
 
 </resources>

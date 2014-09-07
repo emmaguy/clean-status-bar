@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.WindowManager;
 
@@ -28,6 +29,8 @@ public class CleanStatusBarService extends Service {
 
         mStatusBarView = new StatusBarView(this);
         mStatusBarConfig = new StatusBarConfig(getResources());
+
+        mStatusBarView.setTime(getClockTime());
 
         mWindowManager.addView(mStatusBarView, getWindowManagerParams());
     }
@@ -56,5 +59,9 @@ public class CleanStatusBarService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    public String getClockTime() {
+        return PreferenceManager.getDefaultSharedPreferences(this).getString(MainActivity.PREFS_KEY_CLOCK_TIME, "12:00");
     }
 }

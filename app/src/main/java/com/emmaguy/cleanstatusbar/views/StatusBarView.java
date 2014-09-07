@@ -7,7 +7,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.devspark.robototextview.util.RobotoTextViewUtils;
 import com.devspark.robototextview.util.RobotoTypefaceManager;
@@ -15,6 +14,8 @@ import com.devspark.robototextview.widget.RobotoTextView;
 import com.emmaguy.cleanstatusbar.R;
 
 public class StatusBarView extends LinearLayout {
+    private RobotoTextView mTimeTextView;
+
     public StatusBarView(Context context) {
         this(context, null, 0);
     }
@@ -60,23 +61,26 @@ public class StatusBarView extends LinearLayout {
     }
 
     private void initialiseTimeTextView(Context context, ViewGroup parent) {
-        TextView timeTextView = new RobotoTextView(context);
-        timeTextView.setText("12:00");
-        timeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        timeTextView.setTextColor(getResources().getColor(R.color.battery_fill_light_grey));
+        mTimeTextView = new RobotoTextView(context);
+        mTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        mTimeTextView.setTextColor(getResources().getColor(R.color.battery_fill_light_grey));
         Typeface typeface = RobotoTypefaceManager.obtainTypeface(
                 context,
                 RobotoTypefaceManager.FontFamily.ROBOTO,
                 RobotoTypefaceManager.TextWeight.MEDIUM,
                 RobotoTypefaceManager.TextStyle.NORMAL);
-        RobotoTextViewUtils.setTypeface(timeTextView, typeface);
+        RobotoTextViewUtils.setTypeface(mTimeTextView, typeface);
 
         LayoutParams timeParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         timeParams.gravity = Gravity.CENTER_VERTICAL;
-        timeTextView.setLayoutParams(timeParams);
-        timeTextView.setPadding(dpToPx(6), 0, dpToPx(5), 0);
+        mTimeTextView.setLayoutParams(timeParams);
+        mTimeTextView.setPadding(dpToPx(6), 0, dpToPx(5), 0);
 
-        parent.addView(timeTextView);
+        parent.addView(mTimeTextView);
+    }
+
+    public void setTime(String time) {
+        mTimeTextView.setText(time);
     }
 
     public ViewGroup.LayoutParams getBatteryAndClockLayoutParams() {
