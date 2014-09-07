@@ -5,9 +5,7 @@ Tired of Photoshopping out notifications/low battery to make a nice, clean statu
 
 It runs as a service, so you can swap to other apps to take screenshots.
 
-Before and after:
-
-|  ![before](https://raw.githubusercontent.com/emmaguy/cleanstatusbar/master/images/before.png) | ![after](https://raw.githubusercontent.com/emmaguy/cleanstatusbar/master/images/after.png) |
+|  ![before](https://raw.githubusercontent.com/emmaguy/clean-status-bar/master/images/before.png) | ![after](https://raw.githubusercontent.com/emmaguy/clean-status-bar/master/images/after.png) |
 |---|---|
 
 Play Store: https://play.google.com/store/apps/details?id=com.emmaguy.cleanstatusbar
