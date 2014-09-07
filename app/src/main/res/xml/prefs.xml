@@ -18,6 +18,10 @@
             app:choices="@array/foreground_colours"
             app:itemLayout="@layout/grid_item_colour"/>
 
+        <CheckBoxPreference
+            android:key="medium_font"
+            android:title="@string/use_android_l_font"
+            android:defaultValue="true"/>
 
     </PreferenceCategory>
 

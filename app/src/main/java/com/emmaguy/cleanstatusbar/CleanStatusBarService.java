@@ -34,10 +34,11 @@ public class CleanStatusBarService extends Service {
         mStatusBarView = new StatusBarView(this);
         mStatusBarConfig = new StatusBarConfig(getResources());
 
+        mStatusBarView.setFont(this, shouldUseMediumFont());
         mStatusBarView.setTime(getClockTime());
         mStatusBarView.setForegroundColour(getForegroundColour());
 
-        if (drawGradient()) {
+        if (shouldDrawGradient()) {
             Drawable[] layers = {new ColorDrawable(getBackgroundColour()), getResources().getDrawable(R.drawable.gradient_bg)};
             LayerDrawable layerDrawable = new LayerDrawable(layers);
 
@@ -76,8 +77,12 @@ public class CleanStatusBarService extends Service {
     }
 
 
-    private boolean drawGradient() {
+    private boolean shouldDrawGradient() {
         return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_DRAW_GRADIENT, false);
+    }
+
+    private boolean shouldUseMediumFont() {
+        return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_USE_MEDIUM_FONT, true);
     }
 
     public String getClockTime() {

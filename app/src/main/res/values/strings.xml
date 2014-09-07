@@ -14,5 +14,6 @@
     <string name="battery_and_clock_settings">Battery and clock settings</string>
     <string name="status_bar_background_settings">Status bar background settings</string>
     <string name="foreground_colour">Foreground colour</string>
+    <string name="use_android_l_font">Use Android L font/size</string>
 
 </resources>

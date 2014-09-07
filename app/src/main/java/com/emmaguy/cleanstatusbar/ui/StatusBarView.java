@@ -58,19 +58,14 @@ public class StatusBarView extends LinearLayout {
         mBatteryView = new com.emmaguy.cleanstatusbar.ui.BatteryMeterView(context);
         mBatteryView.setLayoutParams(params);
 
-
         parent.addView(mBatteryView);
     }
 
     private void initialiseTimeTextView(Context context, ViewGroup parent) {
         mTimeTextView = new RobotoTextView(context);
         mTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        Typeface typeface = RobotoTypefaceManager.obtainTypeface(
-                context,
-                RobotoTypefaceManager.FontFamily.ROBOTO,
-                RobotoTypefaceManager.TextWeight.MEDIUM,
-                RobotoTypefaceManager.TextStyle.NORMAL);
-        RobotoTextViewUtils.setTypeface(mTimeTextView, typeface);
+
+        setFont(context, true);
 
         LayoutParams timeParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         timeParams.gravity = Gravity.CENTER_VERTICAL;
@@ -78,6 +73,16 @@ public class StatusBarView extends LinearLayout {
         mTimeTextView.setPadding(dpToPx(6), 0, dpToPx(5), 0);
 
         parent.addView(mTimeTextView);
+    }
+
+    public void setFont(Context context, boolean isMediumWeight) {
+        Typeface typeface = RobotoTypefaceManager.obtainTypeface(
+                context,
+                RobotoTypefaceManager.FontFamily.ROBOTO,
+                isMediumWeight ? RobotoTypefaceManager.TextWeight.MEDIUM : RobotoTypefaceManager.TextWeight.NORMAL,
+                RobotoTypefaceManager.TextStyle.NORMAL);
+        RobotoTextViewUtils.setTypeface(mTimeTextView, typeface);
+        mTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, isMediumWeight ? 16 : 17);
     }
 
     public void setForegroundColour(int foregroundColour) {

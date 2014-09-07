@@ -15,6 +15,7 @@ public class MainActivity extends Activity {
     public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
     public static final String PREFS_KEY_FOREGROUND_COLOUR = "foreground_colour";
     public static final String PREFS_KEY_DRAW_GRADIENT = "draw_gradient";
+    public static final String PREFS_KEY_USE_MEDIUM_FONT = "medium_font";
 
     private static final String PREFS_KEY_TOGGLE_ON_OFF = "toggle_on_off";
 
