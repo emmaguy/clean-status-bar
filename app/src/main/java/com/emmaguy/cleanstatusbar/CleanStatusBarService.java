@@ -5,16 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.WindowManager;
 
-import com.emmaguy.cleanstatusbar.ui.StatusBarView;
 import com.emmaguy.cleanstatusbar.util.StatusBarConfig;
+import com.emmaguy.cleanstatusbar.widgets.StatusBarView;
 
 public class CleanStatusBarService extends Service {
     private StatusBarConfig mStatusBarConfig;
@@ -32,20 +30,9 @@ public class CleanStatusBarService extends Service {
         mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 
         mStatusBarView = new StatusBarView(this);
-        mStatusBarConfig = new StatusBarConfig(getResources());
+        mStatusBarConfig = new StatusBarConfig(getAPIValue(), getResources(), getAssets());
 
-        mStatusBarView.setFont(this, shouldUseMediumFont());
-        mStatusBarView.setTime(getClockTime());
-        mStatusBarView.setForegroundColour(getForegroundColour());
-
-        if (shouldDrawGradient()) {
-            Drawable[] layers = {new ColorDrawable(getBackgroundColour()), getResources().getDrawable(R.drawable.gradient_bg)};
-            LayerDrawable layerDrawable = new LayerDrawable(layers);
-
-            mStatusBarView.setBackgroundDrawable(layerDrawable);
-        } else {
-            mStatusBarView.setBackgroundColor(getBackgroundColour());
-        }
+        mStatusBarView.setStatusBarConfig(mStatusBarConfig, getBackgroundColour(), getClockTime());
 
         mWindowManager.addView(mStatusBarView, getWindowManagerParams());
     }
@@ -56,7 +43,7 @@ public class CleanStatusBarService extends Service {
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
-                PixelFormat.OPAQUE);
+                PixelFormat.TRANSLUCENT); // must be translucent to support KitKat gradient
         params.gravity = Gravity.TOP;
         params.height = mStatusBarConfig.getStatusBarHeight();
         return params;
@@ -76,15 +63,6 @@ public class CleanStatusBarService extends Service {
         return null;
     }
 
-
-    private boolean shouldDrawGradient() {
-        return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_DRAW_GRADIENT, false);
-    }
-
-    private boolean shouldUseMediumFont() {
-        return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_USE_MEDIUM_FONT, true);
-    }
-
     public String getClockTime() {
         return getSharedPrefs().getString(MainActivity.PREFS_KEY_CLOCK_TIME, "12:00");
     }
@@ -93,8 +71,13 @@ public class CleanStatusBarService extends Service {
         return getSharedPrefs().getInt(MainActivity.PREFS_KEY_BACKGROUND_COLOUR, android.R.color.black);
     }
 
-    public int getForegroundColour() {
-        return getSharedPrefs().getInt(MainActivity.PREFS_KEY_FOREGROUND_COLOUR, android.R.color.white);
+    public int getAPIValue() {
+        String apiValue = getSharedPrefs().getString(MainActivity.PREFS_KEY_API_VALUE, "");
+        if(!TextUtils.isEmpty(apiValue)) {
+            return Integer.valueOf(apiValue);
+        }
+
+        return MainActivity.VERSION_CODE_L;
     }
 
     private SharedPreferences getSharedPrefs() {

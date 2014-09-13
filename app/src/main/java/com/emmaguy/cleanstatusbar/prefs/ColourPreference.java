@@ -1,4 +1,4 @@
-package com.emmaguy.cleanstatusbar.ui;
+package com.emmaguy.cleanstatusbar.prefs;
 
 import android.app.Activity;
 import android.app.AlertDialog;

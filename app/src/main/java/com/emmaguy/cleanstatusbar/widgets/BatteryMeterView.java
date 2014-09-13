@@ -1,6 +1,8 @@
-package com.emmaguy.cleanstatusbar.ui;
+package com.emmaguy.cleanstatusbar.widgets;
 
 /*
+ * Adapted from AOSP
+ *
  * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,6 +45,10 @@ public class BatteryMeterView extends View {
 
     public BatteryMeterView(Context context) {
         this(context, null, 0);
+    }
+
+    public BatteryMeterView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
     public BatteryMeterView(Context context, AttributeSet attrs, int defStyle) {

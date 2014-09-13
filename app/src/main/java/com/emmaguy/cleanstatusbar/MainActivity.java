@@ -4,20 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 
-import com.emmaguy.cleanstatusbar.ui.TimePreference;
+import com.emmaguy.cleanstatusbar.prefs.TimePreference;
 
 
 public class MainActivity extends Activity {
+    public static final String PREFS_KEY_API_VALUE = "api_level";
     public static final String PREFS_KEY_CLOCK_TIME = "clock_time";
     public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
-    public static final String PREFS_KEY_FOREGROUND_COLOUR = "foreground_colour";
-    public static final String PREFS_KEY_DRAW_GRADIENT = "draw_gradient";
-    public static final String PREFS_KEY_USE_MEDIUM_FONT = "medium_font";
 
     private static final String PREFS_KEY_TOGGLE_ON_OFF = "toggle_on_off";
+
+    public static final int VERSION_CODE_L = 21; // TODO: change to Build.VERSION_CODES.L when it's released
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class MainActivity extends Activity {
             initialiseClickListener(PREFS_KEY_TOGGLE_ON_OFF);
 
             updateClockTimeTitle();
+
+            initSummary();
         }
 
         private void updateClockTimeTitle() {
@@ -82,10 +86,14 @@ public class MainActivity extends Activity {
         private void toggleCleanStatusBarService(boolean status) {
             mIsServiceRunning = status;
 
+            Preference startStopStatusBar = findPreference(PREFS_KEY_TOGGLE_ON_OFF);
+
             if (mIsServiceRunning) {
                 startService();
+                startStopStatusBar.setTitle(R.string.stop_clean_status_bar);
             } else {
                 stopService();
+                startStopStatusBar.setTitle(R.string.start_clean_status_bar);
             }
         }
 
@@ -99,6 +107,8 @@ public class MainActivity extends Activity {
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            updatePrefsSummary(findPreference(key));
+
             if (key.equals(PREFS_KEY_CLOCK_TIME)) {
                 updateClockTimeTitle();
             }
@@ -106,6 +116,40 @@ public class MainActivity extends Activity {
             if (mIsServiceRunning) {
                 stopService();
                 startService();
+            }
+        }
+
+        protected void initSummary() {
+            for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
+                initPrefsSummary(getPreferenceScreen().getPreference(i));
+            }
+        }
+
+        protected void initPrefsSummary(Preference p) {
+            if (p instanceof PreferenceCategory) {
+                PreferenceCategory cat = (PreferenceCategory) p;
+                for (int i = 0; i < cat.getPreferenceCount(); i++) {
+                    initPrefsSummary(cat.getPreference(i));
+                }
+            } else {
+                updatePrefsSummary(p);
+            }
+        }
+
+        protected void updatePrefsSummary(Preference pref) {
+            if (pref == null) {
+                return;
+            }
+
+            if (pref instanceof ListPreference) {
+                ListPreference lst = (ListPreference) pref;
+                String currentValue = lst.getValue();
+
+                int index = lst.findIndexOfValue(currentValue);
+                CharSequence[] entries = lst.getEntries();
+                if (index >= 0 && index < entries.length) {
+                    pref.setSummary(entries[index]);
+                }
             }
         }
     }

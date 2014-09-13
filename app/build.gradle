@@ -21,5 +21,4 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.github.johnkil.android-robototextview:robototextview:2.1.0'
 }

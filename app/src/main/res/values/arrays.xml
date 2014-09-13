@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="api_level_entries">
+        <item>L</item>
+        <item>KitKat (v19)</item>
+        <item>Jelly Bean (v16)</item>
+    </string-array>
+
+    <string-array name="api_level_entry_values">
+        <item>21</item>
+        <item>19</item>
+        <item>16</item>
+    </string-array>
+
+</resources>

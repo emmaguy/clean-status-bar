@@ -1,37 +1,56 @@
 package com.emmaguy.cleanstatusbar.util;
 
+import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Typeface;
+import android.os.Build;
 
-/*
- * Adapted from https://github.com/jgilfelt/SystemBarTint
- *
- * Copyright 2013 readyState Software Limited
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
-
- * http://www.apache.org/licenses/LICENSE-2.0
-
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+import com.emmaguy.cleanstatusbar.MainActivity;
+import com.emmaguy.cleanstatusbar.R;
 
 public class StatusBarConfig {
 
-    private static final String STATUS_BAR_HEIGHT_RES_NAME = "status_bar_height";
+    private static final String RESOURCE_NAME_STATUS_BAR_HEIGHT = "status_bar_height";
 
+    private final int mApiLevel;
     private final Resources mResources;
+    private final AssetManager mAssetManager;
 
-    public StatusBarConfig(Resources r) {
+    public StatusBarConfig(int apiLevel, Resources r, AssetManager a) {
+        mApiLevel = apiLevel;
         mResources = r;
+        mAssetManager = a;
     }
 
     public int getStatusBarHeight() {
-        return getInternalDimensionSize(mResources, STATUS_BAR_HEIGHT_RES_NAME);
+        return getInternalDimensionSize(mResources, RESOURCE_NAME_STATUS_BAR_HEIGHT);
+    }
+
+    public boolean shouldDrawGradient() {
+        return mApiLevel == Build.VERSION_CODES.KITKAT;
+    }
+
+    public int getForegroundColour() {
+        int colourResId = R.color.android_jellybean_status_bar;
+
+        switch (mApiLevel) {
+            case Build.VERSION_CODES.KITKAT:
+                colourResId = R.color.android_kitkat_status_bar;
+                break;
+            case MainActivity.VERSION_CODE_L:
+                colourResId = R.color.android_l_status_bar;
+                break;
+        }
+
+        return mResources.getColor(colourResId);
+    }
+
+    public Typeface getFont() {
+        if (mApiLevel == MainActivity.VERSION_CODE_L) {
+            return Typeface.createFromAsset(mAssetManager, "fonts/Roboto-Medium.ttf");
+        }
+
+        return null;
     }
 
     private int getInternalDimensionSize(Resources res, String key) {
@@ -41,5 +60,9 @@ public class StatusBarConfig {
             result = res.getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public float getFontSize() {
+        return 16.0f;
     }
 }

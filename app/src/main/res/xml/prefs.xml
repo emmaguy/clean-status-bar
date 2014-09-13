@@ -1,52 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:app="http://schemas.android.com/apk/res/com.emmaguy.cleanstatusbar">
-    <PreferenceCategory
-        android:title="@string/battery_and_clock_settings">
+    xmlns:app="http://schemas.android.com/apk/res/com.emmaguy.cleanstatusbar">
 
-        <com.emmaguy.cleanstatusbar.ui.TimePreference
-            android:key="clock_time"
-            android:title="@string/clock_time"/>
+       <PreferenceCategory
+           android:title="@string/general">
+        <PreferenceScreen
+            android:key="toggle_on_off"
+            android:title="@string/stop_clean_status_bar" />
 
-        <com.emmaguy.cleanstatusbar.ui.ColourPreference
-            android:key="foreground_colour"
-            android:title="@string/foreground_colour"
-            android:defaultValue="@android:color/white"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"
-            app:numColumns="4"
-            app:choices="@array/foreground_colours"
-            app:itemLayout="@layout/grid_item_colour"/>
-
-        <CheckBoxPreference
-            android:key="medium_font"
-            android:title="@string/use_android_l_font"
-            android:defaultValue="true"/>
+           <ListPreference
+               android:key="api_level"
+               android:title="@string/api_level"
+               android:entries="@array/api_level_entries"
+               android:entryValues="@array/api_level_entry_values"
+               android:negativeButtonText="@null"
+               android:positiveButtonText="@null" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/status_bar_background_settings">
-        <com.emmaguy.cleanstatusbar.ui.ColourPreference
+        android:title="@string/customisation">
+
+        <com.emmaguy.cleanstatusbar.prefs.TimePreference
+            android:key="clock_time"
+            android:title="@string/clock_time" />
+
+        <com.emmaguy.cleanstatusbar.prefs.ColourPreference
             android:key="background_colour"
             android:title="@string/status_bar_background_colour"
             android:defaultValue="@android:color/white"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             app:numColumns="4"
-            app:itemLayout="@layout/grid_item_colour"/>
+            app:itemLayout="@layout/grid_item_colour" />
 
-        <CheckBoxPreference
-            android:key="draw_gradient"
-            android:title="@string/enable_kitkat_gradient"
-            android:defaultValue="false"/>
     </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/settings">
-        <PreferenceScreen
-            android:key="toggle_on_off"
-            android:title="@string/stop_start_clean_status_bar"/>
-    </PreferenceCategory>
-
 
 </PreferenceScreen>
