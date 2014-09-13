@@ -3,18 +3,19 @@
 
     <string name="app_name">Clean Status Bar</string>
 
-    <string name="stop_clean_status_bar">Stop clean status bar</string>
-    <string name="start_clean_status_bar">Start clean status bar</string>
-
     <string name="set_time">Set time</string>
     <string name="cancel">Cancel</string>
 
     <string name="clock_time">Clock time</string>
     <string name="color_picker_default_title">Status bar background colour</string>
-    <string name="status_bar_background_colour">@string/color_picker_default_title</string>
+    <string name="status_bar_background_colour">Background colour</string>
 
     <string name="api_level">API Level</string>
     <string name="general">General</string>
-    <string name="customisation">Customisation</string>
+    <string name="settings">Settings</string>
+    <string name="active">Active</string>
+
+    <string name="clean_status_bar_is_running">Clean status bar is running</string>
+    <string name="clean_status_bar_is_not_running">Clean status bar is not running</string>
 
 </resources>

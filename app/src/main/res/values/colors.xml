@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="android_l_status_bar">#ffcbcbcb</color>
-    <color name="android_kitkat_status_bar">#ffcbcbcb</color>
+    <color name="android_kitkat_status_bar">#ffffffff</color>
     <color name="android_jellybean_status_bar">#ff33b5e5</color>
 
     <color name="battery_fill_light_grey">#fecbcbcb</color>
@@ -11,7 +11,6 @@
     <string-array name="default_color_choice_values" translatable="false">
         <item>#000000</item>
         <item>#ffffff</item>
-        <item>#00000000</item>
         <item>#46ab3e</item>
         <item>#53b64f</item>
         <item>#ffbb33</item>

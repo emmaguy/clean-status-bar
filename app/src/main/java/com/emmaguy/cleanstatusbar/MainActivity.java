@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
@@ -17,7 +18,7 @@ public class MainActivity extends Activity {
     public static final String PREFS_KEY_CLOCK_TIME = "clock_time";
     public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
 
-    private static final String PREFS_KEY_TOGGLE_ON_OFF = "toggle_on_off";
+    private static final String PREFS_KEY_IS_RUNNING = "clean_status_bar_is_active";
 
     public static final int VERSION_CODE_L = 21; // TODO: change to Build.VERSION_CODES.L when it's released
 
@@ -29,7 +30,6 @@ public class MainActivity extends Activity {
     }
 
     public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
-        private boolean mIsServiceRunning = false;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 
             addPreferencesFromResource(R.xml.prefs);
 
-            initialiseClickListener(PREFS_KEY_TOGGLE_ON_OFF);
+            initialiseClickListener(PREFS_KEY_IS_RUNNING);
 
             updateClockTimeTitle();
 
@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
 
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-            toggleCleanStatusBarService(true);
+            toggleCleanStatusBarService();
         }
 
         @Override
@@ -76,24 +76,22 @@ public class MainActivity extends Activity {
 
         @Override
         public boolean onPreferenceClick(Preference preference) {
-            if (preference.getKey().equals(PREFS_KEY_TOGGLE_ON_OFF)) {
-                toggleCleanStatusBarService(!mIsServiceRunning);
+            if (preference.getKey().equals(PREFS_KEY_IS_RUNNING)) {
+                toggleCleanStatusBarService();
                 return true;
             }
             return false;
         }
 
-        private void toggleCleanStatusBarService(boolean status) {
-            mIsServiceRunning = status;
+        private boolean isCleanStatusBarRunning() {
+            return ((CheckBoxPreference) findPreference(PREFS_KEY_IS_RUNNING)).isChecked();
+        }
 
-            Preference startStopStatusBar = findPreference(PREFS_KEY_TOGGLE_ON_OFF);
-
-            if (mIsServiceRunning) {
+        private void toggleCleanStatusBarService() {
+            if (isCleanStatusBarRunning()) {
                 startService();
-                startStopStatusBar.setTitle(R.string.stop_clean_status_bar);
             } else {
                 stopService();
-                startStopStatusBar.setTitle(R.string.start_clean_status_bar);
             }
         }
 
@@ -113,7 +111,7 @@ public class MainActivity extends Activity {
                 updateClockTimeTitle();
             }
 
-            if (mIsServiceRunning) {
+            if (isCleanStatusBarRunning()) {
                 stopService();
                 startService();
             }
