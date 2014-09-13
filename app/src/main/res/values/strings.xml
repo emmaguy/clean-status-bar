@@ -7,7 +7,6 @@
     <string name="cancel">Cancel</string>
 
     <string name="clock_time">Clock time</string>
-    <string name="color_picker_default_title">Status bar background colour</string>
     <string name="status_bar_background_colour">Background colour</string>
 
     <string name="api_level">API Level</string>
@@ -17,5 +16,13 @@
 
     <string name="clean_status_bar_is_running">Clean status bar is running</string>
     <string name="clean_status_bar_is_not_running">Clean status bar is not running</string>
+
+    <string name="colour_picker_default_title">Status bar background colour</string>
+    <string name="add_new_colour">Add new colour</string>
+    <string name="enter_the_name_of_your_colour">Enter the name of your colour</string>
+    <string name="theme_blue">Theme blue</string>
+    <string name="enter_the_hex_value_of_your_colour">Enter the hex value of your colour</string>
+    <string name="hint_colour_no_hash_char">0000FF</string>
+    <string name="invalid_hex_colour">Invalid hex colour</string>
 
 </resources>

@@ -8,18 +8,17 @@
     <color name="batterymeter_frame_color">#66FFFFFF</color>
     <color name="batterymeter_charge_color">#cbcbcb</color>
 
-    <string-array name="default_color_choice_values" translatable="false">
+    <string name="black">Black</string>
+    <string name="white">White</string>
+
+    <string-array name="default_colour_choices" translatable="false">
+        <item>@string/black</item>
+        <item>@string/white</item>
+    </string-array>
+
+    <string-array name="default_colour_choice_values" translatable="false">
         <item>#000000</item>
         <item>#ffffff</item>
-        <item>#46ab3e</item>
-        <item>#53b64f</item>
-        <item>#ffbb33</item>
-        <item>#ff4444</item>
-        <item>#0099cc</item>
-        <item>#9933cc</item>
-        <item>#669900</item>
-        <item>#ff8800</item>
-        <item>#cc0000</item>
     </string-array>
 
 </resources>

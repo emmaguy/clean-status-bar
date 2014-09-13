@@ -64,7 +64,9 @@ public class MainActivity extends Activity {
 
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-            toggleCleanStatusBarService();
+            // app has come in to the foreground, so clean the status bar
+            getIsCleanStatusBarRunningPreference().setChecked(true);
+            startService();
         }
 
         @Override
@@ -84,7 +86,11 @@ public class MainActivity extends Activity {
         }
 
         private boolean isCleanStatusBarRunning() {
-            return ((CheckBoxPreference) findPreference(PREFS_KEY_IS_RUNNING)).isChecked();
+            return getIsCleanStatusBarRunningPreference().isChecked();
+        }
+
+        private CheckBoxPreference getIsCleanStatusBarRunningPreference() {
+            return ((CheckBoxPreference) findPreference(PREFS_KEY_IS_RUNNING));
         }
 
         private void toggleCleanStatusBarService() {

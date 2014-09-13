@@ -5,7 +5,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -17,67 +18,69 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.emmaguy.cleanstatusbar.R;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-/*
- *Adapted from DashClock: https://code.google.com/p/dashclock/source/browse/main/src/main/java/com/google/android/apps/dashclock/configuration/ColorPreference.java
- */
+// Heavily adapted from DashClock: https://code.google.com/p/dashclock/source/browse/main/src/main/java/com/google/android/apps/dashclock/configuration/ColorPreference.java
 public class ColourPreference extends Preference {
-    private int[] mColorChoices = {};
+    private static ArrayList<String> mColourNames;
+    private static ArrayList<Integer> mColours;
     private int mValue = 0;
-    private int mItemLayoutId = R.layout.grid_item_colour;
-    private int mNumColumns = 5;
-    private View mPreviewView;
 
     public ColourPreference(Context context) {
-        super(context);
-        initAttrs(null, 0);
+        this(context, null);
     }
 
     public ColourPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initAttrs(attrs, 0);
+
+        init(context);
     }
 
-    public ColourPreference(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        initAttrs(attrs, defStyle);
-    }
-
-    private void initAttrs(AttributeSet attrs, int defStyle) {
-        TypedArray a = getContext().getTheme().obtainStyledAttributes(
-                attrs, R.styleable.ColourPreference, defStyle, defStyle);
-
-        try {
-            mItemLayoutId = a.getResourceId(R.styleable.ColourPreference_itemLayout, mItemLayoutId);
-            mNumColumns = a.getInteger(R.styleable.ColourPreference_numColumns, mNumColumns);
-            int choicesResId = a.getResourceId(R.styleable.ColourPreference_choices, R.array.default_color_choice_values);
-            if (choicesResId > 0) {
-                String[] choices = a.getResources().getStringArray(choicesResId);
-                mColorChoices = new int[choices.length];
-                for (int i = 0; i < choices.length; i++) {
-                    mColorChoices[i] = Color.parseColor(choices[i]);
-                }
-            }
-        } finally {
-            a.recycle();
+    private void init(Context context) {
+        String[] colours = context.getResources().getStringArray(R.array.default_colour_choice_values);
+        Integer[] colourValues = new Integer[colours.length];
+        for (int i = 0; i < colours.length; i++) {
+            colourValues[i] = Color.parseColor(colours[i]);
         }
+        mColours = new ArrayList<Integer>(Arrays.asList(colourValues));
+        mColourNames = new ArrayList<String>(Arrays.asList(context.getResources().getStringArray(R.array.default_colour_choices)));
 
-        setWidgetLayoutResource(mItemLayoutId);
+        setWidgetLayoutResource(R.layout.colour_preference_row);
+    }
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+
+        ColourDialogFragment fragment = ColourDialogFragment.newInstance();
+        fragment.setPreference(this);
+
+        Activity activity = (Activity) getContext();
+        activity.getFragmentManager().beginTransaction()
+                .add(fragment, getFragmentTag())
+                .commit();
     }
 
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
-        mPreviewView = view.findViewById(R.id.colour_view);
-        setColorViewValue(mPreviewView, mValue);
+
+        setColourValue((ImageView) view.findViewById(R.id.colour_view), mValue);
+        ((TextView) view.findViewById(R.id.colour_name)).setText(getTitle());
+    }
+
+    @Override
+    protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
+        setValue(restoreValue ? getPersistedInt(0) : (Integer) defaultValue);
     }
 
     public void setValue(int value) {
@@ -88,17 +91,8 @@ public class ColourPreference extends Preference {
         }
     }
 
-    @Override
-    protected void onClick() {
-        super.onClick();
-
-        ColorDialogFragment fragment = ColorDialogFragment.newInstance();
-        fragment.setPreference(this);
-
-        Activity activity = (Activity) getContext();
-        activity.getFragmentManager().beginTransaction()
-                .add(fragment, getFragmentTag())
-                .commit();
+    public String getFragmentTag() {
+        return "color_" + getKey();
     }
 
     @Override
@@ -106,46 +100,30 @@ public class ColourPreference extends Preference {
         super.onAttachedToActivity();
 
         Activity activity = (Activity) getContext();
-        ColorDialogFragment fragment = (ColorDialogFragment) activity
-                .getFragmentManager().findFragmentByTag(getFragmentTag());
+        ColourDialogFragment fragment = (ColourDialogFragment) activity.getFragmentManager().findFragmentByTag(getFragmentTag());
         if (fragment != null) {
             // re-bind preference to fragment
             fragment.setPreference(this);
         }
     }
 
-    @Override
-    protected Object onGetDefaultValue(TypedArray a, int index) {
-        return a.getInt(index, 0);
-    }
-
-    @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        setValue(restoreValue ? getPersistedInt(0) : (Integer) defaultValue);
-    }
-
-    public String getFragmentTag() {
-        return "color_" + getKey();
-    }
-
-    public int getValue() {
-        return mValue;
-    }
-
-    public static class ColorDialogFragment extends DialogFragment {
+    public static class ColourDialogFragment extends DialogFragment implements View.OnClickListener {
         private ColourPreference mPreference;
-        private ColorGridAdapter mAdapter;
-        private GridView mColorGrid;
+        private ColorPreferenceListAdapter mAdapter;
+        private ListView mListView;
 
-        public ColorDialogFragment() {
+        private String mNewColourName;
+
+        public ColourDialogFragment() {
         }
 
-        public static ColorDialogFragment newInstance() {
-            return new ColorDialogFragment();
+        public static ColourDialogFragment newInstance() {
+            return new ColourDialogFragment();
         }
 
         public void setPreference(ColourPreference preference) {
             mPreference = preference;
+
             tryBindLists();
         }
 
@@ -157,26 +135,23 @@ public class ColourPreference extends Preference {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            View rootView = layoutInflater.inflate(R.layout.dialog_colours, null);
-
-            mColorGrid = (GridView) rootView.findViewById(R.id.colour_grid);
-
-            mColorGrid.setNumColumns(mPreference.mNumColumns);
-
-            mColorGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            mListView = new ListView(getActivity());
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> listView, View view,
-                        int position, long itemId) {
-                    mPreference.setValue(mAdapter.getItem(position));
+                                        int position, long itemId) {
+                    mPreference.setValue((Integer) mAdapter.getItem(position));
                     dismiss();
                 }
             });
+            View footerView = LayoutInflater.from(getActivity()).inflate(R.layout.colour_preference_footer, null);
+            footerView.setOnClickListener(this);
+            mListView.addFooterView(footerView);
 
             tryBindLists();
 
             return new AlertDialog.Builder(getActivity())
-                    .setView(rootView)
+                    .setView(mListView)
                     .create();
         }
 
@@ -186,79 +161,144 @@ public class ColourPreference extends Preference {
             }
 
             if (isAdded() && mAdapter == null) {
-                mAdapter = new ColorGridAdapter();
+                mAdapter = new ColorPreferenceListAdapter(getActivity());
             }
 
-            if (mAdapter != null && mColorGrid != null) {
-                mAdapter.setSelectedColor(mPreference.getValue());
-                mColorGrid.setAdapter(mAdapter);
+            if (mAdapter != null && mListView != null) {
+                mListView.setAdapter(mAdapter);
             }
         }
 
-        private class ColorGridAdapter extends BaseAdapter {
-            private List<Integer> mChoices = new ArrayList<Integer>();
-            private int mSelectedColor;
-
-            private ColorGridAdapter() {
-                for (int color : mPreference.mColorChoices) {
-                    mChoices.add(color);
-                }
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == R.id.footer) {
+                showAddColourDialog();
             }
+        }
 
-            @Override
-            public int getCount() {
-                return mChoices.size();
-            }
+        private void showAddColourDialog() {
+            final EditText input = new EditText(getActivity());
+            input.setHint(R.string.theme_blue);
 
-            @Override
-            public Integer getItem(int position) {
-                return mChoices.get(position);
-            }
+            new AlertDialog.Builder(getActivity())
+                    .setNegativeButton(R.string.cancel, null)
+                    .setPositiveButton(R.string.add_new_colour, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            showEnterColourValueDialog();
 
-            @Override
-            public long getItemId(int position) {
-                return mChoices.get(position);
-            }
+                            mNewColourName = input.getText().toString();
+                        }
+                    })
+                    .setTitle(R.string.add_new_colour)
+                    .setMessage(R.string.enter_the_name_of_your_colour)
+                    .setView(input)
+                    .create()
+                    .show();
+        }
 
-            @Override
-            public View getView(int position, View convertView, ViewGroup container) {
-                if (convertView == null) {
-                    convertView = LayoutInflater.from(getActivity())
-                            .inflate(mPreference.mItemLayoutId, container, false);
-                }
+        private void showEnterColourValueDialog() {
+            final EditText input = new EditText(getActivity());
+            input.setHint(R.string.hint_colour_no_hash_char);
 
-                int color = getItem(position);
-                setColorViewValue(convertView.findViewById(R.id.colour_view), color);
-                convertView.setBackgroundColor(color == mSelectedColor ? 0x6633b5e5 : 0);
+            new AlertDialog.Builder(getActivity())
+                    .setNegativeButton(R.string.cancel, null)
+                    .setPositiveButton(R.string.add_new_colour, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String colourValue = input.getText().toString();
 
-                return convertView;
-            }
+                            try {
+                                String colourString = colourValue;
+                                if(!colourValue.startsWith("#")) {
+                                    colourString = "#" + colourValue;
+                                }
+                                int colour = Color.parseColor(colourString);
 
-            public void setSelectedColor(int selectedColor) {
-                mSelectedColor = selectedColor;
-                notifyDataSetChanged();
-            }
+                                mColourNames.add(mNewColourName);
+                                mColours.add(colour);
+                            } catch (IllegalArgumentException e) {
+                                Toast.makeText(getActivity(), R.string.invalid_hex_colour, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    })
+                    .setTitle(R.string.add_new_colour)
+                    .setMessage(R.string.enter_the_hex_value_of_your_colour)
+                    .setView(input)
+                    .create()
+                    .show();
         }
     }
 
-    private static void setColorViewValue(View view, int color) {
-        if (view instanceof ImageView) {
-            ImageView imageView = (ImageView) view;
+    static class ColorPreferenceListAdapter extends BaseAdapter {
+        private final Resources mResources;
+        private final LayoutInflater mLayoutInflater;
 
-            Drawable currentDrawable = imageView.getDrawable();
-            GradientDrawable colorChoiceDrawable;
-            if (currentDrawable != null && currentDrawable instanceof GradientDrawable) {
-                // Reuse drawable
-                colorChoiceDrawable = (GradientDrawable) currentDrawable;
+        public ColorPreferenceListAdapter(Context context) {
+            mLayoutInflater = LayoutInflater.from(context);
+            mResources = context.getResources();
+        }
+
+        @Override
+        public int getCount() {
+            return mColours.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mColours.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View v = convertView;
+            ViewHolder holder;
+            if (v == null) {
+                v = mLayoutInflater.inflate(R.layout.colour_preference_row, null);
+                v.setPadding(dpToPx(15), dpToPx(10), dpToPx(15), dpToPx(10));
+
+                holder = new ViewHolder();
+                holder.colourName = (TextView) v.findViewById(R.id.colour_name);
+                holder.colour = (ImageView) v.findViewById(R.id.colour_view);
+                v.setTag(holder);
             } else {
-                colorChoiceDrawable = new GradientDrawable();
-                colorChoiceDrawable.setShape(GradientDrawable.OVAL);
+                holder = (ViewHolder) v.getTag();
             }
 
-            colorChoiceDrawable.setColor(color);
-            imageView.setImageDrawable(colorChoiceDrawable);
-        } else if (view instanceof TextView) {
-            ((TextView) view).setTextColor(color);
+            holder.colourName.setText(mColourNames.get(position));
+            setColourValue(holder.colour, mColours.get(position));
+
+            return v;
         }
+
+        private int dpToPx(float dp) {
+            return (int) (dp * mResources.getDisplayMetrics().density);
+        }
+
+        class ViewHolder {
+            public TextView colourName;
+            public ImageView colour;
+        }
+
+    }
+
+    private static void setColourValue(ImageView imageView, int colourResId) {
+        Drawable currentDrawable = imageView.getDrawable();
+        GradientDrawable colorChoiceDrawable;
+        if (currentDrawable != null && currentDrawable instanceof GradientDrawable) {
+            // reuse drawable
+            colorChoiceDrawable = (GradientDrawable) currentDrawable;
+        } else {
+            colorChoiceDrawable = new GradientDrawable();
+            colorChoiceDrawable.setShape(GradientDrawable.OVAL);
+        }
+
+        colorChoiceDrawable.setColor(colourResId);
+        imageView.setImageDrawable(colorChoiceDrawable);
     }
 }
