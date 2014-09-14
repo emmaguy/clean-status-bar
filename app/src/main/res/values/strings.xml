@@ -11,10 +11,9 @@
 
     <string name="api_level">API Level</string>
     <string name="settings">Settings</string>
-    
+
     <string name="clean_status_bar_is_running">Clean status bar is running</string>
-    <string name="clean_status_bar_is_not_running">Clean status bar is not running</string>
-    
+
     <string name="colour_picker_default_title">Status bar background colour</string>
     <string name="add_new_colour">Add new colour</string>
     <string name="enter_the_name_of_your_colour">Enter the name of your colour</string>
