@@ -17,6 +17,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -230,6 +231,8 @@ public class ColourPreference extends Preference {
 
                                 mColours.add(new Colour(mNewColourName, colour));
                                 mPreference.getSharedPreferences().edit().putString(mPreference.getColoursKey(), new Gson().toJson(mColours)).apply();
+
+                                hideKeyboard(getActivity(), input);
                             } catch (IllegalArgumentException e) {
                                 Toast.makeText(getActivity(), R.string.invalid_hex_colour, Toast.LENGTH_SHORT).show();
                             }
@@ -241,6 +244,11 @@ public class ColourPreference extends Preference {
                     .create()
                     .show();
         }
+    }
+
+    protected static void hideKeyboard(Context c, View view) {
+        InputMethodManager in = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     static class ColorPreferenceListAdapter extends BaseAdapter {
