@@ -2,17 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="@string/general">
-
-        <CheckBoxPreference
-            android:key="clean_status_bar_is_active"
-            android:title="@string/active"
-            android:summaryOn="@string/clean_status_bar_is_running"
-            android:summaryOff="@string/clean_status_bar_is_not_running"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:title="@string/settings">
 
         <ListPreference

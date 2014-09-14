@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="master_switch_margin_right">16dp</dimen>
+</resources>

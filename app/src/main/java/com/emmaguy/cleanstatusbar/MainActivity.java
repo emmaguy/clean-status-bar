@@ -1,14 +1,19 @@
 package com.emmaguy.cleanstatusbar;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.emmaguy.cleanstatusbar.prefs.TimePreference;
 
@@ -18,18 +23,48 @@ public class MainActivity extends Activity {
     public static final String PREFS_KEY_CLOCK_TIME = "clock_time";
     public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
 
-    private static final String PREFS_KEY_IS_RUNNING = "clean_status_bar_is_active";
-
     public static final int VERSION_CODE_L = 21; // TODO: change to Build.VERSION_CODES.L when it's released
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        initSwitch();
+
         getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
     }
 
-    public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
+    private void initSwitch() {
+        Switch masterSwitch = new Switch(this);
+        masterSwitch.setChecked(CleanStatusBarService.isRunning());
+        masterSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    startService(MainActivity.this);
+                } else {
+                    stopService(MainActivity.this);
+                }
+            }
+        });
+
+        final ActionBar bar = getActionBar();
+        final ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
+        lp.rightMargin = getResources().getDimensionPixelSize(R.dimen.master_switch_margin_right);
+        bar.setCustomView(masterSwitch, lp);
+        bar.setDisplayShowCustomEnabled(true);
+    }
+
+    public static void stopService(Context context) {
+        context.stopService(new Intent(context, CleanStatusBarService.class));
+    }
+
+    public static void startService(Context context) {
+        context.startService(new Intent(context, CleanStatusBarService.class));
+    }
+
+    public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -37,76 +72,28 @@ public class MainActivity extends Activity {
 
             addPreferencesFromResource(R.xml.prefs);
 
-            initialiseClickListener(PREFS_KEY_IS_RUNNING);
-
             initSummary();
-        }
-
-        private void initialiseClickListener(String key) {
-            Preference resetPref = findPreference(key);
-            if (resetPref != null) {
-                resetPref.setOnPreferenceClickListener(this);
-            }
         }
 
         @Override
         public void onResume() {
             super.onResume();
-
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-
-            // app has come in to the foreground, so clean the status bar
-            getIsCleanStatusBarRunningPreference().setChecked(true);
-            startService();
         }
 
         @Override
         public void onPause() {
             super.onPause();
-
             getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
-        }
-
-        @Override
-        public boolean onPreferenceClick(Preference preference) {
-            if (preference.getKey().equals(PREFS_KEY_IS_RUNNING)) {
-                toggleCleanStatusBarService();
-                return true;
-            }
-            return false;
-        }
-
-        private boolean isCleanStatusBarRunning() {
-            return getIsCleanStatusBarRunningPreference().isChecked();
-        }
-
-        private CheckBoxPreference getIsCleanStatusBarRunningPreference() {
-            return ((CheckBoxPreference) findPreference(PREFS_KEY_IS_RUNNING));
-        }
-
-        private void toggleCleanStatusBarService() {
-            if (isCleanStatusBarRunning()) {
-                startService();
-            } else {
-                stopService();
-            }
-        }
-
-        private void stopService() {
-            getActivity().stopService(new Intent(getActivity(), CleanStatusBarService.class));
-        }
-
-        private void startService() {
-            getActivity().startService(new Intent(getActivity(), CleanStatusBarService.class));
         }
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             updatePrefsSummary(findPreference(key));
 
-            if (isCleanStatusBarRunning()) {
-                stopService();
-                startService();
+            if (CleanStatusBarService.isRunning()) {
+                stopService(getActivity());
+                startService(getActivity());
             }
         }
 

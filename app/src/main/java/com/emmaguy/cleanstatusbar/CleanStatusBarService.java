@@ -19,6 +19,7 @@ import com.emmaguy.cleanstatusbar.widgets.StatusBarView;
 
 public class CleanStatusBarService extends Service {
     private static final int NOTIFICATION_ID = 1;
+    private static boolean sIsRunning = false;
 
     private StatusBarConfig mStatusBarConfig;
     private StatusBarView mStatusBarView;
@@ -31,6 +32,7 @@ public class CleanStatusBarService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        sIsRunning = true;
 
         mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -58,7 +60,8 @@ public class CleanStatusBarService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        sIsRunning = false;
+        
         if (mStatusBarView != null) {
             mWindowManager.removeView(mStatusBarView);
         }
@@ -107,5 +110,9 @@ public class CleanStatusBarService extends Service {
 
     private void removeNotification() {
         mNotificationManager.cancel(NOTIFICATION_ID);
+    }
+    
+    public static boolean isRunning() {
+    	return sIsRunning;
     }
 }
