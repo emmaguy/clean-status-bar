@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,14 +26,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emmaguy.cleanstatusbar.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-// Heavily adapted from DashClock: https://code.google.com/p/dashclock/source/browse/main/src/main/java/com/google/android/apps/dashclock/configuration/ColorPreference.java
+// Adapted from DashClock: https://code.google.com/p/dashclock/source/browse/main/src/main/java/com/google/android/apps/dashclock/configuration/ColorPreference.java
 public class ColourPreference extends Preference {
-    private static ArrayList<String> mColourNames;
-    private static ArrayList<Integer> mColours;
+    private static ArrayList<Colour> mColours = new ArrayList<Colour>();
+
     private int mValue = 0;
 
     public ColourPreference(Context context) {
@@ -42,19 +44,15 @@ public class ColourPreference extends Preference {
     public ColourPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        init(context);
+        init();
     }
 
-    private void init(Context context) {
-        String[] colours = context.getResources().getStringArray(R.array.default_colour_choice_values);
-        Integer[] colourValues = new Integer[colours.length];
-        for (int i = 0; i < colours.length; i++) {
-            colourValues[i] = Color.parseColor(colours[i]);
-        }
-        mColours = new ArrayList<Integer>(Arrays.asList(colourValues));
-        mColourNames = new ArrayList<String>(Arrays.asList(context.getResources().getStringArray(R.array.default_colour_choices)));
-
+    private void init() {
         setWidgetLayoutResource(R.layout.colour_preference_row);
+    }
+
+    private String getColoursKey() {
+        return getKey() + "colours";
     }
 
     @Override
@@ -76,6 +74,20 @@ public class ColourPreference extends Preference {
 
         setColourValue((ImageView) view.findViewById(R.id.colour_view), mValue);
         ((TextView) view.findViewById(R.id.colour_name)).setText(getTitle());
+
+        String colours = getSharedPreferences().getString(getColoursKey(), "");
+
+        if (TextUtils.isEmpty(colours)) {
+            String[] colourNames = getContext().getResources().getStringArray(R.array.default_colour_choices);
+            String[] colourValues = getContext().getResources().getStringArray(R.array.default_colour_choice_values);
+            for (int i = 0; i < colourValues.length; i++) {
+                mColours.add(new Colour(colourNames[i], Color.parseColor(colourValues[i])));
+            }
+
+            getSharedPreferences().edit().putString(getColoursKey(), new Gson().toJson(mColours)).apply();
+        } else {
+            mColours = new Gson().fromJson(colours, new TypeToken<ArrayList<Colour>>() {}.getType());
+        }
     }
 
     @Override
@@ -92,7 +104,7 @@ public class ColourPreference extends Preference {
     }
 
     public String getFragmentTag() {
-        return "color_" + getKey();
+        return "colour_" + getKey();
     }
 
     @Override
@@ -138,9 +150,9 @@ public class ColourPreference extends Preference {
             mListView = new ListView(getActivity());
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> listView, View view,
-                                        int position, long itemId) {
-                    mPreference.setValue((Integer) mAdapter.getItem(position));
+                public void onItemClick(AdapterView<?> listView, View view, int position, long itemId) {
+                    Colour item = (Colour) mAdapter.getItem(position);
+                    mPreference.setValue(item.mColourValue);
                     dismiss();
                 }
             });
@@ -210,13 +222,14 @@ public class ColourPreference extends Preference {
 
                             try {
                                 String colourString = colourValue;
-                                if(!colourValue.startsWith("#")) {
+                                if (!colourValue.startsWith("#")) {
                                     colourString = "#" + colourValue;
                                 }
+
                                 int colour = Color.parseColor(colourString);
 
-                                mColourNames.add(mNewColourName);
-                                mColours.add(colour);
+                                mColours.add(new Colour(mNewColourName, colour));
+                                mPreference.getSharedPreferences().edit().putString(mPreference.getColoursKey(), new Gson().toJson(mColours)).apply();
                             } catch (IllegalArgumentException e) {
                                 Toast.makeText(getActivity(), R.string.invalid_hex_colour, Toast.LENGTH_SHORT).show();
                             }
@@ -270,8 +283,9 @@ public class ColourPreference extends Preference {
                 holder = (ViewHolder) v.getTag();
             }
 
-            holder.colourName.setText(mColourNames.get(position));
-            setColourValue(holder.colour, mColours.get(position));
+            Colour colour = mColours.get(position);
+            holder.colourName.setText(colour.mColourName);
+            setColourValue(holder.colour, colour.mColourValue);
 
             return v;
         }
@@ -300,5 +314,15 @@ public class ColourPreference extends Preference {
 
         colorChoiceDrawable.setColor(colourResId);
         imageView.setImageDrawable(colorChoiceDrawable);
+    }
+
+    static class Colour {
+        int mColourValue;
+        String mColourName;
+
+        public Colour(String colourName, int colourValue) {
+            mColourName = colourName;
+            mColourValue = colourValue;
+        }
     }
 }

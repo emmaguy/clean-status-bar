@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="api_level_entries">
+    <string-array name="api_level_entries" translatable="false">
         <item>L</item>
         <item>KitKat (v19)</item>
         <item>Jelly Bean (v16)</item>
     </string-array>
 
-    <string-array name="api_level_entry_values">
+    <string-array name="api_level_entry_values" translatable="false">
         <item>21</item>
         <item>19</item>
         <item>16</item>
+    </string-array>
+
+    <string-array name="default_colour_choices" translatable="false">
+        <item>@string/black</item>
+        <item>@string/white</item>
+    </string-array>
+
+    <!-- can't reuse other colours as will fail at runtime-->
+    <string-array name="default_colour_choice_values" translatable="false">
+        <item>#000000</item>
+        <item>#ffffff</item>
     </string-array>
 
 </resources>

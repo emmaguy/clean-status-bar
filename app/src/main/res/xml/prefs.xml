@@ -1,42 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-       <PreferenceCategory
-           android:title="@string/general">
+    <PreferenceCategory
+        android:title="@string/general">
 
         <CheckBoxPreference
             android:key="clean_status_bar_is_active"
             android:title="@string/active"
             android:summaryOn="@string/clean_status_bar_is_running"
-            android:summaryOff="@string/clean_status_bar_is_not_running" />
+            android:summaryOff="@string/clean_status_bar_is_not_running"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/settings">
 
-       <ListPreference
-           android:key="api_level"
-           android:title="@string/api_level"
-           android:entries="@array/api_level_entries"
-           android:entryValues="@array/api_level_entry_values"
-           android:defaultValue="21"
-           android:negativeButtonText="@null"
-           android:positiveButtonText="@null" />
+        <ListPreference
+            android:key="api_level"
+            android:title="@string/api_level"
+            android:entries="@array/api_level_entries"
+            android:entryValues="@array/api_level_entry_values"
+            android:defaultValue="21"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"/>
 
         <com.emmaguy.cleanstatusbar.prefs.TimePreference
             android:key="clock_time"
-            android:title="@string/clock_time" />
+            android:title="@string/Time"/>
 
         <com.emmaguy.cleanstatusbar.prefs.ColourPreference
             android:key="background_colour"
-            android:title="@string/status_bar_background_colour"
+            android:title="@string/background"
             android:entries="@array/default_colour_choices"
             android:entryValues="@array/default_colour_choice_values"
-            android:defaultValue="@android:color/white"
             android:negativeButtonText="@null"
-            android:positiveButtonText="@null" />
+            android:positiveButtonText="@null"/>
 
     </PreferenceCategory>
 

@@ -6,8 +6,8 @@
     <string name="set_time">Set time</string>
     <string name="cancel">Cancel</string>
 
-    <string name="clock_time">Clock time</string>
-    <string name="status_bar_background_colour">Background colour</string>
+    <string name="Time">Time</string>
+    <string name="background">Background</string>
 
     <string name="api_level">API Level</string>
     <string name="general">General</string>

@@ -39,16 +39,7 @@ public class MainActivity extends Activity {
 
             initialiseClickListener(PREFS_KEY_IS_RUNNING);
 
-            updateClockTimeTitle();
-
             initSummary();
-        }
-
-        private void updateClockTimeTitle() {
-            Preference clockTime = findPreference(PREFS_KEY_CLOCK_TIME);
-            if (clockTime != null) {
-                clockTime.setTitle(getString(R.string.clock_time) + " - " + getPreferenceManager().getSharedPreferences().getString(PREFS_KEY_CLOCK_TIME, TimePreference.DEFAULT_TIME_VALUE));
-            }
         }
 
         private void initialiseClickListener(String key) {
@@ -113,10 +104,6 @@ public class MainActivity extends Activity {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             updatePrefsSummary(findPreference(key));
 
-            if (key.equals(PREFS_KEY_CLOCK_TIME)) {
-                updateClockTimeTitle();
-            }
-
             if (isCleanStatusBarRunning()) {
                 stopService();
                 startService();
@@ -153,6 +140,11 @@ public class MainActivity extends Activity {
                 CharSequence[] entries = lst.getEntries();
                 if (index >= 0 && index < entries.length) {
                     pref.setSummary(entries[index]);
+                }
+            } else if (pref instanceof TimePreference) {
+                if (pref.getKey().equals(PREFS_KEY_CLOCK_TIME)) {
+                    String time = getPreferenceManager().getSharedPreferences().getString(PREFS_KEY_CLOCK_TIME, TimePreference.DEFAULT_TIME_VALUE);
+                    pref.setSummary(time);
                 }
             }
         }

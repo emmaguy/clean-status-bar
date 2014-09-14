@@ -8,17 +8,9 @@
     <color name="batterymeter_frame_color">#66FFFFFF</color>
     <color name="batterymeter_charge_color">#cbcbcb</color>
 
+    <color name="black">#000000</color>
+
     <string name="black">Black</string>
     <string name="white">White</string>
-
-    <string-array name="default_colour_choices" translatable="false">
-        <item>@string/black</item>
-        <item>@string/white</item>
-    </string-array>
-
-    <string-array name="default_colour_choice_values" translatable="false">
-        <item>#000000</item>
-        <item>#ffffff</item>
-    </string-array>
 
 </resources>
