@@ -73,9 +73,6 @@ public class ColourPreference extends Preference {
     protected void onBindView(View view) {
         super.onBindView(view);
 
-        setColourValue((ImageView) view.findViewById(R.id.colour_view), mValue);
-        ((TextView) view.findViewById(R.id.colour_name)).setText(getTitle());
-
         String colours = getSharedPreferences().getString(getColoursKey(), "");
 
         if (TextUtils.isEmpty(colours)) {
@@ -85,10 +82,19 @@ public class ColourPreference extends Preference {
                 mColours.add(new Colour(colourNames[i], Color.parseColor(colourValues[i])));
             }
 
+            if(mColours.size() > 0) {
+                Colour defaultValue = mColours.get(0);
+                mValue = defaultValue.mColourValue;
+                persistInt(mValue);
+            }
+
             getSharedPreferences().edit().putString(getColoursKey(), new Gson().toJson(mColours)).apply();
         } else {
             mColours = new Gson().fromJson(colours, new TypeToken<ArrayList<Colour>>() {}.getType());
         }
+
+        setColourValue((ImageView) view.findViewById(R.id.colour_view), mValue);
+        ((TextView) view.findViewById(R.id.colour_name)).setText(getTitle());
     }
 
     @Override
@@ -143,6 +149,7 @@ public class ColourPreference extends Preference {
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
+
             tryBindLists();
         }
 
