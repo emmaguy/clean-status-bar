@@ -68,7 +68,7 @@ public class CleanStatusBarService extends Service {
     }
 
     public int getBackgroundColour() {
-        return getSharedPrefs().getInt(MainActivity.PREFS_KEY_BACKGROUND_COLOUR, R.color.black);
+        return getSharedPrefs().getInt(MainActivity.PREFS_KEY_BACKGROUND_COLOUR, getResources().getColor(R.color.black));
     }
 
     public int getAPIValue() {
