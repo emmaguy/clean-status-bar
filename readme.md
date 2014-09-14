@@ -8,7 +8,7 @@ It runs as a service, so you can swap to other apps to take screenshots.
 |  ![before](https://raw.githubusercontent.com/emmaguy/clean-status-bar/master/images/before.png) | ![after](https://raw.githubusercontent.com/emmaguy/clean-status-bar/master/images/after.png) |
 |---|---|
 
-Sample app available [here](https://play.google.com/store/apps/details?id=com.emmaguy.cleanstatusbar)
+App available [here](https://play.google.com/store/apps/details?id=com.emmaguy.cleanstatusbar)
 
 License
 --------
