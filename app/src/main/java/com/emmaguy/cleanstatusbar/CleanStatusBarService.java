@@ -10,7 +10,6 @@ import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.WindowManager;
 
@@ -37,7 +36,7 @@ public class CleanStatusBarService extends Service {
         mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mStatusBarView = new StatusBarView(this);
-        mStatusBarConfig = new StatusBarConfig(getAPIValue(), getResources(), getAssets());
+        mStatusBarConfig = new StatusBarConfig(MainActivity.getAPIValue(getSharedPrefs()), isKitKatGradientEnabled(), getResources(), getAssets());
 
         mStatusBarView.setStatusBarConfig(mStatusBarConfig, getBackgroundColour(), getClockTime());
 
@@ -61,7 +60,7 @@ public class CleanStatusBarService extends Service {
     public void onDestroy() {
         super.onDestroy();
         sIsRunning = false;
-        
+
         if (mStatusBarView != null) {
             mWindowManager.removeView(mStatusBarView);
         }
@@ -81,13 +80,8 @@ public class CleanStatusBarService extends Service {
         return getSharedPrefs().getInt(MainActivity.PREFS_KEY_BACKGROUND_COLOUR, 0);
     }
 
-    public int getAPIValue() {
-        String apiValue = getSharedPrefs().getString(MainActivity.PREFS_KEY_API_VALUE, "");
-        if(!TextUtils.isEmpty(apiValue)) {
-            return Integer.valueOf(apiValue);
-        }
-
-        return MainActivity.VERSION_CODE_L;
+    private boolean isKitKatGradientEnabled() {
+        return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_KIT_KAT_GRADIENT, false);
     }
 
     private SharedPreferences getSharedPrefs() {
@@ -111,7 +105,7 @@ public class CleanStatusBarService extends Service {
     private void removeNotification() {
         mNotificationManager.cancel(NOTIFICATION_ID);
     }
-    
+
     public static boolean isRunning() {
     	return sIsRunning;
     }

@@ -9,15 +9,17 @@ import com.emmaguy.cleanstatusbar.MainActivity;
 import com.emmaguy.cleanstatusbar.R;
 
 public class StatusBarConfig {
-
     private static final String RESOURCE_NAME_STATUS_BAR_HEIGHT = "status_bar_height";
 
     private final int mApiLevel;
+    private final boolean mIsKitKatGradientEnabled;
+
     private final Resources mResources;
     private final AssetManager mAssetManager;
 
-    public StatusBarConfig(int apiLevel, Resources r, AssetManager a) {
+    public StatusBarConfig(int apiLevel, boolean isKitKatGradientEnabled, Resources r, AssetManager a) {
         mApiLevel = apiLevel;
+        mIsKitKatGradientEnabled = isKitKatGradientEnabled;
         mResources = r;
         mAssetManager = a;
     }
@@ -27,7 +29,7 @@ public class StatusBarConfig {
     }
 
     public boolean shouldDrawGradient() {
-        return mApiLevel == Build.VERSION_CODES.KITKAT;
+        return mIsKitKatGradientEnabled && mApiLevel == Build.VERSION_CODES.KITKAT;
     }
 
     public int getForegroundColour() {

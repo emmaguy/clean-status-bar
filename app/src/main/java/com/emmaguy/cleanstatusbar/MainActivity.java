@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -21,6 +23,7 @@ import com.emmaguy.cleanstatusbar.prefs.TimePreference;
 public class MainActivity extends Activity {
     public static final String PREFS_KEY_API_VALUE = "api_level";
     public static final String PREFS_KEY_CLOCK_TIME = "clock_time";
+    public static final String PREFS_KEY_KIT_KAT_GRADIENT = "enable_kitkat_gradient";
     public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
 
     public static final int VERSION_CODE_L = 21; // TODO: change to Build.VERSION_CODES.L when it's released
@@ -64,6 +67,15 @@ public class MainActivity extends Activity {
         context.startService(new Intent(context, CleanStatusBarService.class));
     }
 
+    public static int getAPIValue(SharedPreferences prefs) {
+        String apiValue = prefs.getString(MainActivity.PREFS_KEY_API_VALUE, "");
+        if (!TextUtils.isEmpty(apiValue)) {
+            return Integer.valueOf(apiValue);
+        }
+
+        return MainActivity.VERSION_CODE_L;
+    }
+
     public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
         @Override
@@ -73,6 +85,7 @@ public class MainActivity extends Activity {
             addPreferencesFromResource(R.xml.prefs);
 
             initSummary();
+            updateEnableKitKatGradientOption(getPreferenceManager().getSharedPreferences());
         }
 
         @Override
@@ -95,6 +108,15 @@ public class MainActivity extends Activity {
                 stopService(getActivity());
                 startService(getActivity());
             }
+
+            if (key.equals(PREFS_KEY_API_VALUE)) {
+                updateEnableKitKatGradientOption(sharedPreferences);
+            }
+        }
+
+        private void updateEnableKitKatGradientOption(SharedPreferences sharedPreferences) {
+            boolean isKitKat = getAPIValue(sharedPreferences) == Build.VERSION_CODES.KITKAT;
+            findPreference(PREFS_KEY_KIT_KAT_GRADIENT).setEnabled(isKitKat);
         }
 
         protected void initSummary() {

@@ -22,5 +22,6 @@
     <string name="hint_colour_no_hash_char">0000FF</string>
     <string name="invalid_hex_colour">Invalid hex colour</string>
     <string name="touch_to_configure">Touch to configure.</string>
+    <string name="enable_kit_kat_gradient">Enable KitKat gradient</string>
 
 </resources>

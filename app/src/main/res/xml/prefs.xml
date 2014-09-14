@@ -13,6 +13,11 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"/>
 
+        <CheckBoxPreference
+            android:key="enable_kitkat_gradient"
+            android:enabled="false"
+            android:title="@string/enable_kit_kat_gradient"/>
+
         <com.emmaguy.cleanstatusbar.prefs.TimePreference
             android:key="clock_time"
             android:title="@string/Time"/>
