@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,6 +12,20 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical|right"
         android:paddingRight="5dp">
+
+        <ImageView
+            android:id="@+id/status_bar_wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="-6dp"
+            tools:src="@drawable/stat_sys_wifi_signal_4_fully" />
+
+        <ImageView
+            android:id="@+id/status_bar_3g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="1dp"
+            tools:src="@drawable/stat_sys_signal_4_fully" />
 
         <com.emmaguy.cleanstatusbar.widgets.BatteryMeterView
             android:id="@+id/status_bar_battery"

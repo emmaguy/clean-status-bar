@@ -2,7 +2,9 @@ package com.emmaguy.cleanstatusbar.util;
 
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 
 import com.emmaguy.cleanstatusbar.MainActivity;
@@ -66,5 +68,19 @@ public class StatusBarConfig {
 
     public float getFontSize() {
         return 16.0f;
+    }
+
+    public Drawable get3gDrawable() {
+        return getTintedDrawable(mResources, R.drawable.stat_sys_signal_4_fully, getForegroundColour());
+    }
+
+    public Drawable getWifiDrawable() {
+        return getTintedDrawable(mResources, R.drawable.stat_sys_wifi_signal_4_fully, getForegroundColour());
+    }
+
+    public Drawable getTintedDrawable(Resources res, int drawableResId, int colour) {
+        Drawable drawable = res.getDrawable(drawableResId);
+        drawable.setColorFilter(colour, PorterDuff.Mode.SRC_IN);
+        return drawable;
     }
 }

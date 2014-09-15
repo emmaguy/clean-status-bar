@@ -38,7 +38,7 @@ public class CleanStatusBarService extends Service {
         mStatusBarView = new StatusBarView(this);
         mStatusBarConfig = new StatusBarConfig(MainActivity.getAPIValue(getSharedPrefs()), isKitKatGradientEnabled(), getResources(), getAssets());
 
-        mStatusBarView.setStatusBarConfig(mStatusBarConfig, getBackgroundColour(), getClockTime());
+        mStatusBarView.setStatusBarConfig(mStatusBarConfig, getBackgroundColour(), getClockTime(), showWifiIcon(), show3gIcon());
 
         mWindowManager.addView(mStatusBarView, getWindowManagerParams());
         showNotification();
@@ -82,6 +82,14 @@ public class CleanStatusBarService extends Service {
 
     private boolean isKitKatGradientEnabled() {
         return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_KIT_KAT_GRADIENT, false);
+    }
+
+    private boolean showWifiIcon() {
+        return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_SIGNAL_WIFI, false);
+    }
+
+    private boolean show3gIcon() {
+        return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_SIGNAL_3G, false);
     }
 
     private SharedPreferences getSharedPrefs() {

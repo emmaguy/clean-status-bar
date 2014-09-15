@@ -3,17 +3,25 @@
 
     <string name="app_name">Clean Status Bar</string>
 
-    <string name="set_time">Set time</string>
-    <string name="cancel">Cancel</string>
+    <!-- MainActivity -->
+    <string name="settings">Settings</string>
 
+    <string name="api_level">API Level</string>
+    <string name="kit_kat_gradient">KitKat gradient</string>
+    <string name="wifi_icon">Wifi Icon</string>
+    <string name="three_g_icon">3g Icon</string>
     <string name="Time">Time</string>
     <string name="background">Background</string>
 
-    <string name="api_level">API Level</string>
-    <string name="settings">Settings</string>
-
+    <!-- Notification -->
     <string name="clean_status_bar_is_running">Clean status bar is running</string>
+    <string name="touch_to_configure">Touch to configure.</string>
 
+    <!-- Time Preference -->
+    <string name="set_time">Set time</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Colour Preference -->
     <string name="colour_picker_default_title">Status bar background colour</string>
     <string name="add_new_colour">Add new colour</string>
     <string name="enter_the_name_of_your_colour">Enter the name of your colour</string>
@@ -21,7 +29,5 @@
     <string name="enter_the_hex_value_of_your_colour">Enter the hex value of your colour</string>
     <string name="hint_colour_no_hash_char">0000FF</string>
     <string name="invalid_hex_colour">Invalid hex colour</string>
-    <string name="touch_to_configure">Touch to configure.</string>
-    <string name="enable_kit_kat_gradient">Enable KitKat gradient</string>
 
 </resources>

@@ -25,6 +25,8 @@ public class MainActivity extends Activity {
     public static final String PREFS_KEY_CLOCK_TIME = "clock_time";
     public static final String PREFS_KEY_KIT_KAT_GRADIENT = "enable_kitkat_gradient";
     public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
+    public static final String PREFS_KEY_SIGNAL_3G = "signal_3g";
+    public static final String PREFS_KEY_SIGNAL_WIFI = "signal_wifi";
 
     public static final int VERSION_CODE_L = 21; // TODO: change to Build.VERSION_CODES.L when it's released
 
