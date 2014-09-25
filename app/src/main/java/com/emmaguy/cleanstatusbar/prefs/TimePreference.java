@@ -57,7 +57,7 @@ public class TimePreference extends DialogPreference {
 
     private String toTimeDigits(int i) {
         String digit = String.valueOf(i);
-        if(i < 9) {
+        if (i < 10) {
             digit = "0" + digit;
         }
         return digit;
