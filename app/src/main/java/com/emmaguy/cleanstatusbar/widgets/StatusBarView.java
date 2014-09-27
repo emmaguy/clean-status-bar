@@ -98,8 +98,9 @@ public class StatusBarView extends LinearLayout {
         mTimeTextView.setTypeface(font);
     }
 
+    // Note: must be dp to fit in status bar
     private void setFontSize(float fontSize) {
-        mTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        mTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
     }
 
     private void setForegroundColour(int foregroundColour) {
