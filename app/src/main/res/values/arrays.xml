@@ -21,7 +21,6 @@
         <item>@string/green</item>
         <item>@string/yellow</item>
         <item>@string/red</item>
-        <item>@string/red</item>
     </string-array>
 
     <!-- can't reuse other colours as will fail at runtime-->
