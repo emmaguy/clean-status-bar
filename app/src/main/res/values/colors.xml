@@ -12,5 +12,13 @@
 
     <string name="black">Black</string>
     <string name="white">White</string>
+    <string name="blue">Blue</string>
+    <string name="purple">Purple</string>
+    <string name="green">Green</string>
+    <string name="yellow">Yellow</string>
+    <string name="red">Red</string>
+
+    <color name="float_label_normal">#8833B5E5</color>
+    <color name="float_label_activated">#33B5E5</color>
 
 </resources>
