@@ -28,7 +28,7 @@
 
         <com.emmaguy.cleanstatusbar.prefs.TimePreference
             android:key="clock_time"
-            android:title="@string/Time"/>
+            android:title="@string/time"/>
 
         <com.emmaguy.cleanstatusbar.prefs.ColourPreference
             android:key="background_colour"

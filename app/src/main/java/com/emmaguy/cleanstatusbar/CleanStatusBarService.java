@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.view.Gravity;
 import android.view.WindowManager;
 
+import com.emmaguy.cleanstatusbar.prefs.TimePreference;
 import com.emmaguy.cleanstatusbar.util.StatusBarConfig;
 import com.emmaguy.cleanstatusbar.widgets.StatusBarView;
 
@@ -73,7 +74,7 @@ public class CleanStatusBarService extends Service {
     }
 
     public String getClockTime() {
-        return getSharedPrefs().getString(MainActivity.PREFS_KEY_CLOCK_TIME, "12:00");
+        return getSharedPrefs().getString(MainActivity.PREFS_KEY_CLOCK_TIME, TimePreference.DEFAULT_TIME_VALUE);
     }
 
     public int getBackgroundColour() {

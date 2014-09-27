@@ -8,9 +8,9 @@
 
     <string name="api_level">API Level</string>
     <string name="kit_kat_gradient">KitKat gradient</string>
-    <string name="wifi_icon">Wifi Icon</string>
+    <string name="wifi_icon">WiFi Icon</string>
     <string name="three_g_icon">3G Icon</string>
-    <string name="Time">Time</string>
+    <string name="time">Time</string>
     <string name="background">Background</string>
 
     <!-- Notification -->
