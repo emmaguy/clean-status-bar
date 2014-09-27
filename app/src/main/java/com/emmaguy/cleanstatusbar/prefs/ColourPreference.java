@@ -22,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -164,6 +165,28 @@ public class ColourPreference extends Preference {
                     dismiss();
                 }
             });
+            mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long l) {
+                    if (position > mUserColours.size()) {
+                        return false;
+                    }
+
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle(R.string.title_delete_colour)
+                            .setNegativeButton(android.R.string.no, null)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    mUserColours.remove(position);
+                                    ((BaseAdapter) ((HeaderViewListAdapter) mListView.getAdapter()).getWrappedAdapter()).notifyDataSetChanged();
+                                    mPreference.getSharedPreferences().edit().putString(mPreference.getUserColoursKey(), new Gson().toJson(mUserColours)).apply();
+                                }
+                            })
+                            .show();
+                    return true;
+                }
+            });
             View footerView = LayoutInflater.from(getActivity()).inflate(R.layout.colour_preference_footer, null);
             footerView.setOnClickListener(this);
             mListView.addFooterView(footerView);
@@ -263,6 +286,7 @@ public class ColourPreference extends Preference {
                             int colour = getColor(colourValue);
                             mUserColours.add(new Colour(colorName, colour));
                             Collections.sort(mUserColours);
+                            ((BaseAdapter) ((HeaderViewListAdapter) mListView.getAdapter()).getWrappedAdapter()).notifyDataSetChanged();
                             mPreference.getSharedPreferences().edit().putString(mPreference.getUserColoursKey(), new Gson().toJson(mUserColours)).apply();
                             hideKeyboard(getActivity(), editValue);
                             mAlertDialog = null;
