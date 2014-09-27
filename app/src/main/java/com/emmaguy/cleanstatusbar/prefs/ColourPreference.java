@@ -198,7 +198,7 @@ public class ColourPreference extends Preference {
 
         private void showAddColourDialog() {
             final EditText input = new EditText(getActivity());
-            input.setHint(R.string.theme_blue);
+            input.setHint(R.string.hint_theme_blue);
 
             new AlertDialog.Builder(getActivity())
                     .setNegativeButton(R.string.cancel, null)
