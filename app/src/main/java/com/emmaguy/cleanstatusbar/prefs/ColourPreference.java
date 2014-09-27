@@ -12,6 +12,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +25,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.emmaguy.cleanstatusbar.R;
 import com.google.gson.Gson;
@@ -130,8 +131,7 @@ public class ColourPreference extends Preference {
         private ColourPreference mPreference;
         private ColorPreferenceListAdapter mAdapter;
         private ListView mListView;
-
-        private String mNewColourName;
+        private AlertDialog mAlertDialog;
 
         public ColourDialogFragment() {
         }
@@ -196,61 +196,89 @@ public class ColourPreference extends Preference {
             }
         }
 
-        private void showAddColourDialog() {
-            final EditText input = new EditText(getActivity());
-            input.setHint(R.string.hint_theme_blue);
-
-            new AlertDialog.Builder(getActivity())
-                    .setNegativeButton(R.string.cancel, null)
-                    .setPositiveButton(R.string.add_new_colour, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            showEnterColourValueDialog();
-
-                            mNewColourName = input.getText().toString();
-                        }
-                    })
-                    .setTitle(R.string.add_new_colour)
-                    .setMessage(R.string.enter_the_name_of_your_colour)
-                    .setView(input)
-                    .create()
-                    .show();
+        /**
+         * @param str
+         * @return true if the color is valid, false otherwise
+         */
+        private static boolean isValidColor(String str) {
+            try {
+                Color.parseColor(str);
+                return true;
+            } catch (Exception e1) {
+                try {
+                    Color.parseColor("#" + str);
+                    return true;
+                } catch (Exception e2) {
+                }
+            }
+            return false;
         }
 
-        private void showEnterColourValueDialog() {
-            final EditText input = new EditText(getActivity());
-            input.setHint(R.string.hint_colour_no_hash_char);
+        /**
+         * @param str
+         * @return the corresponding color, or 0 if the color isn't valid
+         */
+        private static int getColor(String str) {
+            try {
+                return Color.parseColor(str);
+            } catch (Exception e1) {
+                try {
+                    return Color.parseColor("#" + str);
+                } catch (Exception e2) {
+                }
+            }
+            return 0;
+        }
 
-            new AlertDialog.Builder(getActivity())
-                    .setNegativeButton(R.string.cancel, null)
-                    .setPositiveButton(R.string.add_new_colour, new DialogInterface.OnClickListener() {
+        private void showAddColourDialog() {
+            View root = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_new_color, null);
+            final EditText editName = (EditText) root.findViewById(R.id.edit_color_name);
+            final EditText editValue = (EditText) root.findViewById(R.id.edit_color_value);
+            editValue.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(isValidColor(editable.toString()));
+                }
+            });
+            mAlertDialog = new AlertDialog.Builder(getActivity())
+                    .setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            String colourValue = input.getText().toString();
-
-                            try {
-                                String colourString = colourValue;
-                                if (!colourValue.startsWith("#")) {
-                                    colourString = "#" + colourValue;
-                                }
-
-                                int colour = Color.parseColor(colourString);
-
-                                mUserColours.add(new Colour(mNewColourName, colour));
-                                Collections.sort(mUserColours);
-                                mPreference.getSharedPreferences().edit().putString(mPreference.getUserColoursKey(), new Gson().toJson(mUserColours)).apply();
-
-                                hideKeyboard(getActivity(), input);
-                            } catch (IllegalArgumentException e) {
-                                Toast.makeText(getActivity(), R.string.invalid_hex_colour, Toast.LENGTH_SHORT).show();
-                            }
+                            mAlertDialog = null;
                         }
                     })
-                    .setTitle(R.string.add_new_colour)
-                    .setMessage(R.string.enter_the_hex_value_of_your_colour)
-                    .setView(input)
-                    .create()
-                    .show();
+                    .setPositiveButton(R.string.button_add, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            final String colorName = editName.getText().toString();
+                            final String colourValue = editValue.getText().toString();
+                            int colour = getColor(colourValue);
+                            mUserColours.add(new Colour(colorName, colour));
+                            Collections.sort(mUserColours);
+                            mPreference.getSharedPreferences().edit().putString(mPreference.getUserColoursKey(), new Gson().toJson(mUserColours)).apply();
+                            hideKeyboard(getActivity(), editValue);
+                            mAlertDialog = null;
+                        }
+                    })
+                    .setTitle(R.string.title_add_new_colour)
+                    .setView(root)
+                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialogInterface) {
+                            mAlertDialog = null;
+                        }
+                    })
+                    .create();
+            mAlertDialog.show();
+            mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
         }
     }
 

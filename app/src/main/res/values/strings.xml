@@ -23,11 +23,10 @@
 
     <!-- ColourPreference -->
     <string name="colour_picker_default_title">Status bar background colour</string>
-    <string name="add_new_colour">Add new colour</string>
-    <string name="enter_the_name_of_your_colour">Enter the name of your colour</string>
-    <string name="enter_the_hex_value_of_your_colour">Enter the hex value of your colour</string>
-    <string name="invalid_hex_colour">Invalid hex colour</string>
-    <string name="hint_colour_no_hash_char">0000FF</string>
-    <string name="hint_theme_blue">Theme blue</string>
+    <string name="title_add_new_colour">Add new colour</string>
+    <string name="hint_colour_name">Colour name</string>
+    <string name="hint_colour_value">Colour value (e.g. 33B5E5)</string>
+    <string name="button_add">Add</string>
+    <string name="button_cancel">Cancel</string>
 
 </resources>
