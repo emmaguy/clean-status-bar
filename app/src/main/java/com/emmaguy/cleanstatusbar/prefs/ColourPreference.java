@@ -12,7 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,12 +30,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 // Adapted from DashClock: https://code.google.com/p/dashclock/source/browse/main/src/main/java/com/google/android/apps/dashclock/configuration/ColorPreference.java
 public class ColourPreference extends Preference {
-    private static ArrayList<Colour> mColours = new ArrayList<Colour>();
-
-    private int mValue = 0;
+    private static ArrayList<Colour> mUserColours = new ArrayList<Colour>();
+    private static ArrayList<Colour> mDefaultColours = new ArrayList<Colour>();
 
     public ColourPreference(Context context) {
         this(context, null);
@@ -52,7 +51,7 @@ public class ColourPreference extends Preference {
         setWidgetLayoutResource(R.layout.colour_preference_row);
     }
 
-    private String getColoursKey() {
+    private String getUserColoursKey() {
         return getKey() + "colours";
     }
 
@@ -73,27 +72,29 @@ public class ColourPreference extends Preference {
     protected void onBindView(View view) {
         super.onBindView(view);
 
-        String colours = getSharedPreferences().getString(getColoursKey(), "");
+        mDefaultColours = new ArrayList<Colour>();
+        String[] defaultColourNames = getContext().getResources().getStringArray(R.array.default_colour_choices);
+        String[] defaultColourValues = getContext().getResources().getStringArray(R.array.default_colour_choice_values);
+        for (int i = 0; i < defaultColourValues.length; i++) {
+            mDefaultColours.add(new Colour(defaultColourNames[i], Color.parseColor(defaultColourValues[i])));
+        }
+        Collections.sort(mDefaultColours);
 
-        if (TextUtils.isEmpty(colours)) {
-            String[] colourNames = getContext().getResources().getStringArray(R.array.default_colour_choices);
-            String[] colourValues = getContext().getResources().getStringArray(R.array.default_colour_choice_values);
-            for (int i = 0; i < colourValues.length; i++) {
-                mColours.add(new Colour(colourNames[i], Color.parseColor(colourValues[i])));
-            }
-
-            if(mColours.size() > 0) {
-                Colour defaultValue = mColours.get(0);
-                mValue = defaultValue.mColourValue;
-                persistInt(mValue);
-            }
-
-            getSharedPreferences().edit().putString(getColoursKey(), new Gson().toJson(mColours)).apply();
+        mUserColours = new Gson().fromJson(getSharedPreferences().getString(getUserColoursKey(), ""), new TypeToken<ArrayList<Colour>>() {
+        }.getType());
+        if (mUserColours == null) {
+            mUserColours = new ArrayList<Colour>();
         } else {
-            mColours = new Gson().fromJson(colours, new TypeToken<ArrayList<Colour>>() {}.getType());
+            Collections.sort(mUserColours);
         }
 
-        setColourValue((ImageView) view.findViewById(R.id.colour_view), mValue);
+        int value = getPersistedInt(0);
+        if (value == 0) {
+            value = mDefaultColours.get(0).mColourValue;
+            setValue(value);
+        }
+
+        setColourValue((ImageView) view.findViewById(R.id.colour_view), value);
         ((TextView) view.findViewById(R.id.colour_name)).setText(getTitle());
     }
 
@@ -104,7 +105,6 @@ public class ColourPreference extends Preference {
 
     public void setValue(int value) {
         if (callChangeListener(value)) {
-            mValue = value;
             persistInt(value);
             notifyChanged();
         }
@@ -159,7 +159,7 @@ public class ColourPreference extends Preference {
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> listView, View view, int position, long itemId) {
-                    Colour item = (Colour) mAdapter.getItem(position);
+                    Colour item = mAdapter.getItem(position);
                     mPreference.setValue(item.mColourValue);
                     dismiss();
                 }
@@ -236,8 +236,9 @@ public class ColourPreference extends Preference {
 
                                 int colour = Color.parseColor(colourString);
 
-                                mColours.add(new Colour(mNewColourName, colour));
-                                mPreference.getSharedPreferences().edit().putString(mPreference.getColoursKey(), new Gson().toJson(mColours)).apply();
+                                mUserColours.add(new Colour(mNewColourName, colour));
+                                Collections.sort(mUserColours);
+                                mPreference.getSharedPreferences().edit().putString(mPreference.getUserColoursKey(), new Gson().toJson(mUserColours)).apply();
 
                                 hideKeyboard(getActivity(), input);
                             } catch (IllegalArgumentException e) {
@@ -269,12 +270,15 @@ public class ColourPreference extends Preference {
 
         @Override
         public int getCount() {
-            return mColours.size();
+            return mUserColours.size() + mDefaultColours.size();
         }
 
         @Override
-        public Object getItem(int position) {
-            return mColours.get(position);
+        public Colour getItem(int position) {
+            if (position < mUserColours.size()) {
+                return mUserColours.get(position);
+            }
+            return mDefaultColours.get(position - mUserColours.size());
         }
 
         @Override
@@ -298,7 +302,7 @@ public class ColourPreference extends Preference {
                 holder = (ViewHolder) v.getTag();
             }
 
-            Colour colour = mColours.get(position);
+            Colour colour = getItem(position);
             holder.colourName.setText(colour.mColourName);
             setColourValue(holder.colour, colour.mColourValue);
 
@@ -331,7 +335,7 @@ public class ColourPreference extends Preference {
         imageView.setImageDrawable(colorChoiceDrawable);
     }
 
-    static class Colour {
+    static class Colour implements Comparable<Colour> {
         int mColourValue;
         String mColourName;
 
@@ -339,5 +343,11 @@ public class ColourPreference extends Preference {
             mColourName = colourName;
             mColourValue = colourValue;
         }
+
+        @Override
+        public int compareTo(Colour colour) {
+            return mColourName.compareTo(colour.mColourName);
+        }
     }
+
 }

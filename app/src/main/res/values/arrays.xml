@@ -16,12 +16,23 @@
     <string-array name="default_colour_choices" translatable="false">
         <item>@string/black</item>
         <item>@string/white</item>
+        <item>@string/blue</item>
+        <item>@string/purple</item>
+        <item>@string/green</item>
+        <item>@string/yellow</item>
+        <item>@string/red</item>
+        <item>@string/red</item>
     </string-array>
 
     <!-- can't reuse other colours as will fail at runtime-->
     <string-array name="default_colour_choice_values" translatable="false">
         <item>#000000</item>
         <item>#ffffff</item>
+        <item>#33B5E5</item>
+        <item>#AA66CC</item>
+        <item>#99CC00</item>
+        <item>#FFBB33</item>
+        <item>#FF4444</item>
     </string-array>
 
 </resources>
