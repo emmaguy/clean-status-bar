@@ -3,7 +3,8 @@
 
     <!-- ColourPreference -->
     <string name="colour_picker_default_title">Status bar background color</string>
-    <string name="title_delete_colour">Delete this color?</string>
+    <string name="title_delete_colour">Delete color</string>
+    <string name="message_delete_colour">Are you sure you want to delete this color?</string>
     <string name="title_add_new_colour">Add new color</string>
     <string name="hint_colour_name">Color name</string>
     <string name="hint_colour_value">Color value (e.g. 33B5E5)</string>

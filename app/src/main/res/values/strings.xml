@@ -24,11 +24,14 @@
 
     <!-- ColourPreference -->
     <string name="colour_picker_default_title">Status bar background colour</string>
-    <string name="title_delete_colour">Delete this colour?</string>
+    <string name="title_delete_colour">Delete colour</string>
+    <string name="message_delete_colour">Are you sure you want to delete this colour?</string>
     <string name="title_add_new_colour">Add new colour</string>
     <string name="hint_colour_name">Colour name</string>
     <string name="hint_colour_value">Colour value (e.g. 33B5E5)</string>
     <string name="button_add">Add</string>
     <string name="button_cancel">@string/cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

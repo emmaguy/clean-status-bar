@@ -174,8 +174,9 @@ public class ColourPreference extends Preference {
 
                     new AlertDialog.Builder(getActivity())
                             .setTitle(R.string.title_delete_colour)
-                            .setNegativeButton(android.R.string.no, null)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            .setMessage(R.string.message_delete_colour)
+                            .setNegativeButton(R.string.no, null)
+                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     mUserColours.remove(position);
