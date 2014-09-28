@@ -13,6 +13,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -36,8 +37,7 @@ import java.util.Collections;
 
 // Adapted from DashClock: https://code.google.com/p/dashclock/source/browse/main/src/main/java/com/google/android/apps/dashclock/configuration/ColorPreference.java
 public class ColourPreference extends Preference {
-    private static ArrayList<Colour> mUserColours = new ArrayList<Colour>();
-    private static ArrayList<Colour> mDefaultColours = new ArrayList<Colour>();
+    private static ArrayList<Colour> mColours = new ArrayList<Colour>();
 
     public ColourPreference(Context context) {
         this(context, null);
@@ -74,25 +74,23 @@ public class ColourPreference extends Preference {
     protected void onBindView(View view) {
         super.onBindView(view);
 
-        mDefaultColours = new ArrayList<Colour>();
-        String[] defaultColourNames = getContext().getResources().getStringArray(R.array.default_colour_choices);
-        String[] defaultColourValues = getContext().getResources().getStringArray(R.array.default_colour_choice_values);
-        for (int i = 0; i < defaultColourValues.length; i++) {
-            mDefaultColours.add(new Colour(defaultColourNames[i], Color.parseColor(defaultColourValues[i])));
-        }
-        Collections.sort(mDefaultColours);
+        String json = getSharedPreferences().getString(getUserColoursKey(), "");
+        mColours = new Gson().fromJson(json, new TypeToken<ArrayList<Colour>>() {}.getType());
 
-        mUserColours = new Gson().fromJson(getSharedPreferences().getString(getUserColoursKey(), ""), new TypeToken<ArrayList<Colour>>() {
-        }.getType());
-        if (mUserColours == null) {
-            mUserColours = new ArrayList<Colour>();
-        } else {
-            Collections.sort(mUserColours);
+        if (mColours == null) {
+            mColours = new ArrayList<Colour>();
+
+            String[] defaultColourNames = getContext().getResources().getStringArray(R.array.default_colour_choices);
+            String[] defaultColourValues = getContext().getResources().getStringArray(R.array.default_colour_choice_values);
+            for (int i = 0; i < defaultColourValues.length; i++) {
+                mColours.add(new Colour(defaultColourNames[i], Color.parseColor(defaultColourValues[i])));
+            }
         }
+        Collections.sort(mColours);
 
         int value = getPersistedInt(0);
         if (value == 0) {
-            value = mDefaultColours.get(0).mColourValue;
+            value = mColours.get(0).mColourValue;
             setValue(value);
         }
 
@@ -168,10 +166,6 @@ public class ColourPreference extends Preference {
             mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long l) {
-                    if (position > mUserColours.size()) {
-                        return false;
-                    }
-
                     new AlertDialog.Builder(getActivity())
                             .setTitle(R.string.title_delete_colour)
                             .setMessage(R.string.message_delete_colour)
@@ -179,9 +173,9 @@ public class ColourPreference extends Preference {
                             .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    mUserColours.remove(position);
+                                    mColours.remove(position);
                                     ((BaseAdapter) ((HeaderViewListAdapter) mListView.getAdapter()).getWrappedAdapter()).notifyDataSetChanged();
-                                    mPreference.getSharedPreferences().edit().putString(mPreference.getUserColoursKey(), new Gson().toJson(mUserColours)).apply();
+                                    mPreference.getSharedPreferences().edit().putString(mPreference.getUserColoursKey(), new Gson().toJson(mColours)).apply();
                                 }
                             })
                             .show();
@@ -222,7 +216,7 @@ public class ColourPreference extends Preference {
 
         /**
          * @param str
-         * @return true if the color is valid, false otherwise
+         * @return true if the colour is valid, false otherwise
          */
         private static boolean isValidColor(String str) {
             try {
@@ -240,7 +234,7 @@ public class ColourPreference extends Preference {
 
         /**
          * @param str
-         * @return the corresponding color, or 0 if the color isn't valid
+         * @return the corresponding colour, or 0 if the colour isn't valid
          */
         private static int getColor(String str) {
             try {
@@ -255,23 +249,33 @@ public class ColourPreference extends Preference {
         }
 
         private void showAddColourDialog() {
-            View root = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_new_color, null);
+            View root = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_new_colour, null);
+
             final EditText editName = (EditText) root.findViewById(R.id.edit_color_name);
             final EditText editValue = (EditText) root.findViewById(R.id.edit_color_value);
-            editValue.addTextChangedListener(new TextWatcher() {
+            TextWatcher textWatcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 }
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
                 }
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(isValidColor(editable.toString()));
+                    updateAddButtonEnabledState();
                 }
-            });
+
+                private void updateAddButtonEnabledState() {
+                    boolean enabled = isValidColor(editValue.getText().toString()) && !TextUtils.isEmpty(editName.getText());
+                    mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(enabled);
+                }
+            };
+            editName.addTextChangedListener(textWatcher);
+            editValue.addTextChangedListener(textWatcher);
+
             mAlertDialog = new AlertDialog.Builder(getActivity())
                     .setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
                         @Override
@@ -284,11 +288,12 @@ public class ColourPreference extends Preference {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             final String colorName = editName.getText().toString();
                             final String colourValue = editValue.getText().toString();
+
                             int colour = getColor(colourValue);
-                            mUserColours.add(new Colour(colorName, colour));
-                            Collections.sort(mUserColours);
+                            mColours.add(new Colour(colorName, colour));
+                            Collections.sort(mColours);
                             ((BaseAdapter) ((HeaderViewListAdapter) mListView.getAdapter()).getWrappedAdapter()).notifyDataSetChanged();
-                            mPreference.getSharedPreferences().edit().putString(mPreference.getUserColoursKey(), new Gson().toJson(mUserColours)).apply();
+                            mPreference.getSharedPreferences().edit().putString(mPreference.getUserColoursKey(), new Gson().toJson(mColours)).apply();
                             hideKeyboard(getActivity(), editValue);
                             mAlertDialog = null;
                         }
@@ -323,15 +328,12 @@ public class ColourPreference extends Preference {
 
         @Override
         public int getCount() {
-            return mUserColours.size() + mDefaultColours.size();
+            return mColours.size();
         }
 
         @Override
         public Colour getItem(int position) {
-            if (position < mUserColours.size()) {
-                return mUserColours.get(position);
-            }
-            return mDefaultColours.get(position - mUserColours.size());
+            return mColours.get(position);
         }
 
         @Override
@@ -370,7 +372,6 @@ public class ColourPreference extends Preference {
             public TextView colourName;
             public ImageView colour;
         }
-
     }
 
     private static void setColourValue(ImageView imageView, int colourResId) {
