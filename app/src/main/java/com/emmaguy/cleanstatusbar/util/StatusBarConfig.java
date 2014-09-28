@@ -39,7 +39,11 @@ public class StatusBarConfig {
 
         switch (mApiLevel) {
             case Build.VERSION_CODES.KITKAT:
-                colourResId = R.color.android_kitkat_status_bar;
+                if(shouldDrawGradient()) {
+                    colourResId = R.color.android_kitkat_status_bar_gradient;
+                } else {
+                    colourResId = R.color.android_kitkat_status_bar_default;
+                }
                 break;
             case MainActivity.VERSION_CODE_L:
                 colourResId = R.color.android_l_status_bar;
