@@ -22,6 +22,15 @@
     <string name="set_time">Set time</string>
     <string name="cancel">Cancel</string>
 
+    <!-- Colours -->
+    <string name="black">Black</string>
+    <string name="white">White</string>
+    <string name="blue">Blue</string>
+    <string name="purple">Purple</string>
+    <string name="green">Green</string>
+    <string name="yellow">Yellow</string>
+    <string name="red">Red</string>
+
     <!-- ColourPreference -->
     <string name="colour_picker_default_title">Status bar background colour</string>
     <string name="title_delete_colour">Delete colour</string>
