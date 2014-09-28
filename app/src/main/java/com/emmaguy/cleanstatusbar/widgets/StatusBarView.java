@@ -1,6 +1,7 @@
 package com.emmaguy.cleanstatusbar.widgets;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -78,13 +79,25 @@ public class StatusBarView extends LinearLayout {
         }
 
         if (statusBarConfig.shouldDrawGradient()) {
-            Drawable[] layers = {new ColorDrawable(backgroundColour), getResources().getDrawable(R.drawable.gradient_bg)};
+            Drawable[] layers = {new ColorDrawable(backgroundColour), getResources().getDrawable(R.drawable.status_background)};
             LayerDrawable layerDrawable = new LayerDrawable(layers);
 
-            setBackgroundDrawable(layerDrawable);
+            setBackgroundAndKeepPadding(this, layerDrawable);
         } else {
             setBackgroundColor(backgroundColour);
         }
+    }
+
+    private void setBackgroundAndKeepPadding(View view, Drawable backgroundDrawable) {
+        Rect drawablePadding = new Rect();
+        backgroundDrawable.getPadding(drawablePadding);
+        int top = view.getPaddingTop() + drawablePadding.top;
+        int left = view.getPaddingLeft() + drawablePadding.left;
+        int right = view.getPaddingRight() + drawablePadding.right;
+        int bottom = view.getPaddingBottom() + drawablePadding.bottom;
+
+        view.setBackgroundDrawable(backgroundDrawable);
+        view.setPadding(left, top, right, bottom);
     }
 
     private int dpToPx(float dp) {
