@@ -36,7 +36,8 @@ public class StatusBarView extends LinearLayout {
         super(context, attrs, defStyle);
 
         setOrientation(LinearLayout.HORIZONTAL);
-        setGravity(Gravity.RIGHT);
+        setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+        setPadding(0, 0, dpToPx(6), 0);
 
         LayoutInflater.from(context).inflate(R.layout.status_bar, this);
 
