@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
@@ -23,6 +24,7 @@ import com.emmaguy.cleanstatusbar.prefs.TimePreference;
 public class MainActivity extends Activity {
     public static final String PREFS_KEY_API_VALUE = "api_level";
     public static final String PREFS_KEY_CLOCK_TIME = "clock_time";
+    public static final String PREFS_KEY_USE_24_HOUR_FORMAT = "use_24_hour";
     public static final String PREFS_KEY_KIT_KAT_GRADIENT = "enable_kitkat_gradient";
     public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
     public static final String PREFS_KEY_SIGNAL_3G = "signal_3g";
@@ -88,6 +90,7 @@ public class MainActivity extends Activity {
 
             initSummary();
             updateEnableKitKatGradientOption(getPreferenceManager().getSharedPreferences());
+            updateTimePreference();
         }
 
         @Override
@@ -113,7 +116,18 @@ public class MainActivity extends Activity {
 
             if (key.equals(PREFS_KEY_API_VALUE)) {
                 updateEnableKitKatGradientOption(sharedPreferences);
+            } else if (key.equals(PREFS_KEY_USE_24_HOUR_FORMAT)) {
+                updateTimePreference();
             }
+        }
+
+        private void updateTimePreference() {
+            CheckBoxPreference pref = (CheckBoxPreference) findPreference(PREFS_KEY_USE_24_HOUR_FORMAT);
+
+            TimePreference timePreference = (TimePreference) findPreference(PREFS_KEY_CLOCK_TIME);
+            timePreference.setIs24HourFormat(pref.isChecked());
+
+            updatePrefsSummary(timePreference);
         }
 
         private void updateEnableKitKatGradientOption(SharedPreferences sharedPreferences) {

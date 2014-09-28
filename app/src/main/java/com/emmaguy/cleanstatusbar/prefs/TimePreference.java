@@ -11,17 +11,26 @@ import com.emmaguy.cleanstatusbar.R;
 
 // Adapted from https://github.com/commonsguy/cw-lunchlist/blob/master/19-Alarm/LunchList/src/apt/tutorial/TimePreference.java
 public class TimePreference extends DialogPreference {
+    public static final String DEFAULT_TIME_VALUE = "12:00";
+
     private int mLastHour = 0;
     private int mLastMinute = 0;
 
     private TimePicker mTimePicker = null;
-    public static final String DEFAULT_TIME_VALUE = "12:00";
+
+    private boolean mIs24HourFormat;
 
     public TimePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         setPositiveButtonText(R.string.set_time);
         setNegativeButtonText(R.string.cancel);
+    }
+
+    public void setIs24HourFormat(boolean is24HourFormat) {
+        mIs24HourFormat = is24HourFormat;
+
+        updateTime();
     }
 
     @Override
@@ -44,14 +53,33 @@ public class TimePreference extends DialogPreference {
         super.onDialogClosed(positiveResult);
 
         if (positiveResult) {
+            updateTime();
+        }
+    }
+
+    private void updateTime() {
+        if (mTimePicker != null) {
             mLastHour = mTimePicker.getCurrentHour();
             mLastMinute = mTimePicker.getCurrentMinute();
+        } else {
+            String time = getPersistedString(DEFAULT_TIME_VALUE);
+            mLastHour = getHour(time);
+            mLastMinute = getMinute(time);
+        }
 
-            String time = mLastHour + ":" + toTimeDigits(mLastMinute);
-
-            if (callChangeListener(time)) {
-                persistString(time);
+        String hourValue = String.valueOf(mLastHour);
+        if (mIs24HourFormat) {
+            hourValue = toTimeDigits(mLastHour);
+        } else {
+            if (mLastHour > 12) {
+                hourValue = String.valueOf(mLastHour - 12);
             }
+        }
+
+        String time = hourValue + ":" + toTimeDigits(mLastMinute);
+
+        if (callChangeListener(time)) {
+            persistString(time);
         }
     }
 

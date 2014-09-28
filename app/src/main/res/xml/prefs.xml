@@ -30,6 +30,10 @@
             android:key="clock_time"
             android:title="@string/time"/>
 
+        <CheckBoxPreference
+            android:key="use_24_hour"
+            android:title="@string/use_24_hour_format"/>
+
         <com.emmaguy.cleanstatusbar.prefs.ColourPreference
             android:key="background_colour"
             android:title="@string/background"
