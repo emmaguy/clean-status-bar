@@ -33,7 +33,7 @@
 
     <!-- ColourPreference -->
     <string name="title_delete_colour">Supprimer cette couleur</string>
-    <string name="message_delete_colour">Êtes vous certain de supprimer cette couleur ?</string>
+    <string name="message_delete_colour">Êtes-vous certain de supprimer cette couleur ?</string>
     <string name="title_add_new_colour">Ajouter une couleur</string>
     <string name="hint_colour_name">Nom</string>
     <string name="hint_colour_value">Valeur (ex 33B5E5)</string>
