@@ -15,6 +15,7 @@ public class StatusBarConfig {
 
     private final int mApiLevel;
     private final boolean mIsKitKatGradientEnabled;
+    private boolean androidLEnabled;
 
     private final Resources mResources;
     private final AssetManager mAssetManager;
@@ -39,6 +40,8 @@ public class StatusBarConfig {
 
         switch (mApiLevel) {
             case Build.VERSION_CODES.KITKAT:
+                androidLEnabled = false;
+
                 if(shouldDrawGradient()) {
                     colourResId = R.color.android_kitkat_status_bar_gradient;
                 } else {
@@ -46,6 +49,8 @@ public class StatusBarConfig {
                 }
                 break;
             case MainActivity.VERSION_CODE_L:
+                androidLEnabled = true;
+
                 colourResId = R.color.android_l_status_bar;
                 break;
         }
@@ -75,11 +80,19 @@ public class StatusBarConfig {
     }
 
     public Drawable get3gDrawable() {
-        return getTintedDrawable(mResources, R.drawable.stat_sys_signal_4_fully, getForegroundColour());
+        if(androidLEnabled){
+            return getTintedDrawable(mResources, R.drawable.stat_sys_signal_4_fully_l, getForegroundColour());
+        }else{
+            return getTintedDrawable(mResources, R.drawable.stat_sys_signal_4_fully, getForegroundColour());
+        }
     }
 
     public Drawable getWifiDrawable() {
-        return getTintedDrawable(mResources, R.drawable.stat_sys_wifi_signal_4_fully, getForegroundColour());
+        if(androidLEnabled){
+            return getTintedDrawable(mResources, R.drawable.stat_sys_wifi_signal_4_fully_l, getForegroundColour());
+        }else{
+            return getTintedDrawable(mResources, R.drawable.stat_sys_wifi_signal_4_fully, getForegroundColour());
+        }
     }
 
     public Drawable getTintedDrawable(Resources res, int drawableResId, int colour) {
