@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -374,7 +375,7 @@ public class ColourPreference extends Preference {
         }
     }
 
-    private static void setColourValue(ImageView imageView, int colourResId) {
+    private static void setColourValue(ImageView imageView, int colour) {
         Drawable currentDrawable = imageView.getDrawable();
         GradientDrawable colorChoiceDrawable;
         if (currentDrawable != null && currentDrawable instanceof GradientDrawable) {
@@ -385,7 +386,12 @@ public class ColourPreference extends Preference {
             colorChoiceDrawable.setShape(GradientDrawable.OVAL);
         }
 
-        colorChoiceDrawable.setColor(colourResId);
+        // Set stroke to darker version of color
+        float scale = 0.80f;
+        int stroke = Color.rgb((int) (Color.red(colour) * scale), (int) (Color.green(colour) * scale), (int) (Color.blue(colour) * scale));
+
+        colorChoiceDrawable.setColor(colour);
+        colorChoiceDrawable.setStroke((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, imageView.getResources().getDisplayMetrics()), stroke);
         imageView.setImageDrawable(colorChoiceDrawable);
     }
 
