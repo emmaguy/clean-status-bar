@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Clean Status Bar</string>
+
+    <!-- MainActivity -->
+    <string name="settings">Paramètres</string>
+
+    <string name="api_level">Niveau d\'API</string>
+    <string name="kit_kat_gradient">Dégradé KitKat</string>
+    <string name="wifi_icon">Icône WiFi</string>
+    <string name="three_g_icon">Icône 3G</string>
+    <string name="time">Heure</string>
+    <string name="use_24_hour_format">Format 24h</string>
+    <string name="background">Couleur de fond</string>
+
+    <!-- Notification -->
+    <string name="clean_status_bar_is_running">Clean status bar est actif</string>
+    <string name="touch_to_configure">Appuyez pour configurer</string>
+
+    <!-- TimePreference -->
+    <string name="set_time">Valider</string>
+    <string name="cancel">Annuler</string>
+
+    <!-- Colours -->
+    <string name="black">Noir</string>
+    <string name="white">Blanc</string>
+    <string name="blue">Bleu</string>
+    <string name="purple">Violet</string>
+    <string name="green">Vert</string>
+    <string name="yellow">Jaune</string>
+    <string name="red">Rouge</string>
+
+    <!-- ColourPreference -->
+    <string name="title_delete_colour">Supprimer cette couleur</string>
+    <string name="message_delete_colour">Êtes-vous certain de supprimer cette couleur ?</string>
+    <string name="title_add_new_colour">Ajouter une couleur</string>
+    <string name="hint_colour_name">Nom</string>
+    <string name="hint_colour_value">Valeur (ex 33B5E5)</string>
+    <string name="button_add">Ajouter</string>
+    <string name="button_cancel">@string/cancel</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+
+</resources>
