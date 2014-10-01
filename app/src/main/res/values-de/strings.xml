@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Clean Status Bar</string>
+
+    <!-- MainActivity -->
+    <string name="settings">Einstellungen</string>
+
+    <string name="api_level">API Level</string>
+    <string name="kit_kat_gradient">KitKat Verlauf</string>
+    <string name="wifi_icon">WiFi Icon</string>
+    <string name="three_g_icon">3G Icon</string>
+    <string name="time">Zeit</string>
+    <string name="use_24_hour_format">Nutze 24-Stunden Format</string>
+    <string name="background">Hintergrund</string>
+
+    <!-- Notification -->
+    <string name="clean_status_bar_is_running">Clean Status Bar ist gestartet</string>
+    <string name="touch_to_configure">Touch um zu konfigurieren.</string>
+
+    <!-- TimePreference -->
+    <string name="set_time">Zeit einstellen</string>
+    <string name="cancel">Abbrechen</string>
+
+    <!-- Colours -->
+    <string name="black">Schwarz</string>
+    <string name="white">Weiß</string>
+    <string name="blue">Blau</string>
+    <string name="purple">Lila</string>
+    <string name="green">Grün</string>
+    <string name="yellow">Gelb</string>
+    <string name="red">Rot</string>
+
+    <!-- ColourPreference -->
+    <string name="colour_picker_default_title">Status Bar Hintergrundfarbe</string>
+    <string name="title_delete_colour">Farbe löschen</string>
+    <string name="message_delete_colour">Sicher, dass diese Farbe gelöscht werden soll?</string>
+    <string name="title_add_new_colour">Neue Farbe hinzufügen</string>
+    <string name="hint_colour_name">Farbname</string>
+    <string name="hint_colour_value">Farbwert (z.B. 33B5E5)</string>
+    <string name="button_add">Hinzufügen</string>
+    <string name="button_cancel">@string/cancel</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+
+</resources>
