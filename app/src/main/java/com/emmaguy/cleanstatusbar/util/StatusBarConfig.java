@@ -75,16 +75,28 @@ public class StatusBarConfig {
     }
 
     public Drawable get3gDrawable() {
-        return getTintedDrawable(mResources, R.drawable.stat_sys_signal_4_fully, getForegroundColour());
+        if(isAndroidL()){
+            return getTintedDrawable(mResources, R.drawable.stat_sys_signal_4_fully_l, getForegroundColour());
+        }else{
+            return getTintedDrawable(mResources, R.drawable.stat_sys_signal_4_fully, getForegroundColour());
+        }
     }
 
     public Drawable getWifiDrawable() {
-        return getTintedDrawable(mResources, R.drawable.stat_sys_wifi_signal_4_fully, getForegroundColour());
+        if(isAndroidL()){
+            return getTintedDrawable(mResources, R.drawable.stat_sys_wifi_signal_4_fully_l, getForegroundColour());
+        }else{
+            return getTintedDrawable(mResources, R.drawable.stat_sys_wifi_signal_4_fully, getForegroundColour());
+        }
     }
 
     public Drawable getTintedDrawable(Resources res, int drawableResId, int colour) {
         Drawable drawable = res.getDrawable(drawableResId);
         drawable.setColorFilter(colour, PorterDuff.Mode.SRC_IN);
         return drawable;
+    }
+
+    public boolean isAndroidL(){
+        return mApiLevel >= 20;
     }
 }
