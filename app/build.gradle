@@ -8,8 +8,8 @@ android {
         applicationId "com.emmaguy.cleanstatusbar"
         minSdkVersion 15
         targetSdkVersion 20
-        versionCode 8
-        versionName "1.0.5"
+        versionCode 9
+        versionName "1.0.6"
     }
     buildTypes {
         debug{
