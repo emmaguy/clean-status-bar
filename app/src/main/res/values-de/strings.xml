@@ -32,7 +32,6 @@
     <string name="red">Rot</string>
 
     <!-- ColourPreference -->
-    <string name="colour_picker_default_title">Status Bar Hintergrundfarbe</string>
     <string name="title_delete_colour">Farbe löschen</string>
     <string name="message_delete_colour">Sicher, dass diese Farbe gelöscht werden soll?</string>
     <string name="title_add_new_colour">Neue Farbe hinzufügen</string>
