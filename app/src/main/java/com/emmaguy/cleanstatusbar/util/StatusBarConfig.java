@@ -53,8 +53,12 @@ public class StatusBarConfig {
         return mResources.getColor(colourResId);
     }
 
+    private boolean isAndroidL(){
+        return mApiLevel == MainActivity.VERSION_CODE_L;
+    }
+
     public Typeface getFont() {
-        if (mApiLevel == MainActivity.VERSION_CODE_L) {
+        if (isAndroidL()) {
             return Typeface.createFromAsset(mAssetManager, "fonts/Roboto-Medium.ttf");
         }
 
@@ -94,9 +98,5 @@ public class StatusBarConfig {
         Drawable drawable = res.getDrawable(drawableResId);
         drawable.setColorFilter(colour, PorterDuff.Mode.SRC_IN);
         return drawable;
-    }
-
-    public boolean isAndroidL(){
-        return mApiLevel >= 20;
     }
 }
