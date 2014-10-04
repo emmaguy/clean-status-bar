@@ -19,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.emmaguy.cleanstatusbar.prefs.TimePreference;
+import com.emmaguy.cleanstatusbar.util.StatusBarConfig;
 
 
 public class MainActivity extends Activity {
@@ -29,8 +30,6 @@ public class MainActivity extends Activity {
     public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
     public static final String PREFS_KEY_SIGNAL_3G = "signal_3g";
     public static final String PREFS_KEY_SIGNAL_WIFI = "signal_wifi";
-
-    public static final int VERSION_CODE_L = 21; // TODO: change to Build.VERSION_CODES.L when it's released
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +76,7 @@ public class MainActivity extends Activity {
             return Integer.valueOf(apiValue);
         }
 
-        return MainActivity.VERSION_CODE_L;
+        return StatusBarConfig.VERSION_CODE_L_DEVELOPER_PREVIEW;
     }
 
     public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {

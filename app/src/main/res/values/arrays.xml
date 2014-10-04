@@ -3,11 +3,13 @@
 
     <string-array name="api_level_entries" translatable="false">
         <item>L</item>
+        <item>L (developer preview)</item>
         <item>KitKat (v19)</item>
         <item>Jelly Bean (v16)</item>
     </string-array>
 
     <string-array name="api_level_entry_values" translatable="false">
+        <item>1000</item>
         <item>21</item>
         <item>19</item>
         <item>16</item>
