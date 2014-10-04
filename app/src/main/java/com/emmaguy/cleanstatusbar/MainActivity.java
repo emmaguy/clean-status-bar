@@ -96,13 +96,15 @@ public class MainActivity extends Activity {
         @Override
         public void onResume() {
             super.onResume();
+
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         }
 
         @Override
         public void onPause() {
-            super.onPause();
             getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+
+            super.onPause();
         }
 
         @Override

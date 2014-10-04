@@ -59,13 +59,14 @@ public class CleanStatusBarService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         sIsRunning = false;
 
         if (mStatusBarView != null) {
             mWindowManager.removeView(mStatusBarView);
         }
         removeNotification();
+
+        super.onDestroy();
     }
 
     @Override
