@@ -15,6 +15,28 @@
         <item>16</item>
     </string-array>
 
+    <string-array name="threeg_icon_entries">
+        <item>@string/off</item>
+        <item>@string/empty</item>
+        <item>GPRS</item>
+        <item>EDGE</item>
+        <item>UMTS (3G)</item>
+        <item>HSDPA</item>
+        <item>LTE (4G)</item>
+        <item>Roaming</item>
+    </string-array>
+
+    <string-array name="threeg_icon_values" translatable="false">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>99</item>
+    </string-array>
+
     <string-array name="default_colour_choices" translatable="false">
         <item>@string/black</item>
         <item>@string/white</item>

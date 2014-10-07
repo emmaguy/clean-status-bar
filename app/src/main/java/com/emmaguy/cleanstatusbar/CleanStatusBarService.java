@@ -90,8 +90,8 @@ public class CleanStatusBarService extends Service {
         return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_SIGNAL_WIFI, false);
     }
 
-    private boolean show3gIcon() {
-        return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_SIGNAL_3G, false);
+    private int show3gIcon() {
+        return Integer.parseInt(getSharedPrefs().getString(MainActivity.PREFS_KEY_SIGNAL_3G, "-1"));
     }
 
     private SharedPreferences getSharedPrefs() {

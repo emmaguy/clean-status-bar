@@ -13,6 +13,8 @@
     <string name="time">Heure</string>
     <string name="use_24_hour_format">Format 24h</string>
     <string name="background">Couleur de fond</string>
+    <string name="off">Off</string>
+    <string name="empty">Vide</string>
 
     <!-- Notification -->
     <string name="clean_status_bar_is_running">Clean status bar est actif</string>

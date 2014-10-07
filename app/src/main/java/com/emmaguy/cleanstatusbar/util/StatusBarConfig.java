@@ -91,11 +91,67 @@ public class StatusBarConfig {
         return 16.0f;
     }
 
-    public Drawable get3gDrawable() {
+    public Drawable get3gDrawable(int icon) {
         if (isAndroidLPreRelease()) {
-            return getTintedDrawable(mResources, R.drawable.stat_sys_signal_4_fully_l, getForegroundColour());
+            switch (icon) {
+                case 1:
+                    icon = R.drawable.icon_g_l;
+                    break;
+
+                case 2:
+                    icon = R.drawable.icon_e_l;
+                    break;
+
+                case 3:
+                    icon = R.drawable.icon_3g_l;
+                    break;
+
+                case 4:
+                    icon = R.drawable.icon_h_l;
+                    break;
+
+                case 5:
+                    icon = R.drawable.icon_lte_l;
+                    break;
+
+                case 99:
+                    icon = R.drawable.icon_roam_l;
+                    break;
+
+                default:
+                    icon = R.drawable.icon_off_l;
+            }
+            return getTintedDrawable(mResources, icon, getForegroundColour());
         } else {
-            return getTintedDrawable(mResources, R.drawable.stat_sys_signal_4_fully, getForegroundColour());
+            switch (icon) {
+                case 1:
+                    icon = R.drawable.icon_g;
+                    break;
+
+                case 2:
+                    icon = R.drawable.icon_e;
+                    break;
+
+                case 3:
+                    icon = R.drawable.icon_3g;
+                    break;
+
+                case 4:
+                    icon = R.drawable.icon_h;
+                    break;
+
+                case 5:
+                    icon = R.drawable.icon_lte;
+                    break;
+
+                case 99:
+                    icon = R.drawable.icon_roam;
+                    break;
+
+                default:
+                    icon = R.drawable.icon_off;
+            }
+            return getTintedDrawable(mResources, icon, getForegroundColour());
         }
     }
 

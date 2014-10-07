@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
     public static final String PREFS_KEY_USE_24_HOUR_FORMAT = "use_24_hour";
     public static final String PREFS_KEY_KIT_KAT_GRADIENT = "enable_kitkat_gradient";
     public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
-    public static final String PREFS_KEY_SIGNAL_3G = "signal_3g";
+    public static final String PREFS_KEY_SIGNAL_3G = "signal_3g_icon";
     public static final String PREFS_KEY_SIGNAL_WIFI = "signal_wifi";
 
     @Override
