@@ -9,10 +9,12 @@
     <string name="api_level">Niveau d\'API</string>
     <string name="kit_kat_gradient">Dégradé KitKat</string>
     <string name="wifi_icon">Icône WiFi</string>
-    <string name="three_g_icon">Icône 3G</string>
+    <string name="network_icon">Icône Réseau</string>
     <string name="time">Heure</string>
     <string name="use_24_hour_format">Format 24h</string>
     <string name="background">Couleur de fond</string>
+    <string name="off">Off</string>
+    <string name="empty">Vide</string>
 
     <!-- Notification -->
     <string name="clean_status_bar_is_running">Clean status bar est actif</string>

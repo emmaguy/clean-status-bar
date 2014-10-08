@@ -48,21 +48,22 @@ public class StatusBarView extends LinearLayout {
         mWifiView = (ImageView) findViewById(R.id.status_bar_wifi);
     }
 
-    public void setStatusBarConfig(StatusBarConfig statusBarConfig, int backgroundColour, String clockTime, boolean shouldShowWifi, boolean shouldShould3g) {
+    public void setStatusBarConfig(StatusBarConfig statusBarConfig, int backgroundColour, String clockTime, boolean shouldShowWifi, int icon3G) {
         setClockTime(clockTime);
         setFont(statusBarConfig.getFont());
         setFontSize(statusBarConfig.getFontSize());
         setForegroundColour(statusBarConfig.getForegroundColour());
 
-        if(shouldShould3g) {
+        if(icon3G >= 0) {
             m3gView.setVisibility(View.VISIBLE);
-            m3gView.setImageDrawable(statusBarConfig.get3gDrawable());
+            m3gView.setImageDrawable(statusBarConfig.get3gDrawable(icon3G));
         } else {
             m3gView.setVisibility(View.GONE);
         }
 
         if(shouldShowWifi) {
-            if(shouldShould3g) {
+            if(icon3G >= 0) {
+                m3gView.setImageDrawable(statusBarConfig.get3gDrawable(0));
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mWifiView.getLayoutParams();
                 params.setMargins(0, 0, dpToPx(-6), 0);
                 mWifiView.setPadding(0, 0, 0, 0);
