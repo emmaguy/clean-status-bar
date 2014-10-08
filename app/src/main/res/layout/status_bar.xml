@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="1dp"
-            android:src="@drawable/icon_off" />
+            android:src="@drawable/network_icon_off" />
 
         <com.emmaguy.cleanstatusbar.widgets.BatteryMeterView
             android:id="@+id/status_bar_battery"

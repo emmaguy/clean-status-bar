@@ -9,7 +9,7 @@
     <string name="api_level">API Level</string>
     <string name="kit_kat_gradient">KitKat Verlauf</string>
     <string name="wifi_icon">WiFi Icon</string>
-    <string name="three_g_icon">3G Icon</string>
+    <string name="network_icon">Netzwerk Icon</string>
     <string name="time">Zeit</string>
     <string name="use_24_hour_format">Nutze 24-Stunden Format</string>
     <string name="background">Hintergrund</string>

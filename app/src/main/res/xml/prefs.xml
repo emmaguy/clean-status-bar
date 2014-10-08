@@ -23,10 +23,10 @@
             android:title="@string/wifi_icon"/>
 
         <ListPreference
-            android:key="signal_3g_icon"
-            android:title="@string/three_g_icon"
-            android:entries="@array/threeg_icon_entries"
-            android:entryValues="@array/threeg_icon_values"
+            android:key="signal_network_icon"
+            android:title="@string/network_icon"
+            android:entries="@array/network_icon_entries"
+            android:entryValues="@array/network_icon_values"
             android:defaultValue="-1"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"/>

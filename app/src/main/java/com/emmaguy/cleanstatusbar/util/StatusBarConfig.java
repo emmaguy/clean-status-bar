@@ -95,61 +95,61 @@ public class StatusBarConfig {
         if (isAndroidLPreRelease()) {
             switch (icon) {
                 case 1:
-                    icon = R.drawable.icon_g_l;
+                    icon = R.drawable.network_icon_g_l;
                     break;
 
                 case 2:
-                    icon = R.drawable.icon_e_l;
+                    icon = R.drawable.network_icon_e_l;
                     break;
 
                 case 3:
-                    icon = R.drawable.icon_3g_l;
+                    icon = R.drawable.network_icon_3g_l;
                     break;
 
                 case 4:
-                    icon = R.drawable.icon_h_l;
+                    icon = R.drawable.network_icon_h_l;
                     break;
 
                 case 5:
-                    icon = R.drawable.icon_lte_l;
+                    icon = R.drawable.network_icon_lte_l;
                     break;
 
                 case 99:
-                    icon = R.drawable.icon_roam_l;
+                    icon = R.drawable.network_icon_roam_l;
                     break;
 
                 default:
-                    icon = R.drawable.icon_off_l;
+                    icon = R.drawable.network_icon_off_l;
             }
             return getTintedDrawable(mResources, icon, getForegroundColour());
         } else {
             switch (icon) {
                 case 1:
-                    icon = R.drawable.icon_g;
+                    icon = R.drawable.network_icon_g;
                     break;
 
                 case 2:
-                    icon = R.drawable.icon_e;
+                    icon = R.drawable.network_icon_e;
                     break;
 
                 case 3:
-                    icon = R.drawable.icon_3g;
+                    icon = R.drawable.network_icon_3g;
                     break;
 
                 case 4:
-                    icon = R.drawable.icon_h;
+                    icon = R.drawable.network_icon_h;
                     break;
 
                 case 5:
-                    icon = R.drawable.icon_lte;
+                    icon = R.drawable.network_icon_lte;
                     break;
 
                 case 99:
-                    icon = R.drawable.icon_roam;
+                    icon = R.drawable.network_icon_roam;
                     break;
 
                 default:
-                    icon = R.drawable.icon_off;
+                    icon = R.drawable.network_icon_off;
             }
             return getTintedDrawable(mResources, icon, getForegroundColour());
         }

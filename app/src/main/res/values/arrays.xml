@@ -15,7 +15,7 @@
         <item>16</item>
     </string-array>
 
-    <string-array name="threeg_icon_entries">
+    <string-array name="network_icon_entries">
         <item>@string/off</item>
         <item>@string/empty</item>
         <item>GPRS</item>
@@ -26,7 +26,7 @@
         <item>Roaming</item>
     </string-array>
 
-    <string-array name="threeg_icon_values" translatable="false">
+    <string-array name="network_icon_values" translatable="false">
         <item>-1</item>
         <item>0</item>
         <item>1</item>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-     <string name="app_name">Clean Status Bar</string>
+    <string name="app_name">Clean Status Bar</string>
 
     <!-- MainActivity -->
     <string name="settings">Settings</string>
@@ -9,7 +9,7 @@
     <string name="api_level">API Level</string>
     <string name="kit_kat_gradient">KitKat gradient</string>
     <string name="wifi_icon">WiFi Icon</string>
-    <string name="three_g_icon">3G Icon</string>
+    <string name="network_icon">Network Icon</string>
     <string name="time">Time</string>
     <string name="use_24_hour_format">Use 24-hour format</string>
     <string name="background">Background</string>
@@ -34,7 +34,6 @@
     <string name="red">Red</string>
 
     <!-- ColourPreference -->
-    <string name="colour_picker_default_title">Status bar background color</string>
     <string name="title_delete_colour">Delete color</string>
     <string name="message_delete_colour">Are you sure you want to delete this color?</string>
     <string name="title_add_new_colour">Add new color</string>

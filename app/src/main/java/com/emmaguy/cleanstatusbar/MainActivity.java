@@ -21,14 +21,13 @@ import android.widget.Switch;
 import com.emmaguy.cleanstatusbar.prefs.TimePreference;
 import com.emmaguy.cleanstatusbar.util.StatusBarConfig;
 
-
 public class MainActivity extends Activity {
     public static final String PREFS_KEY_API_VALUE = "api_level";
     public static final String PREFS_KEY_CLOCK_TIME = "clock_time";
     public static final String PREFS_KEY_USE_24_HOUR_FORMAT = "use_24_hour";
     public static final String PREFS_KEY_KIT_KAT_GRADIENT = "enable_kitkat_gradient";
     public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
-    public static final String PREFS_KEY_SIGNAL_3G = "signal_3g_icon";
+    public static final String PREFS_KEY_SIGNAL_3G = "signal_network_icon";
     public static final String PREFS_KEY_SIGNAL_WIFI = "signal_wifi";
 
     @Override
