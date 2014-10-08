@@ -51,7 +51,7 @@ public class ColourPreference extends Preference {
     }
 
     private void init() {
-        setWidgetLayoutResource(R.layout.colour_preference_row);
+        setWidgetLayoutResource(R.layout.colour_preference);
     }
 
     private String getUserColoursKey() {
@@ -96,7 +96,6 @@ public class ColourPreference extends Preference {
         }
 
         setColourValue((ImageView) view.findViewById(R.id.colour_view), value);
-        ((TextView) view.findViewById(R.id.colour_name)).setText(getTitle());
     }
 
     @Override
