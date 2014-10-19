@@ -16,6 +16,7 @@
     <string name="off">Off</string>
     <string name="empty">Empty</string>
     <string name="network_icon_info">Signal icon only seen when WiFi is off</string>
+    <string name="gps">GPS</string>
 
     <!-- Notification -->
     <string name="clean_status_bar_is_running">Clean status bar is running</string>

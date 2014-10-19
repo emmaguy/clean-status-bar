@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.media.Image;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -23,6 +24,7 @@ public class StatusBarView extends LinearLayout {
     private static final int NETWORK_STATUS_ICON_OFF = 0;
     private final ImageView m3gView;
     private final ImageView mWifiView;
+    private final ImageView mGPSView;
     private final TextView mTimeTextView;
     private final BatteryMeterView mBatteryView;
 
@@ -47,13 +49,22 @@ public class StatusBarView extends LinearLayout {
         mBatteryView = (BatteryMeterView) findViewById(R.id.status_bar_battery);
         m3gView = (ImageView) findViewById(R.id.status_bar_3g);
         mWifiView = (ImageView) findViewById(R.id.status_bar_wifi);
+        mGPSView = (ImageView) findViewById(R.id.status_bar_gps);
     }
 
-    public void setStatusBarConfig(StatusBarConfig statusBarConfig, int backgroundColour, String clockTime, boolean shouldShowWifi, int icon3G) {
+    public void setStatusBarConfig(StatusBarConfig statusBarConfig, int backgroundColour, String clockTime, boolean shouldShowWifi, int icon3G, boolean shouldShowGps) {
         setClockTime(clockTime);
         setFont(statusBarConfig.getFont());
         setFontSize(statusBarConfig.getFontSize());
         setForegroundColour(statusBarConfig.getForegroundColour());
+
+        if (shouldShowGps) {
+            mGPSView.setVisibility(View.VISIBLE);
+            mGPSView.setPadding(0, dpToPx(5), 0, dpToPx(5));
+            mGPSView.setImageDrawable(statusBarConfig.getGPSDrawable());
+        } else {
+            mGPSView.setVisibility(View.GONE);
+        }
 
         if(icon3G >= 0) {
             m3gView.setVisibility(View.VISIBLE);

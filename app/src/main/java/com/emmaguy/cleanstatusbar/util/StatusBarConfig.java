@@ -141,6 +141,17 @@ public class StatusBarConfig {
         }
     }
 
+    public Drawable getGPSDrawable() {
+        int icon;
+
+        if (mApiLevel >= Build.VERSION_CODES.KITKAT) {
+            icon = R.drawable.stat_sys_gps_on_19;
+        } else {
+            icon = R.drawable.stat_sys_gps_on_16;
+        }
+        return getTintedDrawable(mResources, icon, getForegroundColour());
+    }
+
     public Drawable getWifiDrawable() {
         int icon;
 
