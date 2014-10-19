@@ -163,8 +163,15 @@ public class MainActivity extends Activity {
 
                 int index = lst.findIndexOfValue(currentValue);
                 CharSequence[] entries = lst.getEntries();
+                CharSequence[] entryValues = lst.getEntryValues();
                 if (index >= 0 && index < entries.length) {
-                    pref.setSummary(entries[index]);
+                    // Show info explaining that the small letters e.g. 3G/LTE etc are only shown when WiFi is off - this is standard Android behaviour
+                    boolean currentValueIsOffOrEmpty = currentValue.equals(entryValues[0]) || currentValue.equals(entryValues[1]);
+                    if (pref.getKey().equals(PREFS_KEY_SIGNAL_3G) && !currentValueIsOffOrEmpty) {
+                        pref.setSummary(entries[index] + " - " + getString(R.string.network_icon_info));
+                    } else {
+                        pref.setSummary(entries[index]);
+                    }
                 }
             } else if (pref instanceof TimePreference) {
                 if (pref.getKey().equals(PREFS_KEY_CLOCK_TIME)) {

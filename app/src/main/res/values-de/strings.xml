@@ -15,6 +15,7 @@
     <string name="background">Hintergrund</string>
     <string name="off">Aus</string>
     <string name="empty">Leer</string>
+    <string name="network_icon_info">Signal icon only seen when WiFi is off</string>
 
     <!-- Notification -->
     <string name="clean_status_bar_is_running">Clean Status Bar ist gestartet</string>

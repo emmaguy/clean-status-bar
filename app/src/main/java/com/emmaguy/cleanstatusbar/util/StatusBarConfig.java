@@ -91,7 +91,7 @@ public class StatusBarConfig {
         return 16.0f;
     }
 
-    public Drawable get3gDrawable(int icon) {
+    public Drawable getNetworkIconDrawable(int icon) {
         if (isAndroidLPreRelease()) {
             switch (icon) {
                 case 1:
@@ -156,11 +156,14 @@ public class StatusBarConfig {
     }
 
     public Drawable getWifiDrawable() {
+        int icon;
+
         if (isAndroidLPreRelease()) {
-            return getTintedDrawable(mResources, R.drawable.stat_sys_wifi_signal_4_fully_l, getForegroundColour());
+            icon = R.drawable.stat_sys_wifi_signal_4_fully_l;
         } else {
-            return getTintedDrawable(mResources, R.drawable.stat_sys_wifi_signal_4_fully, getForegroundColour());
+            icon = R.drawable.stat_sys_wifi_signal_4_fully;
         }
+        return getTintedDrawable(mResources, icon, getForegroundColour());
     }
 
     public Drawable getTintedDrawable(Resources res, int drawableResId, int colour) {

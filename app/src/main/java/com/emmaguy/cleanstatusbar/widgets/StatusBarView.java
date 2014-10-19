@@ -20,6 +20,7 @@ import com.emmaguy.cleanstatusbar.R;
 import com.emmaguy.cleanstatusbar.util.StatusBarConfig;
 
 public class StatusBarView extends LinearLayout {
+    private static final int NETWORK_STATUS_ICON_OFF = 0;
     private final ImageView m3gView;
     private final ImageView mWifiView;
     private final TextView mTimeTextView;
@@ -56,14 +57,14 @@ public class StatusBarView extends LinearLayout {
 
         if(icon3G >= 0) {
             m3gView.setVisibility(View.VISIBLE);
-            m3gView.setImageDrawable(statusBarConfig.get3gDrawable(icon3G));
+            m3gView.setImageDrawable(statusBarConfig.getNetworkIconDrawable(icon3G));
         } else {
             m3gView.setVisibility(View.GONE);
         }
 
         if(shouldShowWifi) {
             if(icon3G >= 0) {
-                m3gView.setImageDrawable(statusBarConfig.get3gDrawable(0));
+                m3gView.setImageDrawable(statusBarConfig.getNetworkIconDrawable(NETWORK_STATUS_ICON_OFF));
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mWifiView.getLayoutParams();
                 params.setMargins(0, 0, dpToPx(-6), 0);
                 mWifiView.setPadding(0, 0, 0, 0);
