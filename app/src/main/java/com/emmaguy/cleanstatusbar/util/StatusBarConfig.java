@@ -12,11 +12,6 @@ import com.emmaguy.cleanstatusbar.R;
 public class StatusBarConfig {
     private static final String RESOURCE_NAME_STATUS_BAR_HEIGHT = "status_bar_height";
 
-    // Distinguish between the L developer preview and the pre-release screenshots we've seen of Android L,
-    // so users can take screenshots of both the developer preview as it is now and as it will be on release
-    private static final int VERSION_CODE_L_PRE_RELEASE = 1000;
-    public static final int VERSION_CODE_L_DEVELOPER_PREVIEW = 21; // TODO: change to Build.VERSION_CODES.L when it's released
-
     private final int mApiLevel;
     private final boolean mIsKitKatGradientEnabled;
 
@@ -49,8 +44,7 @@ public class StatusBarConfig {
                     colourResId = R.color.android_kitkat_status_bar_default;
                 }
                 break;
-            case VERSION_CODE_L_PRE_RELEASE:
-            case VERSION_CODE_L_DEVELOPER_PREVIEW:
+            case Build.VERSION_CODES.LOLLIPOP:
                 colourResId = R.color.android_l_status_bar;
                 break;
         }
@@ -59,15 +53,7 @@ public class StatusBarConfig {
     }
 
     private boolean isAndroidL() {
-        return isAndroidLPreRelease() || isAndroidLDeveloperPreview();
-    }
-
-    private boolean isAndroidLPreRelease() {
-        return mApiLevel == VERSION_CODE_L_PRE_RELEASE;
-    }
-
-    private boolean isAndroidLDeveloperPreview() {
-        return mApiLevel == VERSION_CODE_L_DEVELOPER_PREVIEW;
+        return mApiLevel == Build.VERSION_CODES.LOLLIPOP;
     }
 
     public Typeface getFont() {
@@ -92,7 +78,7 @@ public class StatusBarConfig {
     }
 
     public Drawable getNetworkIconDrawable(int icon) {
-        if (isAndroidLPreRelease()) {
+        if (isAndroidL()) {
             switch (icon) {
                 case 1:
                     icon = R.drawable.network_icon_g_l;
@@ -158,7 +144,7 @@ public class StatusBarConfig {
     public Drawable getWifiDrawable() {
         int icon;
 
-        if (isAndroidLPreRelease()) {
+        if (isAndroidL()) {
             icon = R.drawable.stat_sys_wifi_signal_4_fully_l;
         } else {
             icon = R.drawable.stat_sys_wifi_signal_4_fully;

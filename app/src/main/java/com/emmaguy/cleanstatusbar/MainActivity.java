@@ -19,7 +19,6 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.emmaguy.cleanstatusbar.prefs.TimePreference;
-import com.emmaguy.cleanstatusbar.util.StatusBarConfig;
 
 public class MainActivity extends Activity {
     public static final String PREFS_KEY_API_VALUE = "api_level";
@@ -75,7 +74,7 @@ public class MainActivity extends Activity {
             return Integer.valueOf(apiValue);
         }
 
-        return StatusBarConfig.VERSION_CODE_L_DEVELOPER_PREVIEW;
+        return Build.VERSION_CODES.LOLLIPOP;
     }
 
     public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
