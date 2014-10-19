@@ -13,7 +13,7 @@
         <item>16</item>
     </string-array>
 
-    <string-array name="network_icon_entries">
+    <string-array name="network_icon_entries" translatable="false">
         <item>@string/off</item>
         <item>@string/empty</item>
         <item>GPRS</item>
