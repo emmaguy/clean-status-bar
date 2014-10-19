@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string translatable="false" name="key_api_level">api_level</string>
+    <string translatable="false" name="key_clock_time">clock_time</string>
+    <string translatable="false" name="key_use_24_hour_format">use_24_hour</string>
+    <string translatable="false" name="key_kit_kat_gradient">enable_kitkat_gradient</string>
+    <string translatable="false" name="key_background_colour">background_colour</string>
+    <string translatable="false" name="key_signal_3g">signal_network_icon</string>
+    <string translatable="false" name="key_signal_wifi">signal_wifi</string>
+    <string translatable="false" name="key_gps">gps</string>
+
+</resources>
