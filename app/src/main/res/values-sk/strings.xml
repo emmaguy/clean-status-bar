@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Clean Status Bar</string>
+    <string name="settings">Nastavenia</string>
+
+    <string name="api_level">Úroveň API</string>
+    <string name="kit_kat_gradient">KitKat sklon</string>
+    <string name="wifi_icon">Ikona Wi-Fi</string>
+    <string name="network_icon">Ikona siete</string>
+    <string name="time">Čas</string>
+    <string name="use_24_hour_format">Používať 24-hodinový formát</string>
+    <string name="background">Pozadie</string>
+    <string name="off">Vypnúť</string>
+    <string name="empty">Prázdna</string>
+    <string name="network_icon_info">Ikona signálu sa zobrazí len pri vypnutej Wi-Fi</string>
+
+    <string name="clean_status_bar_is_running">Clean Status Bar je spustený</string>
+    <string name="touch_to_configure">Dotykom nastavte.</string>
+
+    <string name="set_time">Nastaviť čas</string>
+    <string name="cancel">Zrušiť</string>
+
+    <string name="black">Čierna</string>
+    <string name="white">Biela</string>
+    <string name="blue">Modrá</string>
+    <string name="purple">Fialová</string>
+    <string name="green">Zelená</string>
+    <string name="yellow">Žltá</string>
+    <string name="red">Červená</string>
+
+    <string name="title_delete_colour">Vymazať farbu</string>
+    <string name="message_delete_colour">Vymazať túto farbu?</string>
+    <string name="title_add_new_colour">Pridať novú farbu</string>
+    <string name="hint_colour_name">Názov farby</string>
+    <string name="hint_colour_value">Hodnota farby (napríklad 33B5E5)</string>
+    <string name="button_add">Pridať</string>
+    <string name="button_cancel">@string/cancel</string>
+    <string name="yes">Áno</string>
+    <string name="no">Nie</string>
+
+</resources>
