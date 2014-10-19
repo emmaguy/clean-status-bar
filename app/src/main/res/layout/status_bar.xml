@@ -7,6 +7,12 @@
     tools:showIn="@layout/status_bar_linear_layout">
 
         <ImageView
+            android:id="@+id/status_bar_gps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/stat_sys_gps_on_16"/>
+
+        <ImageView
             android:id="@+id/status_bar_wifi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

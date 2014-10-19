@@ -14,6 +14,7 @@
     <string name="off">Vypnúť</string>
     <string name="empty">Prázdna</string>
     <string name="network_icon_info">Ikona signálu sa zobrazí len pri vypnutej Wi-Fi</string>
+    <string name="gps">GPS</string>
 
     <string name="clean_status_bar_is_running">Clean Status Bar je spustený</string>
     <string name="touch_to_configure">Dotykom nastavte.</string>

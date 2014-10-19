@@ -16,6 +16,7 @@
     <string name="off">Aus</string>
     <string name="empty">Leer</string>
     <string name="network_icon_info">Netzwerk Icon nur sichtbar, wenn WLAN Icon aus ist</string>
+    <string name="gps">GPS</string>
 
     <!-- Notification -->
     <string name="clean_status_bar_is_running">Clean Status Bar ist gestartet</string>

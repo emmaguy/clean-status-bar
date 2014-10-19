@@ -31,6 +31,10 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"/>
 
+        <SwitchPreference
+            android:key="gps"
+            android:title="@string/gps"/>
+
         <com.emmaguy.cleanstatusbar.prefs.TimePreference
             android:key="clock_time"
             android:title="@string/time"/>

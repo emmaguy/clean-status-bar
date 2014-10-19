@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
     public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
     public static final String PREFS_KEY_SIGNAL_3G = "signal_network_icon";
     public static final String PREFS_KEY_SIGNAL_WIFI = "signal_wifi";
+    public static final String PREFS_KEY_GPS = "gps";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
