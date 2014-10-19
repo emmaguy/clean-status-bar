@@ -2,7 +2,7 @@
 <resources>
 
     <string-array name="api_level_entries" translatable="false">
-        <item>L</item>
+        <item>Lollipop (v21)</item>
         <item>KitKat (v19)</item>
         <item>Jelly Bean (v16)</item>
     </string-array>
