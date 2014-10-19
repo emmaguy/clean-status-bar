@@ -18,8 +18,8 @@
         <item>@string/empty</item>
         <item>GPRS</item>
         <item>EDGE</item>
-        <item>UMTS (3G)</item>
-        <item>HSDPA</item>
+        <item>HSDPA (3G)</item>
+        <item>HSPA+ (3G)</item>
         <item>LTE (4G)</item>
         <item>Roaming</item>
     </string-array>
