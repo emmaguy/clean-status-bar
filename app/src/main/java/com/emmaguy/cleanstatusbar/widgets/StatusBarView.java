@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.media.Image;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -41,7 +40,6 @@ public class StatusBarView extends LinearLayout {
 
         setOrientation(LinearLayout.HORIZONTAL);
         setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
-        setPadding(0, 0, dpToPx(6), 0);
 
         LayoutInflater.from(context).inflate(R.layout.status_bar, this);
 
@@ -53,6 +51,9 @@ public class StatusBarView extends LinearLayout {
     }
 
     public void setStatusBarConfig(StatusBarConfig statusBarConfig, int backgroundColour, String clockTime, boolean shouldShowWifi, int icon3G, boolean shouldShowGps) {
+        setPadding(0, 0, statusBarConfig.getRightPadding(), 0);
+        statusBarConfig.setBatteryViewDimensions(mBatteryView);
+
         setClockTime(clockTime);
         setFont(statusBarConfig.getFont());
         setFontSize(statusBarConfig.getFontSize());
@@ -69,6 +70,7 @@ public class StatusBarView extends LinearLayout {
         if(icon3G >= 0) {
             m3gView.setVisibility(View.VISIBLE);
             m3gView.setImageDrawable(statusBarConfig.getNetworkIconDrawable(icon3G));
+            m3gView.setPadding(0, 0, statusBarConfig.getNetworkIconPaddingOffset(), 0);
         } else {
             m3gView.setVisibility(View.GONE);
         }
@@ -78,7 +80,7 @@ public class StatusBarView extends LinearLayout {
                 m3gView.setImageDrawable(statusBarConfig.getNetworkIconDrawable(NETWORK_STATUS_ICON_OFF));
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mWifiView.getLayoutParams();
                 params.setMargins(0, 0, dpToPx(-6), 0);
-                mWifiView.setPadding(0, 0, 0, 0);
+                mWifiView.setPadding(0, 0, statusBarConfig.getWifiPaddingOffset(), 0);
                 mWifiView.setLayoutParams(params);
             } else {
                 LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

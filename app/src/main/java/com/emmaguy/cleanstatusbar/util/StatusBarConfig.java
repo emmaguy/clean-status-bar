@@ -6,6 +6,8 @@ import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.emmaguy.cleanstatusbar.R;
 
@@ -45,7 +47,7 @@ public class StatusBarConfig {
                 }
                 break;
             case Build.VERSION_CODES.LOLLIPOP:
-                colourResId = R.color.android_l_status_bar;
+                colourResId = android.R.color.white;
                 break;
         }
 
@@ -74,6 +76,9 @@ public class StatusBarConfig {
     }
 
     public float getFontSize() {
+        if (isAndroidL()) {
+            return 14f;
+        }
         return 16.0f;
     }
 
@@ -167,5 +172,52 @@ public class StatusBarConfig {
         Drawable drawable = res.getDrawable(drawableResId);
         drawable.setColorFilter(colour, PorterDuff.Mode.SRC_IN);
         return drawable;
+    }
+
+    public int getRightPadding() {
+        if (isAndroidL()) {
+            return dpToPx(8);
+        }
+        return dpToPx(6);
+    }
+
+    private int dpToPx(float dp) {
+        return (int) (dp * mResources.getDisplayMetrics().density);
+    }
+
+    private int getBatteryViewWidth() {
+        if (isAndroidL()) {
+            return dpToPx(10);
+        }
+        return dpToPx(10.5f);
+    }
+
+    private int getBatteryViewHeight() {
+        if (isAndroidL()) {
+            return dpToPx(15.5f);
+        }
+        return dpToPx(16);
+    }
+
+    public int getNetworkIconPaddingOffset() {
+        if (isAndroidL()) {
+            return dpToPx(3);
+        }
+        return 0;
+    }
+
+    public int getWifiPaddingOffset() {
+        if (isAndroidL()) {
+            return dpToPx(4);
+        }
+        return 0;
+    }
+
+    public void setBatteryViewDimensions(View v) {
+        v.getLayoutParams().width = getBatteryViewWidth();
+        v.getLayoutParams().height = getBatteryViewHeight();
+        if (!isAndroidL()) {
+            ((LinearLayout.LayoutParams) v.getLayoutParams()).bottomMargin = dpToPx(0.33f);
+        }
     }
 }

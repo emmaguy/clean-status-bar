@@ -21,10 +21,10 @@ public class CleanStatusBarService extends Service {
     private static final int NOTIFICATION_ID = 1;
     private static boolean sIsRunning = false;
 
-    private StatusBarConfig mStatusBarConfig;
-    private StatusBarView mStatusBarView;
-    private NotificationManager mNotificationManager;
     private WindowManager mWindowManager;
+    private StatusBarView mStatusBarView;
+    private StatusBarConfig mStatusBarConfig;
+    private NotificationManager mNotificationManager;
 
     public CleanStatusBarService() {
     }
