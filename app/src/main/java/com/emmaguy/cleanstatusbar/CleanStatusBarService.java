@@ -37,7 +37,7 @@ public class CleanStatusBarService extends Service {
         mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mStatusBarView = new StatusBarView(this);
-        mStatusBarConfig = new StatusBarConfig(MainActivity.getAPIValue(getSharedPrefs()), isKitKatGradientEnabled(), getResources(), getAssets());
+        mStatusBarConfig = new StatusBarConfig(MainActivity.getAPIValue(this, getSharedPrefs()), isKitKatGradientEnabled(), getResources(), getAssets());
 
         mStatusBarView.setStatusBarConfig(mStatusBarConfig, getBackgroundColour(), getClockTime(), showWifiIcon(), show3gIcon(), showGpsIcon());
 
@@ -75,27 +75,27 @@ public class CleanStatusBarService extends Service {
     }
 
     public String getClockTime() {
-        return getSharedPrefs().getString(MainActivity.PREFS_KEY_CLOCK_TIME, TimePreference.DEFAULT_TIME_VALUE);
+        return getSharedPrefs().getString(getString(R.string.key_clock_time), TimePreference.DEFAULT_TIME_VALUE);
     }
 
     public int getBackgroundColour() {
-        return getSharedPrefs().getInt(MainActivity.PREFS_KEY_BACKGROUND_COLOUR, 0);
+        return getSharedPrefs().getInt(getString(R.string.key_background_colour), 0);
     }
 
     private boolean isKitKatGradientEnabled() {
-        return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_KIT_KAT_GRADIENT, false);
+        return getSharedPrefs().getBoolean(getString(R.string.key_kit_kat_gradient), false);
     }
 
     private boolean showGpsIcon() {
-        return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_GPS, false);
+        return getSharedPrefs().getBoolean(getString(R.string.key_gps), false);
     }
 
     private boolean showWifiIcon() {
-        return getSharedPrefs().getBoolean(MainActivity.PREFS_KEY_SIGNAL_WIFI, false);
+        return getSharedPrefs().getBoolean(getString(R.string.key_signal_wifi), false);
     }
 
     private int show3gIcon() {
-        return Integer.parseInt(getSharedPrefs().getString(MainActivity.PREFS_KEY_SIGNAL_3G, "-1"));
+        return Integer.parseInt(getSharedPrefs().getString(getString(R.string.key_signal_3g), "-1"));
     }
 
     private SharedPreferences getSharedPrefs() {

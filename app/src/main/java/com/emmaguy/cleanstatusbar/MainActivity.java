@@ -21,15 +21,6 @@ import android.widget.Switch;
 import com.emmaguy.cleanstatusbar.prefs.TimePreference;
 
 public class MainActivity extends Activity {
-    public static final String PREFS_KEY_API_VALUE = "api_level";
-    public static final String PREFS_KEY_CLOCK_TIME = "clock_time";
-    public static final String PREFS_KEY_USE_24_HOUR_FORMAT = "use_24_hour";
-    public static final String PREFS_KEY_KIT_KAT_GRADIENT = "enable_kitkat_gradient";
-    public static final String PREFS_KEY_BACKGROUND_COLOUR = "background_colour";
-    public static final String PREFS_KEY_SIGNAL_3G = "signal_network_icon";
-    public static final String PREFS_KEY_SIGNAL_WIFI = "signal_wifi";
-    public static final String PREFS_KEY_GPS = "gps";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +60,8 @@ public class MainActivity extends Activity {
         context.startService(new Intent(context, CleanStatusBarService.class));
     }
 
-    public static int getAPIValue(SharedPreferences prefs) {
-        String apiValue = prefs.getString(MainActivity.PREFS_KEY_API_VALUE, "");
+    public static int getAPIValue(Context context, SharedPreferences prefs) {
+        String apiValue = prefs.getString(context.getString(R.string.key_api_level), "");
         if (!TextUtils.isEmpty(apiValue)) {
             return Integer.valueOf(apiValue);
         }
@@ -114,25 +105,25 @@ public class MainActivity extends Activity {
                 startService(getActivity());
             }
 
-            if (key.equals(PREFS_KEY_API_VALUE)) {
+            if (key.equals(getString(R.string.key_api_level))) {
                 updateEnableKitKatGradientOption(sharedPreferences);
-            } else if (key.equals(PREFS_KEY_USE_24_HOUR_FORMAT)) {
+            } else if (key.equals(getString(R.string.key_use_24_hour_format))) {
                 updateTimePreference();
             }
         }
 
         private void updateTimePreference() {
-            CheckBoxPreference pref = (CheckBoxPreference) findPreference(PREFS_KEY_USE_24_HOUR_FORMAT);
+            CheckBoxPreference pref = (CheckBoxPreference) findPreference(getString(R.string.key_use_24_hour_format));
 
-            TimePreference timePreference = (TimePreference) findPreference(PREFS_KEY_CLOCK_TIME);
+            TimePreference timePreference = (TimePreference) findPreference(getString(R.string.key_clock_time));
             timePreference.setIs24HourFormat(pref.isChecked());
 
             updatePrefsSummary(timePreference);
         }
 
         private void updateEnableKitKatGradientOption(SharedPreferences sharedPreferences) {
-            boolean isKitKat = getAPIValue(sharedPreferences) == Build.VERSION_CODES.KITKAT;
-            findPreference(PREFS_KEY_KIT_KAT_GRADIENT).setEnabled(isKitKat);
+            boolean isKitKat = getAPIValue(getActivity(), sharedPreferences) == Build.VERSION_CODES.KITKAT;
+            findPreference(getString(R.string.key_kit_kat_gradient)).setEnabled(isKitKat);
         }
 
         protected void initSummary() {
@@ -167,15 +158,15 @@ public class MainActivity extends Activity {
                 if (index >= 0 && index < entries.length) {
                     // Show info explaining that the small letters e.g. 3G/LTE etc are only shown when WiFi is off - this is standard Android behaviour
                     boolean currentValueIsOffOrEmpty = currentValue.equals(entryValues[0]) || currentValue.equals(entryValues[1]);
-                    if (pref.getKey().equals(PREFS_KEY_SIGNAL_3G) && !currentValueIsOffOrEmpty) {
+                    if (pref.getKey().equals(getString(R.string.key_signal_3g)) && !currentValueIsOffOrEmpty) {
                         pref.setSummary(entries[index] + " - " + getString(R.string.network_icon_info));
                     } else {
                         pref.setSummary(entries[index]);
                     }
                 }
             } else if (pref instanceof TimePreference) {
-                if (pref.getKey().equals(PREFS_KEY_CLOCK_TIME)) {
-                    String time = getPreferenceManager().getSharedPreferences().getString(PREFS_KEY_CLOCK_TIME, TimePreference.DEFAULT_TIME_VALUE);
+                if (pref.getKey().equals(getString(R.string.key_clock_time))) {
+                    String time = getPreferenceManager().getSharedPreferences().getString(getString(R.string.key_clock_time), TimePreference.DEFAULT_TIME_VALUE);
                     pref.setSummary(time);
                 }
             }
