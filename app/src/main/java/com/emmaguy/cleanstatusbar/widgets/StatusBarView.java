@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -111,7 +112,11 @@ public class StatusBarView extends LinearLayout {
         int right = view.getPaddingRight() + drawablePadding.right;
         int bottom = view.getPaddingBottom() + drawablePadding.bottom;
 
-        view.setBackgroundDrawable(backgroundDrawable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            view.setBackground(backgroundDrawable);
+        } else {
+            view.setBackgroundDrawable(backgroundDrawable);
+        }
         view.setPadding(left, top, right, bottom);
     }
 
