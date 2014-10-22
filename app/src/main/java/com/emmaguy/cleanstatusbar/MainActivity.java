@@ -36,10 +36,11 @@ public class MainActivity extends Activity {
         masterSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Intent service = new Intent(MainActivity.this, CleanStatusBarService.class);
                 if (b) {
-                    startService(MainActivity.this);
+                    startService(service);
                 } else {
-                    stopService(MainActivity.this);
+                    stopService(service);
                 }
             }
         });
@@ -50,14 +51,6 @@ public class MainActivity extends Activity {
         lp.rightMargin = getResources().getDimensionPixelSize(R.dimen.master_switch_margin_right);
         bar.setCustomView(masterSwitch, lp);
         bar.setDisplayShowCustomEnabled(true);
-    }
-
-    public static void stopService(Context context) {
-        context.stopService(new Intent(context, CleanStatusBarService.class));
-    }
-
-    public static void startService(Context context) {
-        context.startService(new Intent(context, CleanStatusBarService.class));
     }
 
     public static int getAPIValue(Context context, SharedPreferences prefs) {
@@ -101,8 +94,8 @@ public class MainActivity extends Activity {
             updatePrefsSummary(findPreference(key));
 
             if (CleanStatusBarService.isRunning()) {
-                stopService(getActivity());
-                startService(getActivity());
+                Intent service = new Intent(getActivity(), CleanStatusBarService.class);
+                getActivity().startService(service);
             }
 
             if (key.equals(getString(R.string.key_api_level))) {

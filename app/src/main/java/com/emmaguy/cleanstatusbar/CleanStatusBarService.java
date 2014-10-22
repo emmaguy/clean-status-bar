@@ -22,7 +22,7 @@ public class CleanStatusBarService extends Service {
     private static boolean sIsRunning = false;
 
     private WindowManager mWindowManager;
-    private StatusBarView mStatusBarView;
+    private static StatusBarView mStatusBarView;
     private StatusBarConfig mStatusBarConfig;
     private NotificationManager mNotificationManager;
 
@@ -32,17 +32,26 @@ public class CleanStatusBarService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        sIsRunning = true;
 
         mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mStatusBarView = new StatusBarView(this);
+
+        sIsRunning = true;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         mStatusBarConfig = new StatusBarConfig(MainActivity.getAPIValue(this, getSharedPrefs()), isKitKatGradientEnabled(), getResources(), getAssets());
 
+        if (mStatusBarView == null) {
+            mStatusBarView = new StatusBarView(this);
+            mWindowManager.addView(mStatusBarView, getWindowManagerParams());
+        }
         mStatusBarView.setStatusBarConfig(mStatusBarConfig, getBackgroundColour(), getClockTime(), showWifiIcon(), show3gIcon(), showGpsIcon());
 
-        mWindowManager.addView(mStatusBarView, getWindowManagerParams());
         showNotification();
+
+        return super.onStartCommand(intent, flags, startId);
     }
 
     private WindowManager.LayoutParams getWindowManagerParams() {
@@ -63,6 +72,7 @@ public class CleanStatusBarService extends Service {
 
         if (mStatusBarView != null) {
             mWindowManager.removeView(mStatusBarView);
+            mStatusBarView = null;
         }
         removeNotification();
 
