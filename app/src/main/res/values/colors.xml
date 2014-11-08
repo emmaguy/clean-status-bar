@@ -12,6 +12,8 @@
     <color name="black">#000000</color>
 
     <color name="float_label_normal">#8833B5E5</color>
-    <color name="float_label_activated">#33B5E5</color>
+    <color name="float_label_activated">@color/theme_accent</color>
 
+    <color name="theme_colour">#424242</color>
+    <color name="theme_accent">#33B5E5</color>
 </resources>
