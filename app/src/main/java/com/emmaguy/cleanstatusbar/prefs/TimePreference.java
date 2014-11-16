@@ -15,6 +15,7 @@ public class TimePreference extends DialogPreference {
 
     private int mLastHour = 0;
     private int mLastMinute = 0;
+    private String mTime = DEFAULT_TIME_VALUE;
 
     private TimePicker mTimePicker = null;
 
@@ -72,20 +73,24 @@ public class TimePreference extends DialogPreference {
             hourValue = toTimeDigits(mLastHour);
         } else {
             if (mLastHour > 12) {
-                hourValue = String.valueOf(mLastHour - 12);
+                hourValue = toTimeDigits(String.valueOf(mLastHour - 12));
             }
         }
 
-        String time = hourValue + ":" + toTimeDigits(mLastMinute);
+        mTime = hourValue + ":" + toTimeDigits(mLastMinute);
 
-        if (callChangeListener(time)) {
-            persistString(time);
+        if (callChangeListener(mTime)) {
+            persistString(String.format("%s:%s", String.valueOf(mLastHour), toTimeDigits(mLastMinute)));
         }
     }
 
     private String toTimeDigits(int i) {
         String digit = String.valueOf(i);
-        if (i < 10) {
+        return toTimeDigits(digit);
+    }
+
+    private String toTimeDigits(String digit) {
+        if (digit.length() == 1) {
             digit = "0" + digit;
         }
         return digit;
@@ -122,5 +127,9 @@ public class TimePreference extends DialogPreference {
     private static int getMinute(String time) {
         String[] pieces = time.split(":");
         return Integer.parseInt(pieces[1]);
+    }
+
+    public String getTime() {
+        return mTime;
     }
 }

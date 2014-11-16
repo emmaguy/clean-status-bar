@@ -85,7 +85,13 @@ public class CleanStatusBarService extends Service {
     }
 
     public String getClockTime() {
-        return getSharedPrefs().getString(getString(R.string.key_clock_time), TimePreference.DEFAULT_TIME_VALUE);
+        String[] time = getSharedPrefs().getString(getString(R.string.key_clock_time), TimePreference.DEFAULT_TIME_VALUE).split(":");
+        if (!getSharedPrefs().getBoolean(getString(R.string.key_use_24_hour_format),false)) {
+            if (Integer.parseInt(time[0]) > 12) {
+                time[0] = String.format("0%s", String.valueOf(Integer.parseInt(time[0]) - 12));
+            }
+        }
+        return String.format("%s:%s", time[0], time[1]);
     }
 
     public int getBackgroundColour() {
