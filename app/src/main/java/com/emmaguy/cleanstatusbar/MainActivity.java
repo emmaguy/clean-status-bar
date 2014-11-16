@@ -159,7 +159,7 @@ public class MainActivity extends Activity {
                 }
             } else if (pref instanceof TimePreference) {
                 if (pref.getKey().equals(getString(R.string.key_clock_time))) {
-                    String time = getPreferenceManager().getSharedPreferences().getString(getString(R.string.key_clock_time), TimePreference.DEFAULT_TIME_VALUE);
+                    String time = ((TimePreference)pref).getTime();
                     pref.setSummary(time);
                 }
             }
