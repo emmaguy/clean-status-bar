@@ -1,0 +1,21 @@
+Title: 
+
+Clean Status Bar
+
+Short description:
+
+Taking clean, distraction free screenshots has never been so easy
+
+Full description:
+
+Tired of Photoshopping out notifications/low battery to make a nice, clean status bar for the Play Store? Run this app first - it draws over your status bar, showing a full battery and clock, and optionally WiFi/3G icons.
+
+It runs as a service, so you can move to other apps to take screenshots. This app is aimed at developers, not general users - it is not a status bar replacement!
+
+Please note:
+
+- This app is to help you take consistent screenshots, <b>the time is not supposed to update</b>
+- Transparency is impossible: we draw over the existing status bar in order to have a clean one
+
+
+This app is open source - check it out/contribute at https://github.com/emmaguy/clean-status-bar
