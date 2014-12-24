@@ -1,0 +1,21 @@
+Title: 
+
+Clean Status Bar
+
+Short description:
+
+Einheitliche Screenshot waren noch nie so einfach
+
+Full description:
+
+Müde vom Nachbearbeiten von Benachrichtigungen / niedrigen Batteriestatus, um eine schöne, saubere Statusleiste für den PlayStore zu haben? Starte vorher diese App - sie zeichnet über deine StatusBar und zeigt eine volle Batterie inkl. Uhr, und optional WLAN/3G Icons.
+
+Sie läuft als Hintergrundservice, damit sie für jede App genutzt werden kann. Diese App ist für Entwickler und nicht durchschnittliche Nutzer gedacht - Es ist kein StatusBar Ersatz!
+
+Bitte beachte:
+
+- Diese App ist zur Hilfe für einheitliche Screenshots gedacht, <b>die Zeit soll sich dabei nicht verändern</b>
+- Transparenz ist unmöglich: Wir zeichnen über die bestehende StatusBar, damit wir einen sauberen Look haben.
+
+
+Diese App ist Open Source - zu finden unter https://github.com/emmaguy/clean-status-bar
