@@ -1,0 +1,21 @@
+Title: 
+
+Clean Status Bar
+
+Short description:
+
+Tirar screenshots elegantes e atrativas nunca foi tão fácil!
+
+Full description:
+
+Está cansado de editar suas screenshots para remover ícones de notificações e o indicador de baixa bateria a fim gerar uma imagem bonita para publicá-la em seu site ou até mesmo no Google Play? Rode este aplicativo antes, e ele criará uma  imagem sobreposta à sua barra de status, repleta de opções como mostrar a bateria em 100%, ícones de WiFi/3G e até mesmo uma hora específica que você determinar.
+
+Este aplicativo roda em background para que você possa alternar para outros aplicativos para tirar screenshots, e tem como propósito ajudar os desenvolvedores. Não é e nem deve ser usado como substituto para sua barra de status!
+
+Atenção:
+
+- Este aplicativo serve para tirar screenshots consistentes, e <b>o relógio foi programado para ficar estático</b>.
+- Usar de transparências é impossível: o aplicativo desenha uma camada opaca por cima da barra de status do sistema.
+
+
+O código-fonte deste aplicativo é aberto - confira e contribua em https://github.com/emmaguy/clean-status-bar
