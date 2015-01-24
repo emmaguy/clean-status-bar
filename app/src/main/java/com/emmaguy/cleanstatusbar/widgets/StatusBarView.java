@@ -1,5 +1,6 @@
 package com.emmaguy.cleanstatusbar.widgets;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.Typeface;
@@ -104,6 +105,7 @@ public class StatusBarView extends LinearLayout {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void setBackgroundAndKeepPadding(View view, Drawable backgroundDrawable) {
         Rect drawablePadding = new Rect();
         backgroundDrawable.getPadding(drawablePadding);
