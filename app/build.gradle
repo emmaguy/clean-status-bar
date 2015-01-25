@@ -1,7 +1,10 @@
 apply plugin: 'com.android.application'
 
-Properties props = new Properties()
-props.load(new FileInputStream(file(project.property("signing.properties"))))
+def file = file(project.property("signing.properties"))
+if (file.exists()) {
+    Properties props = new Properties()
+    props.load(new FileInputStream(file))
+}
 
 android {
     compileSdkVersion 21
@@ -9,22 +12,26 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(props['keystore'])
-            storePassword props['keystore.password']
-            keyAlias props['keyalias']
-            keyPassword props['keyalias.password']
+            if (file.exists()) {
+                storeFile file(props['keystore'])
+                storePassword props['keystore.password']
+                keyAlias props['keyalias']
+                keyPassword props['keyalias.password']
+            }
         }
     }
     defaultConfig {
         applicationId "com.emmaguy.cleanstatusbar"
-        signingConfig signingConfigs.release
+        if (file.exists()) {
+            signingConfig signingConfigs.release
+        }
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 12
         versionName "1.0.9"
     }
     buildTypes {
-        debug{
+        debug {
             applicationIdSuffix ".debug"
         }
         release {
