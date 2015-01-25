@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="NewApi">
+        <ignore path="src/main/res/layout/colour_preference_footer.xml" />
+        <ignore path="src/main/res/layout/status_bar.xml" />
+    </issue>
+</lint>
