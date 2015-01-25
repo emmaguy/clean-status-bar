@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/emmaguy/clean-status-bar.png)](https://travis-ci.org/emmaguy/clean-status-bar)
+
 Clean Status Bar
 =================================
 
