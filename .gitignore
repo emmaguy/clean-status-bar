@@ -7,3 +7,5 @@
 
 build/*
 libraries/*/*/build/*
+
+**signing.properties
