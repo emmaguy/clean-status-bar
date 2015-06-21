@@ -1,4 +1,4 @@
-package com.emmaguy.cleanstatusbar.util;
+package com.emmaguy.cleanstatusbar.config;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;

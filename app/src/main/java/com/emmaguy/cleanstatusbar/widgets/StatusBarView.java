@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.emmaguy.cleanstatusbar.R;
-import com.emmaguy.cleanstatusbar.util.StatusBarConfig;
+import com.emmaguy.cleanstatusbar.config.StatusBarConfig;
 
 public class StatusBarView extends LinearLayout {
     private static final int NETWORK_STATUS_ICON_OFF = 0;

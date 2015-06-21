@@ -13,11 +13,11 @@ import android.support.v4.app.NotificationCompat;
 import android.view.Gravity;
 import android.view.WindowManager;
 
-import com.emmaguy.cleanstatusbar.util.DefaultStatusBarConfig;
-import com.emmaguy.cleanstatusbar.util.KitKatStatusBarConfig;
-import com.emmaguy.cleanstatusbar.util.LollipopStatusBarConfig;
-import com.emmaguy.cleanstatusbar.util.MStatusBarConfig;
-import com.emmaguy.cleanstatusbar.util.StatusBarConfig;
+import com.emmaguy.cleanstatusbar.config.DefaultStatusBarConfig;
+import com.emmaguy.cleanstatusbar.config.KitKatStatusBarConfig;
+import com.emmaguy.cleanstatusbar.config.LollipopStatusBarConfig;
+import com.emmaguy.cleanstatusbar.config.MStatusBarConfig;
+import com.emmaguy.cleanstatusbar.config.StatusBarConfig;
 import com.emmaguy.cleanstatusbar.widgets.StatusBarView;
 
 public class CleanStatusBarService extends Service {

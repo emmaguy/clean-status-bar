@@ -1,4 +1,4 @@
-package com.emmaguy.cleanstatusbar.util;
+package com.emmaguy.cleanstatusbar.config;
 
 import android.content.res.AssetManager;
 import android.content.res.Resources;
