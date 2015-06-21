@@ -12,8 +12,8 @@ android {
         applicationId "com.emmaguy.cleanstatusbar"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 13
-        versionName "1.0.10"
+        versionCode 14
+        versionName "1.1.0"
     }
     buildTypes {
         debug {
@@ -23,6 +23,9 @@ android {
             minifyEnabled false
             signingConfig signingConfigs.release
         }
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 

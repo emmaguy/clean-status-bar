@@ -1,56 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="@string/settings">
+    <ListPreference
+        android:defaultValue="21"
+        android:entries="@array/api_level_entries"
+        android:entryValues="@array/api_level_entry_values"
+        android:key="@string/key_api_level"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/api_level" />
 
-        <ListPreference
-            android:key="@string/key_api_level"
-            android:title="@string/api_level"
-            android:entries="@array/api_level_entries"
-            android:entryValues="@array/api_level_entry_values"
-            android:defaultValue="21"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"/>
+    <SwitchPreference
+        android:enabled="false"
+        android:key="@string/key_m_light_status_bar"
+        android:title="@string/m_light_status_bar" />
 
-        <SwitchPreference
-            android:key="@string/key_kit_kat_gradient"
-            android:enabled="false"
-            android:title="@string/kit_kat_gradient"/>
+    <SwitchPreference
+        android:enabled="false"
+        android:key="@string/key_kit_kat_gradient"
+        android:title="@string/kit_kat_gradient" />
 
-        <SwitchPreference
-            android:key="@string/key_signal_wifi"
-            android:title="@string/wifi_icon"/>
+    <com.emmaguy.cleanstatusbar.prefs.ColourPreference
+        android:defaultValue="@color/black"
+        android:entries="@array/default_colour_choices"
+        android:entryValues="@array/default_colour_choice_values"
+        android:key="@string/key_background_colour"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/background" />
 
-        <ListPreference
-            android:key="@string/key_signal_3g"
-            android:title="@string/network_icon"
-            android:entries="@array/network_icon_entries"
-            android:entryValues="@array/network_icon_values"
-            android:defaultValue="-1"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"/>
+    <SwitchPreference
+        android:key="@string/key_signal_wifi"
+        android:title="@string/wifi_icon" />
 
-        <SwitchPreference
-            android:key="@string/key_gps"
-            android:title="@string/gps"/>
+    <ListPreference
+        android:defaultValue="-1"
+        android:entries="@array/network_icon_entries"
+        android:entryValues="@array/network_icon_values"
+        android:key="@string/key_signal_3g"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/network_icon" />
 
-        <com.emmaguy.cleanstatusbar.prefs.TimePreference
-            android:key="@string/key_clock_time"
-            android:title="@string/time"/>
+    <SwitchPreference
+        android:key="@string/key_gps"
+        android:title="@string/gps" />
 
-        <CheckBoxPreference
-            android:key="@string/key_use_24_hour_format"
-            android:title="@string/use_24_hour_format"/>
+    <com.emmaguy.cleanstatusbar.prefs.TimePreference
+        android:key="@string/key_clock_time"
+        android:title="@string/time" />
 
-        <com.emmaguy.cleanstatusbar.prefs.ColourPreference
-            android:key="@string/key_background_colour"
-            android:title="@string/background"
-            android:entries="@array/default_colour_choices"
-            android:entryValues="@array/default_colour_choice_values"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"/>
-
-    </PreferenceCategory>
+    <CheckBoxPreference
+        android:key="@string/key_use_24_hour_format"
+        android:title="@string/use_24_hour_format" />
 
 </PreferenceScreen>

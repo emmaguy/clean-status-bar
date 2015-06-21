@@ -2,9 +2,9 @@
 <resources>
 
     <string name="app_name">Clean Status Bar</string>
-    <string name="settings">Nastavenia</string>
 
     <string name="api_level">Úroveň API</string>
+    <string name="m_light_status_bar">M Light mode</string>
     <string name="kit_kat_gradient">KitKat sklon</string>
     <string name="wifi_icon">Ikona Wi-Fi</string>
     <string name="network_icon">Ikona siete</string>

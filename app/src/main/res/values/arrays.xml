@@ -2,12 +2,14 @@
 <resources>
 
     <string-array name="api_level_entries" translatable="false">
+        <item>M (v23)</item>
         <item>Lollipop (v21)</item>
         <item>KitKat (v19)</item>
         <item>Jelly Bean (v16)</item>
     </string-array>
 
     <string-array name="api_level_entry_values" translatable="false">
+        <item>23</item>
         <item>21</item>
         <item>19</item>
         <item>16</item>

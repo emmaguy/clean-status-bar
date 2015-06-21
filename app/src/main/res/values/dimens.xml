@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="master_switch_margin_right">16dp</dimen>
+
+    <fraction name="battery_button_height_fraction">10.5%</fraction>
+
+    <!-- Fraction value to smooth the edges of the battery icon. The path will be inset by this fraction of a pixel.-->
+    <fraction name="battery_subpixel_smoothing_left">10%</fraction>
+    <fraction name="battery_subpixel_smoothing_right">10%</fraction>
 </resources>

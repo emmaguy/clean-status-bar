@@ -1,12 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:colorPrimary" tools:targetApi="lollipop">@color/theme_colour</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">@color/theme_accent</item>
 
-    <style name="FloatLabel" parent="android:TextAppearance.Small">
-        <item name="android:textColor">@drawable/float_label_color</item>
-        <item name="android:textSize">11sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="colorPrimary" tools:targetApi="lollipop">@color/theme_colour</item>
+        <item name="colorAccent" tools:targetApi="lollipop">@color/theme_accent</item>
     </style>
 
 </resources>

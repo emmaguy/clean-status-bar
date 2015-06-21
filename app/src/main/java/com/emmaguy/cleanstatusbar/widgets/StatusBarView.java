@@ -95,7 +95,7 @@ public class StatusBarView extends LinearLayout {
             mWifiView.setVisibility(View.GONE);
         }
 
-        if (statusBarConfig.shouldDrawGradient()) {
+        if (statusBarConfig.drawGradient()) {
             Drawable[] layers = {new ColorDrawable(backgroundColour), getResources().getDrawable(R.drawable.status_background)};
             LayerDrawable layerDrawable = new LayerDrawable(layers);
 

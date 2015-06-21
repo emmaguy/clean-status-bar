@@ -2,45 +2,46 @@
 <merge
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:showIn="@layout/status_bar_linear_layout">
 
-        <ImageView
-            android:id="@+id/status_bar_gps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:src="@drawable/stat_sys_gps_on_16"/>
+    <ImageView
+        android:id="@+id/status_bar_gps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:src="@drawable/stat_sys_gps_on_16" />
 
-        <ImageView
-            android:id="@+id/status_bar_wifi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="-6dp"
-            tools:src="@drawable/stat_sys_wifi_signal_4_fully" />
+    <ImageView
+        android:id="@+id/status_bar_wifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="-6dp"
+        tools:src="@drawable/stat_sys_wifi_signal_4_fully" />
 
-        <ImageView
-            android:id="@+id/status_bar_3g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="1dp"
-            tools:src="@drawable/network_icon_off" />
+    <ImageView
+        android:id="@+id/status_bar_3g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="1dp"
+        tools:src="@drawable/network_icon_off" />
 
-        <com.emmaguy.cleanstatusbar.widgets.BatteryMeterView
-            android:id="@+id/status_bar_battery"
-            android:layout_height="16dp"
-            android:layout_width="10.5dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp" />
+    <com.emmaguy.cleanstatusbar.widgets.BatteryMeterView
+        android:id="@+id/status_bar_battery"
+        android:layout_width="8dp"
+        android:paddingRight="0.5dp"
+        android:paddingBottom="0.5dp"
+        android:layout_height="14.5dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:paddingTop="0.333dp" />
 
-        <TextView
-            android:id="@+id/status_bar_clock_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/battery_fill_light_grey"
-            android:paddingLeft="6dp"
-            android:paddingStart="6dp"
-            android:singleLine="true"
-            tools:text="12:00" />
+    <TextView
+        android:id="@+id/status_bar_clock_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="6.5dp"
+        android:paddingStart="6.5dp"
+        android:singleLine="true"
+        android:textColor="@color/battery_fill_light_grey"
+        tools:text="12:00" />
 
 </merge>

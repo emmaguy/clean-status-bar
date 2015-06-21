@@ -1,8 +1,5 @@
 package com.emmaguy.cleanstatusbar;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -12,7 +9,8 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
-import android.text.TextUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -20,7 +18,7 @@ import android.widget.Switch;
 
 import com.emmaguy.cleanstatusbar.prefs.TimePreference;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +43,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        final ActionBar bar = getActionBar();
+        final ActionBar bar = getSupportActionBar();
         final ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
         lp.rightMargin = getResources().getDimensionPixelSize(R.dimen.master_switch_margin_right);
@@ -53,16 +51,8 @@ public class MainActivity extends Activity {
         bar.setDisplayShowCustomEnabled(true);
     }
 
-    public static int getAPIValue(Context context, SharedPreferences prefs) {
-        String apiValue = prefs.getString(context.getString(R.string.key_api_level), "");
-        if (!TextUtils.isEmpty(apiValue)) {
-            return Integer.valueOf(apiValue);
-        }
-
-        return Build.VERSION_CODES.LOLLIPOP;
-    }
-
     public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+        private CleanStatusBarPreferences mPreferences;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +61,10 @@ public class MainActivity extends Activity {
             addPreferencesFromResource(R.xml.prefs);
 
             initSummary();
-            updateEnableKitKatGradientOption(getPreferenceManager().getSharedPreferences());
+            mPreferences = new CleanStatusBarPreferences(getPreferenceManager().getSharedPreferences(), getResources());
+
+            updateEnableKitKatGradientOption();
+            updateEnableMLightModeOption();
             updateTimePreference();
         }
 
@@ -99,7 +92,8 @@ public class MainActivity extends Activity {
             }
 
             if (key.equals(getString(R.string.key_api_level))) {
-                updateEnableKitKatGradientOption(sharedPreferences);
+                updateEnableKitKatGradientOption();
+                updateEnableMLightModeOption();
             } else if (key.equals(getString(R.string.key_use_24_hour_format))) {
                 updateTimePreference();
             }
@@ -114,9 +108,14 @@ public class MainActivity extends Activity {
             updatePrefsSummary(timePreference);
         }
 
-        private void updateEnableKitKatGradientOption(SharedPreferences sharedPreferences) {
-            boolean isKitKat = getAPIValue(getActivity(), sharedPreferences) == Build.VERSION_CODES.KITKAT;
+        private void updateEnableKitKatGradientOption() {
+            boolean isKitKat = mPreferences.getApiValue() == Build.VERSION_CODES.KITKAT;
             findPreference(getString(R.string.key_kit_kat_gradient)).setEnabled(isKitKat);
+        }
+
+        private void updateEnableMLightModeOption() {
+            boolean isM = mPreferences.getApiValue() == CleanStatusBarService.VERSION_CODE_M;
+            findPreference(getString(R.string.key_m_light_status_bar)).setEnabled(isM);
         }
 
         protected void initSummary() {
@@ -159,7 +158,7 @@ public class MainActivity extends Activity {
                 }
             } else if (pref instanceof TimePreference) {
                 if (pref.getKey().equals(getString(R.string.key_clock_time))) {
-                    String time = ((TimePreference)pref).getTime();
+                    String time = ((TimePreference) pref).getTime();
                     pref.setSummary(time);
                 }
             }

@@ -4,9 +4,8 @@
     <string name="app_name">Clean Status Bar</string>
 
     <!-- MainActivity -->
-    <string name="settings">Einstellungen</string>
-
     <string name="api_level">API Level</string>
+    <string name="m_light_status_bar">M Light mode</string>
     <string name="kit_kat_gradient">KitKat Verlauf</string>
     <string name="wifi_icon">WLAN Icon</string>
     <string name="network_icon">Netzwerk Icon</string>

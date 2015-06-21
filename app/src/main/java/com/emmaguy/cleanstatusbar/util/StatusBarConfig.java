@@ -1,223 +1,34 @@
 package com.emmaguy.cleanstatusbar.util;
 
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.view.View;
-import android.widget.LinearLayout;
 
-import com.emmaguy.cleanstatusbar.R;
+/**
+ * Created by emma on 21/06/15.
+ */
+public interface StatusBarConfig {
+    int getStatusBarHeight();
 
-public class StatusBarConfig {
-    private static final String RESOURCE_NAME_STATUS_BAR_HEIGHT = "status_bar_height";
+    boolean drawGradient();
 
-    private final int mApiLevel;
-    private final boolean mIsKitKatGradientEnabled;
+    int getForegroundColour();
 
-    private final Resources mResources;
-    private final AssetManager mAssetManager;
+    Typeface getFont();
 
-    public StatusBarConfig(int apiLevel, boolean isKitKatGradientEnabled, Resources r, AssetManager a) {
-        mApiLevel = apiLevel;
-        mIsKitKatGradientEnabled = isKitKatGradientEnabled;
-        mResources = r;
-        mAssetManager = a;
-    }
+    float getFontSize();
 
-    public int getStatusBarHeight() {
-        return getInternalDimensionSize(mResources, RESOURCE_NAME_STATUS_BAR_HEIGHT);
-    }
+    Drawable getNetworkIconDrawable(int icon);
 
-    public boolean shouldDrawGradient() {
-        return mIsKitKatGradientEnabled && mApiLevel == Build.VERSION_CODES.KITKAT;
-    }
+    Drawable getGPSDrawable();
 
-    public int getForegroundColour() {
-        int colourResId = R.color.android_jellybean_status_bar;
+    Drawable getWifiDrawable();
 
-        switch (mApiLevel) {
-            case Build.VERSION_CODES.KITKAT:
-                if (shouldDrawGradient()) {
-                    colourResId = R.color.android_kitkat_status_bar_gradient;
-                } else {
-                    colourResId = R.color.android_kitkat_status_bar_default;
-                }
-                break;
-            case Build.VERSION_CODES.LOLLIPOP:
-                colourResId = android.R.color.white;
-                break;
-        }
+    int getRightPadding();
 
-        return mResources.getColor(colourResId);
-    }
+    int getNetworkIconPaddingOffset();
 
-    private boolean isAndroidL() {
-        return mApiLevel == Build.VERSION_CODES.LOLLIPOP;
-    }
+    int getWifiPaddingOffset();
 
-    public Typeface getFont() {
-        if (isAndroidL()) {
-            return Typeface.createFromAsset(mAssetManager, "fonts/Roboto-Medium.ttf");
-        }
-
-        return null;
-    }
-
-    private int getInternalDimensionSize(Resources res, String key) {
-        int result = 0;
-        int resourceId = res.getIdentifier(key, "dimen", "android");
-        if (resourceId > 0) {
-            result = res.getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-    public float getFontSize() {
-        if (isAndroidL()) {
-            return 14f;
-        }
-        return 16.0f;
-    }
-
-    public Drawable getNetworkIconDrawable(int icon) {
-        if (isAndroidL()) {
-            switch (icon) {
-                case 1:
-                    icon = R.drawable.network_icon_g_l;
-                    break;
-
-                case 2:
-                    icon = R.drawable.network_icon_e_l;
-                    break;
-
-                case 3:
-                    icon = R.drawable.network_icon_3g_l;
-                    break;
-
-                case 4:
-                    icon = R.drawable.network_icon_h_l;
-                    break;
-
-                case 5:
-                    icon = R.drawable.network_icon_lte_l;
-                    break;
-
-                case 99:
-                    icon = R.drawable.network_icon_roam_l;
-                    break;
-
-                default:
-                    icon = R.drawable.network_icon_off_l;
-            }
-            return getTintedDrawable(mResources, icon, getForegroundColour());
-        } else {
-            switch (icon) {
-                case 1:
-                    icon = R.drawable.network_icon_g;
-                    break;
-
-                case 2:
-                    icon = R.drawable.network_icon_e;
-                    break;
-
-                case 3:
-                    icon = R.drawable.network_icon_3g;
-                    break;
-
-                case 4:
-                    icon = R.drawable.network_icon_h;
-                    break;
-
-                case 5:
-                    icon = R.drawable.network_icon_lte;
-                    break;
-
-                case 99:
-                    icon = R.drawable.network_icon_roam;
-                    break;
-
-                default:
-                    icon = R.drawable.network_icon_off;
-            }
-            return getTintedDrawable(mResources, icon, getForegroundColour());
-        }
-    }
-
-    public Drawable getGPSDrawable() {
-        int icon;
-
-        if (mApiLevel >= Build.VERSION_CODES.KITKAT) {
-            icon = R.drawable.stat_sys_gps_on_19;
-        } else {
-            icon = R.drawable.stat_sys_gps_on_16;
-        }
-        return getTintedDrawable(mResources, icon, getForegroundColour());
-    }
-
-    public Drawable getWifiDrawable() {
-        int icon;
-
-        if (isAndroidL()) {
-            icon = R.drawable.stat_sys_wifi_signal_4_fully_l;
-        } else {
-            icon = R.drawable.stat_sys_wifi_signal_4_fully;
-        }
-        return getTintedDrawable(mResources, icon, getForegroundColour());
-    }
-
-    public Drawable getTintedDrawable(Resources res, int drawableResId, int colour) {
-        Drawable drawable = res.getDrawable(drawableResId);
-        drawable.setColorFilter(colour, PorterDuff.Mode.SRC_IN);
-        return drawable;
-    }
-
-    public int getRightPadding() {
-        if (isAndroidL()) {
-            return dpToPx(8);
-        }
-        return dpToPx(6);
-    }
-
-    private int dpToPx(float dp) {
-        return (int) (dp * mResources.getDisplayMetrics().density);
-    }
-
-    private int getBatteryViewWidth() {
-        if (isAndroidL()) {
-            return dpToPx(10);
-        }
-        return dpToPx(10.5f);
-    }
-
-    private int getBatteryViewHeight() {
-        if (isAndroidL()) {
-            return dpToPx(15.5f);
-        }
-        return dpToPx(16);
-    }
-
-    public int getNetworkIconPaddingOffset() {
-        if (isAndroidL()) {
-            return dpToPx(3);
-        }
-        return 0;
-    }
-
-    public int getWifiPaddingOffset() {
-        if (isAndroidL()) {
-            return dpToPx(4);
-        }
-        return 0;
-    }
-
-    public void setBatteryViewDimensions(View v) {
-        v.getLayoutParams().width = getBatteryViewWidth();
-        v.getLayoutParams().height = getBatteryViewHeight();
-        if (!isAndroidL()) {
-            ((LinearLayout.LayoutParams) v.getLayoutParams()).bottomMargin = dpToPx(0.33f);
-        }
-    }
+    void setBatteryViewDimensions(View v);
 }
