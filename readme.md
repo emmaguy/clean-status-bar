@@ -1,4 +1,4 @@
-![banner](images/banner.png)
+![banner](images/banner_before_after.png)
 
 Clean Status Bar
 =================================
