@@ -25,7 +25,7 @@ public class KitKatStatusBarConfig extends DefaultStatusBarConfig implements Sta
         if (drawGradient()) {
             mResources.getColor(R.color.kitkat_status_bar_gradient);
         }
-        return super.getForegroundColour();
+        return mResources.getColor(R.color.kitkat_status_bar_default);
     }
 
     @Override
