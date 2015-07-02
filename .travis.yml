@@ -1,4 +1,4 @@
-language: java
+language: android
 
 jdk:
   oraclejdk7
@@ -9,32 +9,21 @@ env:
     - BUILD_TOOLS="21.1.2"
     - TARGET_API="21"
 
+android:
+  components:
+    - build-tools-${BUILD_TOOLS}  # specify build tools version as they might not be pre-installed
+    - android-${TARGET_API}  # The SDK version used to compile your project
+
+    # Additional components
+    - extra-android-m2repository
+    - extra-android-support
+
 before_install:
   # environment info
   - uname -a
 
-  # required libs for android build tools
-  # Update a system for ia32 libraries
-  - sudo apt-get update -qq
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get update; fi
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
-
   # for gradle output style
   - export TERM=dumb
-
-  # newest android SDK
-  - wget http://dl.google.com/android/android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
-  - tar -zxf android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
-  - export ANDROID_HOME=`pwd`/android-sdk-linux
-  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-
-  # Install required components.
-  # For a full list, run `android list sdk -a --extended`
-  - echo yes | android update sdk --filter platform-tools --no-ui --force > /dev/null
-  - echo yes | android update sdk --all --filter build-tools-${BUILD_TOOLS} --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter android-${TARGET_API} --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter extra-android-support --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
 
 # Let's try to build...
 install:
