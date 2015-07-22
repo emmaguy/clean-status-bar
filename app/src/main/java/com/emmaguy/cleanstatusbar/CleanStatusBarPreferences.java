@@ -32,7 +32,10 @@ public class CleanStatusBarPreferences {
         String[] time = mSharedPreferences.getString(mResources.getString(R.string.key_clock_time), TimePreference.DEFAULT_TIME_VALUE).split(":");
         if (!mSharedPreferences.getBoolean(mResources.getString(R.string.key_use_24_hour_format), false)) {
             if (Integer.parseInt(time[0]) > 12) {
-                time[0] = String.format("0%s", String.valueOf(Integer.parseInt(time[0]) - 12));
+                time[0] = String.valueOf(Integer.parseInt(time[0]) - 12);
+            }
+            if (time[0].length() == 1) {
+                time[0] = "0" + time[0];
             }
         }
         return String.format("%s:%s", time[0], time[1]);
