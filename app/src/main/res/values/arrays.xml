@@ -51,11 +51,11 @@
     <string-array name="default_colour_choice_values" translatable="false">
         <item>#000000</item>
         <item>#ffffff</item>
-        <item>#33B5E5</item>
-        <item>#AA66CC</item>
-        <item>#99CC00</item>
-        <item>#FFBB33</item>
-        <item>#FF4444</item>
+        <item>#1976D2</item>
+        <item>#7B1FA2</item>
+        <item>#388E3C</item>
+        <item>#FBC02D</item>
+        <item>#D32F2F</item>
     </string-array>
 
 </resources>
