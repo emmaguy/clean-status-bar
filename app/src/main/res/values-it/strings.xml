@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Clean Status Bar</string>
+    <string name="api_level">Livello API</string>
+    <string name="background">Colore di sfondo</string>
+    <string name="black">Nero</string>
+    <string name="blue">Blu</string>
+    <string name="button_add">Aggiungi</string>
+    <string name="button_cancel">@string/cancel</string>
+    <string name="cancel">Annulla</string>
+    <string name="clean_status_bar_is_running">Clean status bar è partito</string>
+    <string name="empty">Vuoto</string>
+    <string name="gps">GPS</string>
+    <string name="green">Verde</string>
+    <string name="hint_colour_name">Nome colore</string>
+    <string name="hint_colour_value">Valore colore (es. 33B5E5)</string>
+    <string name="kit_kat_gradient">Gradazione KitKat</string>
+    <string name="m_light_status_bar">M Light mode</string>
+    <string name="message_delete_colour">Sei sicuro di cancellare questo colore?</string>
+    <string name="network_icon">Icona di rete</string>
+    <string name="network_icon_info">Icona di rete visibile solamente quando il WiFi è spento</string>
+    <string name="no">No</string>
+    <string name="off">Spento</string>
+    <string name="purple">Porpora</string>
+    <string name="red">Rosso</string>
+    <string name="set_time">Imposta orario</string>
+    <string name="time">Ora</string>
+    <string name="title_add_new_colour">Aggiungi colore</string>
+    <string name="title_delete_colour">Elimina colore</string>
+    <string name="touch_to_configure">Clicca per configurare</string>
+    <string name="use_24_hour_format">Usa il formato 24 ore</string>
+    <string name="white">Bianco</string>
+    <string name="wifi_icon">Icon WiFI</string>
+    <string name="xposed_integration">Colora la status bar come il colore della status bar impostato dall\'app</string>
+    <string name="yellow">Giallo</string>
+    <string name="yes">Si</string>
+</resources>
