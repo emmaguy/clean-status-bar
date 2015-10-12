@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void updateEnableMLightModeOption() {
-            boolean isM = mPreferences.getApiValue() == CleanStatusBarService.VERSION_CODE_M;
+            boolean isM = mPreferences.getApiValue() == Build.VERSION_CODES.M;
             findPreference(getString(R.string.key_m_light_status_bar)).setEnabled(isM);
         }
 

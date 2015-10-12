@@ -21,7 +21,6 @@ import com.emmaguy.cleanstatusbar.config.StatusBarConfig;
 import com.emmaguy.cleanstatusbar.widgets.StatusBarView;
 
 public class CleanStatusBarService extends Service {
-    public static final int VERSION_CODE_M = 23; // TODO: Update when 'M' is released
     private static final int NOTIFICATION_ID = 1;
 
     private static boolean sIsRunning = false;
@@ -51,7 +50,7 @@ public class CleanStatusBarService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         final int apiValue = mPreferences.getApiValue();
-        if (apiValue == VERSION_CODE_M) {
+        if (apiValue == Build.VERSION_CODES.M) {
             mStatusBarConfig = new MStatusBarConfig(getResources(), getAssets(), mPreferences.isLightModeEnabled());
         } else if (apiValue == Build.VERSION_CODES.LOLLIPOP) {
             mStatusBarConfig = new LollipopStatusBarConfig(getResources(), getAssets());
