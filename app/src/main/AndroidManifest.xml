@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.emmaguy.cleanstatusbar">
+<manifest package="com.emmaguy.cleanstatusbar"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
@@ -28,8 +28,8 @@
             android:name=".ToggleReceiver"
             android:enabled="true"
             android:exported="true">
-            <intent-filter >
-                <action android:name="com.emmaguy.cleanstatusbar.TOGGLE"/>
+            <intent-filter>
+                <action android:name="com.emmaguy.cleanstatusbar.TOGGLE" />
             </intent-filter>
         </receiver>
     </application>
