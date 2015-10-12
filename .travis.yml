@@ -6,8 +6,8 @@ jdk:
 env:
   global:
     - ANDROID_SDK_VERSION="r24.0.2"
-    - BUILD_TOOLS="21.1.2"
-    - TARGET_API="21"
+    - BUILD_TOOLS="23.0.1"
+    - TARGET_API="23"
 
 android:
   components:
