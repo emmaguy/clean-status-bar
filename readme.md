@@ -11,14 +11,16 @@ It runs as a service, so you can swap to other apps to take screenshots.
 <img src="images/after.png" width="30%" />
 <img src="images/m-light.png" width="30%" />
 
-App available [here](https://play.google.com/store/apps/details?id=com.emmaguy.cleanstatusbar)
+App available [here](https://play.google.com/store/apps/details?id=com.emmaguy.cleanstatusbar) or in [Releases](https://github.com/emmaguy/clean-status-bar/releases)
+
+Use the `ToggleReceiver` to control using a broadcast receiver, e.g. to automate taking screenshots.
 
 [![Build Status](https://travis-ci.org/emmaguy/clean-status-bar.png)](https://travis-ci.org/emmaguy/clean-status-bar)
 
 License
 --------
 
-    Copyright 2014 Emma Guy
+    Copyright 2014-2015 Emma Guy
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
