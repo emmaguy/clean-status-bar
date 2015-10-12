@@ -6,7 +6,7 @@ import android.content.Intent;
 
 public class ToggleReceiver extends BroadcastReceiver {
 
-    public static final String EXTRA_ENABLED = "enabled";
+    private static final String EXTRA_ENABLED = "enabled";
 
     @Override
     public void onReceive(Context context, Intent intent) {
