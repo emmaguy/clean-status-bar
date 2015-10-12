@@ -13,7 +13,17 @@ It runs as a service, so you can swap to other apps to take screenshots.
 
 App available [here](https://play.google.com/store/apps/details?id=com.emmaguy.cleanstatusbar) or in [Releases](https://github.com/emmaguy/clean-status-bar/releases)
 
-Use the `ToggleReceiver` to control using a broadcast receiver, e.g. to automate taking screenshots.
+Use the `ToggleReceiver` to enable/disable Clean Status Bar programmatically, e.g. to automate taking screenshots.
+
+```java
+final Bundle extras = new Bundle();
+extras.putBoolean("enabled", true);
+
+final Intent intent = new Intent("com.emmaguy.cleanstatusbar.TOGGLE");
+intent.putExtras(extras);
+
+sendBroadcast(intent);
+```
 
 [![Build Status](https://travis-ci.org/emmaguy/clean-status-bar.png)](https://travis-ci.org/emmaguy/clean-status-bar)
 
