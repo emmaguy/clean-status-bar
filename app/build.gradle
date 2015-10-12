@@ -13,8 +13,8 @@ android {
         applicationId "com.emmaguy.cleanstatusbar"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 16
-        versionName "1.1.2"
+        versionCode 17
+        versionName "1.1.3"
     }
     buildTypes {
         debug {
@@ -31,9 +31,8 @@ android {
 }
 
 def Properties props = new Properties()
-def propFile = new File('signing.properties')
-if (propFile.canRead()) {
-    props.load(new FileInputStream(propFile))
+if (project.hasProperty("signing.properties") && file(project.property("signing.properties")).canRead()) {
+    props.load(new FileInputStream(file(project.property("signing.properties"))))
 
     if (props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
             props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
