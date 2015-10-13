@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Limpar Barra de Estado</string>
+
+    <!-- MainActivity -->
+    <string name="api_level">Nível da API</string>
+    <string name="m_light_status_bar">M Modo claro</string>
+    <string name="kit_kat_gradient">KitKat gradiente</string>
+    <string name="wifi_icon">Ícone Wifi</string>
+    <string name="network_icon">Ícone da Rede</string>
+    <string name="time">Hora</string>
+    <string name="use_24_hour_format">Usar formato 24h</string>
+    <string name="background">Fundo</string>
+    <string name="off">Desligado</string>
+    <string name="empty">Vazio</string>
+    <string name="network_icon_info">Ícone de Wifi apenas quando está desligado</string>
+    <string name="gps">GPS</string>
+
+    <!-- Notification -->
+    <string name="clean_status_bar_is_running">Limpar barra de estado está a correr</string>
+    <string name="touch_to_configure">Pressione para configurar</string>
+
+    <!-- TimePreference -->
+    <string name="set_time">Selecionar a hora</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- Colours -->
+    <string name="black">Preto</string>
+    <string name="white">Branco</string>
+    <string name="blue">Azul</string>
+    <string name="purple">Rosa</string>
+    <string name="green">Verde</string>
+    <string name="yellow">Amarelo</string>
+    <string name="red">Vermelho</string>
+
+    <!-- ColourPreference -->
+    <string name="title_delete_colour">Apagar cor</string>
+    <string name="message_delete_colour">Tem a certeza que deseja apagar esta cor?</string>
+    <string name="title_add_new_colour">Adicionar nova cor</string>
+    <string name="hint_colour_name">Nome da cor</string>
+    <string name="hint_colour_value">Valor da cor (e.x. 33B5E5)</string>
+    <string name="button_add">Adicionar</string>
+    <string name="button_cancel">@string/cancel</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+
+</resources>
