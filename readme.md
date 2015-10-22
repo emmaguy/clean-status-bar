@@ -27,6 +27,8 @@ sendBroadcast(intent);
 
 [![Build Status](https://travis-ci.org/emmaguy/clean-status-bar.png)](https://travis-ci.org/emmaguy/clean-status-bar)
 
+For more information about the creation and ongoing maintainence of this project, [read the blog post](https://medium.com/@emmaguy/death-to-ugly-android-screenshots-48ea071d912e)
+
 License
 --------
 
