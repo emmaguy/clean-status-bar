@@ -5,20 +5,20 @@
 
     <!-- MainActivity -->
     <string name="api_level">Niveau d\'API</string>
-    <string name="m_light_status_bar">M Light mode</string>
+    <string name="m_light_status_bar">Mode M clair</string>
     <string name="kit_kat_gradient">Dégradé KitKat</string>
-    <string name="wifi_icon">Icône WiFi</string>
+    <string name="wifi_icon">Icône Wi-Fi</string>
     <string name="network_icon">Icône Réseau</string>
     <string name="time">Heure</string>
     <string name="use_24_hour_format">Format 24h</string>
     <string name="background">Couleur de fond</string>
-    <string name="off">Off</string>
+    <string name="off">Désactivé</string>
     <string name="empty">Vide</string>
-    <string name="network_icon_info">Signal icon only seen when WiFi is off</string>
-    <string name="gps">GPS</string>
+    <string name="network_icon_info">L\'icône du signal s\'affiche quand le Wi-Fi est désactivé</string>
+    <string name="gps">Icône GPS</string>
 
     <!-- Notification -->
-    <string name="clean_status_bar_is_running">Clean status bar est actif</string>
+    <string name="clean_status_bar_is_running">Clean status bar est en cours d\'exécution</string>
     <string name="touch_to_configure">Appuyez pour configurer</string>
 
     <!-- TimePreference -->
@@ -36,7 +36,7 @@
 
     <!-- ColourPreference -->
     <string name="title_delete_colour">Supprimer cette couleur</string>
-    <string name="message_delete_colour">Êtes-vous certain de supprimer cette couleur ?</string>
+    <string name="message_delete_colour">Êtes-vous sûr de vouloir supprimer cette couleur ?</string>
     <string name="title_add_new_colour">Ajouter une couleur</string>
     <string name="hint_colour_name">Nom</string>
     <string name="hint_colour_value">Valeur (ex 33B5E5)</string>
