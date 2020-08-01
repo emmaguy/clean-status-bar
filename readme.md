@@ -1,8 +1,14 @@
+# DEPRECATED
+
+This project no longer works on recent versions of Android. [Use Android's build-in Demo mode instead](https://developer.android.com/studio/debug/dev-options#general).
+
+For the curious, [more information about the history of this project can be found in this blog post](http://emmav.me/posts/2015-oct-11-clean-status-bar/).
+
+---
+
 ![banner](images/banner_before_after.png)
 
-Clean Status Bar
-=================================
-
+# Clean Status Bar
 Tired of Photoshopping out notifications/low battery to make a nice, clean status bar for the Play Store? Run this app first - it draws over your status bar, showing only a full battery and clock.
 
 It runs as a service, so you can swap to other apps to take screenshots.
@@ -26,8 +32,6 @@ sendBroadcast(intent);
 ```
 
 [![Build Status](https://travis-ci.org/emmaguy/clean-status-bar.png)](https://travis-ci.org/emmaguy/clean-status-bar)
-
-For more information about the creation and ongoing maintainence of this project, [read the blog post](https://medium.com/@emmaguy/death-to-ugly-android-screenshots-48ea071d912e)
 
 License
 --------
